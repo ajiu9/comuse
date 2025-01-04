@@ -11,5 +11,7 @@ category: Utilities
 ```ts
 import { amountCapital } from '@ajiu9/shared'
 
-amountCapital(100.53) // 壹佰元伍角叁分
+const num: number = 100.53
+
+amountCapital(num) // 壹佰元伍角叁分
 ```

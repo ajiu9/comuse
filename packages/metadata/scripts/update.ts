@@ -48,6 +48,8 @@ export async function readMetadata() {
   }
   for (const info of packages) {
     const dir = join(DIR_SRC, info.name)
+    if (info.name === 'metadata') continue
+
     const functions = await listFunctions(dir)
 
     const pkg = {

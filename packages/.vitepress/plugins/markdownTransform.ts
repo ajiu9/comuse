@@ -3,7 +3,7 @@ import { format } from 'prettier'
 import ts from 'typescript'
 import { functionNames, getFunction } from '../../../packages/metadata/metadata'
 
-console.log(functionNames, `${functionNames.join('|')}`)
+console.log(functionNames)
 export function markdownTransform(): Plugin {
   return {
     name: 'comuse-md-transform',
