@@ -21,6 +21,11 @@ export interface PackageManifest {
 
 export const packages: PackageManifest[] = [
   {
+    name: 'core',
+    display: 'Comuse',
+    description: 'Collection of essential Vue Composition Utilities',
+  },
+  {
     name: 'metadata',
     display: 'Metadata for Comuse functions',
     manualImport: true,

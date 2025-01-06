@@ -104,6 +104,7 @@ export async function getFunctionMarkdown(pkg: string, name: string) {
 
   <Changelog fn="${name}" />
   `
+
   const demoSection = demoPath
     ? demoPath.endsWith('.client.vue')
       ? `

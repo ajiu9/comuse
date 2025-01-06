@@ -6,4 +6,19 @@ export default ajiu9({
     '**/cache',
     '**/dist',
   ],
+},
+{
+  files: [
+    '**/*.md',
+    '**/*.md/*.[jt]s',
+    '**/*.md/*.vue',
+    '**/demo.vue',
+    '**/demo.client.vue',
+    '**/*.test.ts',
+    'scripts/*.ts',
+  ],
+  rules: {
+    'no-alert': 'off',
+    'no-console': 'off',
+  },
 })
