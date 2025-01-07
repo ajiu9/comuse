@@ -48,26 +48,11 @@ export default defineConfig({
             ],
           },
           {
-            text: 'Animation', items: [
-              { text: 'Animation', link: '/functions#category=animation' },
-              { text: 'Ease', link: '/functions#category=ease' },
-            ],
-          },
-          {
-            text: 'Gesture', link: '/gesture',
-          },
-          {
             text: 'Shared', items: [
               { text: 'Shared', link: '/functions#category=shared' },
             ],
           },
         ],
-      },
-      {
-        text: 'Animation', link: '/animation',
-      },
-      {
-        text: 'Gesture', link: '/gesture',
       },
     ],
     sidebar: {

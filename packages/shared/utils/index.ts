@@ -1,4 +1,6 @@
+export * from './general'
 export * from './is'
+export * from './pattern'
 export * from './types'
 
 export function promiseTimeout(
@@ -21,3 +23,12 @@ export function identify<T>(arg: T): T {
 export function invoke<T>(fn: () => T): T {
   return fn()
 }
+
+/**
+ * waiting for a while
+ *
+ * @param milliseconds - waiting time (milliseconds)
+ * @param throwOnTimeout - throw on timeout
+ */
+export const waiting = (milliseconds: number, throwOnTimeout = false): Promise<void> =>
+  new Promise((resolve, reject) => setTimeout(throwOnTimeout ? reject : resolve, milliseconds))

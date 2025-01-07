@@ -32,7 +32,6 @@
   },
   "devDependencies": {
     "@ajiu9/eslint-config": "^2.5.2",
-    "@ajiu9/shared": "workspace:*",
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^25.0.8",
     "@rollup/plugin-json": "^6.1.0",
@@ -42,6 +41,7 @@
     "@types/node": "^22.10.5",
     "@vitest/coverage-v8": "2.1.5",
     "bumpp": "^9.9.2",
+    "comuse-shared": "workspace:*",
     "esbuild": "^0.19.12",
     "eslint": "^9.17.0",
     "execa": "^7.2.0",

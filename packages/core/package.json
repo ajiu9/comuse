@@ -23,7 +23,7 @@
     "index.js"
   ],
   "dependencies": {
-    "@ajiu9/shared": "workspace:*"
+    "comuse-shared": "workspace:*"
   },
   "buildOptions": {
     "name": "CuseCore",

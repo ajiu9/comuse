@@ -31,9 +31,7 @@ export default defineConfig({
     alias: {
       'comuse-core': resolve(__dirname, '../core/index.ts'),
       'comuse-metadata': resolve(__dirname, '../metadata/index.ts'),
-      '@ajiu9/animation': resolve(__dirname, '../animation/index.ts'),
-      '@ajiu9/shared': resolve(__dirname, '../shared/index.ts'),
-      '@ajiu9/gesture': resolve(__dirname, '../gesture/index.ts'),
+      'comuse-shared': resolve(__dirname, '../shared/index.ts'),
     },
   },
 })

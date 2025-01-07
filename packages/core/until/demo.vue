@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { invoke } from '@ajiu9/shared'
+import { invoke } from 'comuse-shared'
 import { until } from 'comuse-core'
 import { ref } from 'vue'
 

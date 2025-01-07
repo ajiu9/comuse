@@ -1,15 +1,15 @@
 export * from './addEvent'
 export * from './amountCapital'
+export * from './animation'
 export * from './awaitTo'
 export * from './delay'
+export * from './ease'
 export * from './fixNumber'
+export * from './gesture'
 export * from './keyMap'
-export * from './pattern'
 export * from './promiseFactory'
 export * from './removeEvent'
-// export * from './general'
 export * from './utils'
-export * from './waiting'
 export * from './windowPrint'
 
 export interface SingletonPromiseReturn<T> {

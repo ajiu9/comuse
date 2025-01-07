@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { amountCapital } from '@ajiu9/shared'
+import { amountCapital } from 'comuse-shared'
 
 const num: number = 100.53
 </script>

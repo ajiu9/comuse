@@ -1,4 +1,4 @@
-import { isClient } from '@ajiu9/shared'
+import { isClient } from 'comuse-shared'
 
 export interface ConfigurableWindow {
   /*

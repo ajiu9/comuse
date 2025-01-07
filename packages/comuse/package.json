@@ -23,11 +23,8 @@
     "index.js"
   ],
   "dependencies": {
-    "@ajiu9/animation": "workspace:*",
-    "@ajiu9/ease": "workspace:*",
-    "@ajiu9/gesture": "workspace:*",
-    "@ajiu9/shared": "workspace:*",
-    "comuse-core": "workspace:*"
+    "comuse-core": "workspace:*",
+    "comuse-shared": "workspace:*"
   },
   "buildOptions": {
     "name": "Comuse",

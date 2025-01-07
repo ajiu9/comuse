@@ -1,6 +1,6 @@
 import type { MaybeRefOrGetter, WatchOptions, WatchSource } from 'vue'
 import type { ElementOf, ShallowUnwrapRef } from '../types'
-import { isArray, promiseTimeout } from '@ajiu9/shared'
+import { isArray, promiseTimeout } from 'comuse-shared'
 import { isRef, nextTick, toValue, watch } from 'vue'
 
 export interface UntilToMatchOptions {

@@ -1,7 +1,6 @@
 /**
  * Collection of common regular expressions
  *
- * @deprecated It will be refactored and renamed patterns in the next major release.
  * @returns - object
  */
 export const pattern = {

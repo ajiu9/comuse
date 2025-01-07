@@ -1,4 +1,4 @@
-import { Keymap } from '@ajiu9/shared'
+import { Keymap } from 'comuse-shared'
 
 export function useKeyMap(element: HTMLElement) {
   return new Keymap(element)

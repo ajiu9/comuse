@@ -19,10 +19,7 @@ const entries = {
 
 const nonSrcPackages = ['.vitepress', 'guide']
 const map = {
-  animation: '@ajiu9/animation',
-  ease: '@ajiu9/ease',
-  gesture: '@ajiu9/gesture',
-  shared: '@ajiu9/shared',
+  shared: 'comuse-shared',
   metadata: 'comuse-metadata',
   core: 'comuse-core',
 }
