@@ -17,8 +17,8 @@ export class Animation {
     this.endValue = config.endValue
     this.duration = config.duration
     this.delay = config.delay
-    this.timingFunction = config.timingFunction
-    this.template = config.template
+    this.timingFunction = config.timingFunction || (v => v)
+    this.template = config.template || (v => v)
   }
 
   receiveTime(time: number) {

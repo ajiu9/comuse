@@ -1,6 +1,6 @@
-// import { tryOnScopeDispose } from '@vueuse/shared'
 import type { Pausable } from 'comuse-shared'
 import type { ConfigurableWindow } from '../_configurable'
+import { tryOnScopeDispose } from 'comuse-core'
 import { defaultWindow } from '../_configurable'
 
 export interface UseRafFnCallbackArguments {
@@ -85,7 +85,7 @@ export function useRafFn(fn: (args: UseRafFnCallbackArguments) => void, options:
   if (immediate)
     resume()
 
-  // tryOnScopeDispose(pause)
+  tryOnScopeDispose(pause)
 
   return {
     isActive,
