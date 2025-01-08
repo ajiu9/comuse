@@ -1,4 +1,4 @@
-import { pattern } from './utils/pattern'
+import { pattern } from './pattern'
 
 /**
  * Intercept the decimal places, do not fill in the missing 0

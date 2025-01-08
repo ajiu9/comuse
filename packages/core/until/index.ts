@@ -1,6 +1,6 @@
 import type { MaybeRefOrGetter, WatchOptions, WatchSource } from 'vue'
 import type { ElementOf, ShallowUnwrapRef } from '../types'
-import { isArray, promiseTimeout } from 'comuse-shared'
+import { isArray, waiting } from 'comuse-shared'
 import { isRef, nextTick, toValue, watch } from 'vue'
 
 export interface UntilToMatchOptions {
@@ -93,7 +93,7 @@ function createUntil<T>(r: any, isNot = false) {
     const promises = [watcher]
     if (timeout != null) {
       promises.push(
-        promiseTimeout(timeout, throwOnTimeout)
+        waiting(timeout, throwOnTimeout)
           .then(() => toValue(r))
           .finally(() => stop?.()),
       )
@@ -131,7 +131,7 @@ function createUntil<T>(r: any, isNot = false) {
     const promises = [watcher]
     if (timeout != null) {
       promises.push(
-        promiseTimeout(timeout, throwOnTimeout)
+        waiting(timeout, throwOnTimeout)
           .then(() => toValue(r))
           .finally(() => {
             stop?.()

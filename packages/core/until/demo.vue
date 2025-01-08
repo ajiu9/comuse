@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { invoke } from 'comuse-shared'
 import { until } from 'comuse-core'
+import { invoke } from 'comuse-shared'
 import { ref } from 'vue'
 
 const count = ref(1)
