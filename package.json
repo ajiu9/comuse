@@ -15,14 +15,14 @@
     "node": ">=16.11.0"
   },
   "scripts": {
-    "build": "node scripts/build.js",
+    "build": "pnpm run update && node scripts/build.js",
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
     "release": "bumpp -r && pnpm -r publish --access public",
     "clean": "rimraf packages/*/dist",
-    "docs": "vitepress dev packages --open",
-    "docs:build": "vitepress build packages",
-    "docs:preview": "vitepress preview packages",
+    "docs": "pnpm run update && vitepress dev packages --open",
+    "docs:build": "pnpm run update && vitepress build packages",
+    "docs:preview": "pnpm run update && vitepress preview packages",
     "prepare": "simple-git-hooks",
     "test": "pnpm run test:unit",
     "test:cov": "vitest run --coverage",
