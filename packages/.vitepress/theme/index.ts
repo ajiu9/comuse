@@ -4,6 +4,7 @@ import DefaultTheme from 'vitepress/theme'
 import { functions } from '../../../packages/metadata/metadata'
 import '@shikijs/vitepress-twoslash/style.css'
 
+import './styles/main.css'
 import './styles/demo.css'
 import './style.css'
 import 'uno.css'

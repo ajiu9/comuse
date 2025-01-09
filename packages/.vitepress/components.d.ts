@@ -12,5 +12,6 @@ declare module 'vue' {
     FunctionsList: typeof import('./theme/components/FunctionsList.vue')['default']
     Home: typeof import('./theme/components/home.vue')['default']
     HomeContributors: typeof import('./theme/components/HomeContributors.vue')['default']
+    Note: typeof import('./theme/components/Note.vue')['default']
   }
 }

@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { functions } from 'comuse-metadata'
+import { formatTime } from 'comuse-shared'
 import { computed } from 'vue'
 
 const props = defineProps<{ fn: string }>()
 const info = computed(() => functions.find(i => i.name === props.fn)!)
-// const lastUpdated = useTimeAgo(new Date(info.value?.lastUpdated || 0))
+const lastUpdated = formatTime(new Date(info.value?.lastUpdated || 0))
 const link = computed(() => `/functions\#category=${encodeURIComponent(info.value!.category!)}`)
 
 function getFunctionLink(fn: string) {
@@ -19,10 +20,6 @@ function getFunctionLink(fn: string) {
       Category
     </div>
     <div><a :href="link">{{ info.category }}</a></div>
-    <div opacity="50">
-      Export Size
-    </div>
-    <!-- <div> {{ exportSize }}</div> -->
     <template v-if="info.package !== 'core' && info.package !== 'shared'">
       <div opacity="50">
         Package
@@ -33,7 +30,7 @@ function getFunctionLink(fn: string) {
       <div opacity="50">
         Last Changed
       </div>
-      <div>{{ info.lastUpdated }}</div>
+      <div>{{ lastUpdated }}</div>
     </template>
     <template v-if="info.alias?.length">
       <div opacity="50">
