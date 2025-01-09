@@ -49,7 +49,7 @@ export default defineWorkspace([
     },
     ssr: {
       noExternal: [
-        /@vueuse\/.*/,
+        /comuse-.*/,
       ],
     },
   },

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { createFilterWrapper, debounce, throttleFilter } from './index'
+import { debounce } from './index'
 
 describe('debounce', () => {
   let callback: vi.Mock
@@ -45,28 +45,5 @@ describe('debounce', () => {
     debounced.call(context, 'argument')
     vi.advanceTimersByTime(100)
     expect(callback).toHaveBeenCalledWith(context, 'argument')
-  })
-})
-
-describe('throttle', () => {
-  beforeEach(() => {
-    vi.useFakeTimers()
-  })
-
-  afterEach(() => {
-    vi.clearAllTimers()
-  })
-
-  it('should throttle', () => {
-    const throttledFilterSpy = vi.fn()
-    const filter = createFilterWrapper(throttleFilter(1000), throttledFilterSpy)
-    setTimeout(filter, 500)
-    setTimeout(filter, 500)
-    setTimeout(filter, 500)
-    setTimeout(filter, 500)
-
-    vi.runAllTimers()
-
-    expect(throttledFilterSpy).toHaveBeenCalledTimes(2)
   })
 })

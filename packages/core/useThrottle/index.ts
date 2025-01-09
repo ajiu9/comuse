@@ -1,5 +1,5 @@
-import type { FunctionArgs } from 'comuse-shared'
-import { createFilterWrapper, throttleFilter } from 'comuse-shared'
+import type { FunctionArgs, PromisifyFn } from '../utils'
+import { createFilterWrapper, throttleFilter } from '../utils'
 
 export function useThrottle< T extends FunctionArgs>(
   fn: T,

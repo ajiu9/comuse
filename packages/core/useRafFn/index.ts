@@ -1,7 +1,7 @@
 import type { Pausable } from 'comuse-shared'
 import type { ConfigurableWindow } from '../_configurable'
-import { tryOnScopeDispose } from 'comuse-core'
 import { defaultWindow } from '../_configurable'
+import { tryOnScopeDispose } from '../tryOnScopeDispose'
 
 export interface UseRafFnCallbackArguments {
   /**

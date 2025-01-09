@@ -7,3 +7,6 @@ coverage
 cache
 .eslintcache
 .vitepress/cache
+
+packages/**/*.[cm]js
+!packages/**/index.js
