@@ -27,6 +27,8 @@ export function parseTime(time: any, fmt: string): string | null {
     'h+': date.getHours(),
     'm+': date.getMinutes(),
     's+': date.getSeconds(),
+    'q+': Math.floor((date.getMonth() + 3) / 3),
+    'S': date.getMilliseconds(),
   }
   for (const k in o) {
     if (new RegExp(`(${k})`).test(fmt)) {
@@ -41,10 +43,10 @@ export function parseTime(time: any, fmt: string): string | null {
  * Formats time based on the provided option.
  *
  * @param {number | string} time - The time value to format.
- * @param {string | undefined} option - Optional format string.
+ * @param {string | undefined} fmt - Optional format string.
  * @returns {string} - Formatted time string.
  */
-export function formatTime(time: number | string | Date, option?: string): string | null {
+export function formatTime(time: number | string | Date, fmt?: string): string | null {
   if (typeof time === 'string' && time.length === 10)
     time = parseInt(time) * 1000
   else if (typeof time === 'number' && time.toString().length === 10)
@@ -56,12 +58,13 @@ export function formatTime(time: number | string | Date, option?: string): strin
   const now = Date.now()
   const diff = (now - d.getTime()) / 1000
 
+  // 如果大于1年直接返回时间
+  if (fmt || diff > 365 * 24 * 3600) return parseTime(time, fmt = 'yyyy-MM-dd')
+
   if (diff < 30) return '刚刚'
   if (diff < 3600) return `${Math.ceil(diff / 60)}分钟前`
   if (diff < 3600 * 24) return `${Math.ceil(diff / 3600)}小时前`
   if (diff < 3600 * 24 * 2) return '1天前'
-
-  if (option) return parseTime(time, option)
 
   return `${d.getMonth() + 1}月${d.getDate()}日${d.getHours()}时${d.getMinutes()}分`
 }
