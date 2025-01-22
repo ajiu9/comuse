@@ -20,5 +20,7 @@ export default ajiu9({
   rules: {
     'no-alert': 'off',
     'no-console': 'off',
+    'no-proto': 'off',
+    'no-restricted-properties': 'off',
   },
 })
