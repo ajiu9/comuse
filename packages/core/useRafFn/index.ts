@@ -1,5 +1,6 @@
-import type { Pausable } from 'comuse-shared'
 import type { ConfigurableWindow } from '../_configurable'
+import type { MaybeRefOrGetter, Pausable } from '../types'
+import { computed, readonly, ref, toValue } from 'vue'
 import { defaultWindow } from '../_configurable'
 import { tryOnScopeDispose } from '../tryOnScopeDispose'
 
@@ -28,7 +29,7 @@ export interface UseRafFnOptions extends ConfigurableWindow {
    *
    * @default undefined
    */
-  fpsLimit?: number
+  fpsLimit?: MaybeRefOrGetter<number>
 }
 
 /**
@@ -45,37 +46,42 @@ export function useRafFn(fn: (args: UseRafFnCallbackArguments) => void, options:
     window = defaultWindow,
   } = options
 
-  let isActive = false
-  const intervalLimit = fpsLimit ? 1000 / fpsLimit : null
+  const isActive = ref(false)
+  const intervalLimit = computed(() => {
+    return fpsLimit ? 1000 / toValue(fpsLimit) : null
+  })
   let previousFrameTimestamp = 0
   let rafId: null | number = null
 
   function loop(timestamp: DOMHighResTimeStamp) {
-    if (!isActive || !window)
+    if (!isActive.value || !window)
       return
 
-    const delta = timestamp - (previousFrameTimestamp || timestamp)
+    if (!previousFrameTimestamp)
+      previousFrameTimestamp = timestamp
 
-    if (intervalLimit && delta < intervalLimit) {
+    const delta = timestamp - previousFrameTimestamp
+
+    if (intervalLimit.value && delta < intervalLimit.value) {
       rafId = window.requestAnimationFrame(loop)
       return
     }
 
-    fn({ delta, timestamp })
-
     previousFrameTimestamp = timestamp
+    fn({ delta, timestamp })
     rafId = window.requestAnimationFrame(loop)
   }
 
   function resume() {
-    if (!isActive && window) {
-      isActive = true
+    if (!isActive.value && window) {
+      isActive.value = true
+      previousFrameTimestamp = 0
       rafId = window.requestAnimationFrame(loop)
     }
   }
 
   function pause() {
-    isActive = false
+    isActive.value = false
     if (rafId != null && window) {
       window.cancelAnimationFrame(rafId)
       rafId = null
@@ -88,7 +94,7 @@ export function useRafFn(fn: (args: UseRafFnCallbackArguments) => void, options:
   tryOnScopeDispose(pause)
 
   return {
-    isActive,
+    isActive: readonly(isActive),
     pause,
     resume,
   }

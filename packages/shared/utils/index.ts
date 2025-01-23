@@ -106,3 +106,18 @@ export function debounce(fn: AnyFn, delay: number) {
     }, delay)
   }
 }
+
+export function throttle(fn: AnyFn, duration: number) {
+  let shouldAwait = false
+
+  return function (this: any, ...args: any[]) {
+    if (!shouldAwait) {
+      fn.apply(this, args)
+      shouldAwait = true
+
+      setTimeout(() => {
+        shouldAwait = false
+      }, duration)
+    }
+  }
+}

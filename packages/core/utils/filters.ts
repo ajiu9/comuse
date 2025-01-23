@@ -1,6 +1,8 @@
 import type { AnyFn } from 'typing-ts'
+import type { MaybeRefOrGetter } from '../types'
 import type { ArgumentsType, Promisify } from './types'
 import { NOOP } from 'comuse-shared'
+import { isRef, toValue } from 'vue'
 
 export type FunctionArgs<Args extends any[] = any[], Return = void> = (...args: Args) => Return
 
@@ -68,7 +70,7 @@ export function createFilterWrapper<T extends AnyFn>(filter: EventFilter, fn: T)
 /**
  * Create an EventFilter that debounce the events
  */
-export function debounceFilter(ms: number, options: DebounceFilterOptions = {}) {
+export function debounceFilter(ms: MaybeRefOrGetter<number>, options: DebounceFilterOptions = {}) {
   let timer: ReturnType<typeof setTimeout> | undefined
   let maxTimer: ReturnType<typeof setTimeout> | undefined | null
   let lastRejector: AnyFn = NOOP
@@ -80,8 +82,8 @@ export function debounceFilter(ms: number, options: DebounceFilterOptions = {}) 
   }
 
   const filter: EventFilter = (invoke) => {
-    const duration = ms
-    const maxDuration = options.maxWait
+    const duration = toValue(ms)
+    const maxDuration = toValue(options.maxWait)
 
     if (timer)
       _clearTimeout(timer)
@@ -128,7 +130,7 @@ export function debounceFilter(ms: number, options: DebounceFilterOptions = {}) 
  * @param [rejectOnCancel]
  */
 
-export function throttleFilter(ms: number, trailing?: boolean, leading?: boolean, rejectOnCancel?: boolean): EventFilter
+export function throttleFilter(ms: MaybeRefOrGetter<number>, trailing?: boolean, leading?: boolean, rejectOnCancel?: boolean): EventFilter
 export function throttleFilter(options: ThrottleFilterOptions): EventFilter
 export function throttleFilter(...args: any[]) {
   let lastExec = 0
@@ -136,12 +138,12 @@ export function throttleFilter(...args: any[]) {
   let isLeading = true
   let lastRejector: AnyFn = NOOP
   let lastValue: any
-  let ms: number
+  let ms: MaybeRefOrGetter<number>
   let trailing: boolean
   let leading: boolean
   let rejectOnCancel: boolean
 
-  if (typeof args[0] === 'object')
+  if (!isRef(args[0]) && typeof args[0] === 'object')
     ({ delay: ms, trailing = true, leading = true, rejectOnCancel = false } = args[0])
   else
     [ms, trailing = true, leading = true, rejectOnCancel = false] = args
@@ -156,7 +158,7 @@ export function throttleFilter(...args: any[]) {
   }
 
   const filter: EventFilter = (_invoke) => {
-    const duration = ms
+    const duration = toValue(ms)
     const elapsed = Date.now() - lastExec
     const invoke = () => {
       return lastValue = _invoke()

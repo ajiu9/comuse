@@ -1,3 +1,4 @@
+import type { MaybeRefOrGetter } from '../types'
 import type { FunctionArgs, PromisifyFn } from '../utils'
 import { createFilterWrapper, throttleFilter } from '../utils'
 
@@ -20,7 +21,7 @@ import { createFilterWrapper, throttleFilter } from '../utils'
  */
 export function useThrottle< T extends FunctionArgs>(
   fn: T,
-  ms: number = 200,
+  ms: MaybeRefOrGetter<number> = 200,
   trailing = false,
   leading = true,
   rejectOnCancel = false,
