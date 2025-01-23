@@ -1,4 +1,4 @@
-import type { AnyFn } from './types'
+import type { AnyFn } from 'typing-ts'
 
 export const isClient = typeof window !== 'undefined' && typeof document !== 'undefined'
 export const now = () => Date.now()

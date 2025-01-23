@@ -1,4 +1,4 @@
-import type { Fn } from '../utils'
+import type { Fn } from 'typing-ts'
 import { getCurrentScope, onScopeDispose } from 'vue'
 
 /**

@@ -96,7 +96,7 @@ export function clone<T>(val: T): T {
         if (k === '__proto__') {
           Object.defineProperty(
             tmp, k, {
-              value: clone(val[k]),
+              value: clone((val as Record<string, any>)[k]),
               configurable: true,
               enumerable: true,
               writable: true,
@@ -104,7 +104,7 @@ export function clone<T>(val: T): T {
           )
         }
         else
-          (tmp as any)[k] = clone((val as any)[k])
+          (tmp as Record<string, any>)[k] = clone((val as Record<string, any>)[k])
       }
     }
     return tmp as T

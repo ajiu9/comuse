@@ -1,4 +1,4 @@
-import type { AnyFn } from './types'
+import type { AnyFn } from 'typing-ts'
 
 export * from './fixNumber'
 export * from './is'

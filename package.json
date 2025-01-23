@@ -30,6 +30,9 @@
     "test:unit": "vitest --project unit --workspace=vitest.workspace.ts",
     "update": "pnpm run -C packages/metadata update"
   },
+  "dependencies": {
+    "typing-ts": "^0.0.4"
+  },
   "devDependencies": {
     "@ajiu9/eslint-config": "^2.5.2",
     "@rollup/plugin-alias": "^5.1.1",

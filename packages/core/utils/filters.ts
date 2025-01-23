@@ -1,4 +1,5 @@
-import type { AnyFn, ArgumentsType, Promisify } from './types'
+import type { AnyFn } from 'typing-ts'
+import type { ArgumentsType, Promisify } from './types'
 import { NOOP } from 'comuse-shared'
 
 export type FunctionArgs<Args extends any[] = any[], Return = void> = (...args: Args) => Return

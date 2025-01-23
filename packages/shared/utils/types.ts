@@ -1,12 +1,4 @@
-/**
- * Void function
- */
-export type Fn = () => void
-
-/**
- * Any function
- */
-export type AnyFn = (...args: any[]) => any
+import type { Fn } from 'typing-ts'
 
 export interface Pausable {
   /**
