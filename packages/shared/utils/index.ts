@@ -3,7 +3,6 @@ import type { AnyFn } from 'typing-ts'
 export * from './fixNumber'
 export * from './is'
 export * from './pattern'
-export * from './types'
 
 // general
 export const EMPTY_OBJ: { readonly [key: string]: any } = {}
