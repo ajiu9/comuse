@@ -1,6 +1,7 @@
 export * from './addEvent'
 export * from './amountCapital'
 export * from './animation'
+export * from './array'
 export * from './awaitTo'
 export * from './clone'
 export * from './ease'
