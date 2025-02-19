@@ -26,7 +26,8 @@
     "name": "shared",
     "formats": [
       "esm-bundler",
-      "cjs"
+      "cjs",
+      "dts"
     ]
   }
 }
