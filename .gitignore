@@ -1,4 +1,6 @@
 dist
+# Exception for packages/.vitepress/dist
+!packages/.vitepress/dist
 .DS_Store
 node_modules
 coverage
