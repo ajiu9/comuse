@@ -13,6 +13,7 @@ const DefaultSideBar = [
 const FunctionsSideBar = getFunctionsSideBar()
 
 export default defineConfig({
+  base: '/comuse/',
   title: 'Comuse',
   description: 'Collection of Essential Js Utilities',
   lang: 'en-US',
