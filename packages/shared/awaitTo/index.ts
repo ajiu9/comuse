@@ -11,13 +11,11 @@ export type PromiseAll<P extends readonly unknown[] | []> = {
  * const foo = () => new Promise<string>((resolve, reject) => {})
  * ;(async () => {
  *   const [err, data] = await awaitTo(bar())
- *   const [err1, data1] = await awaitTo(bar(), foo())
  *   const [err2, data2] = await awaitTo([bar(), foo()])
  * })()
  * ```
  * @since 1.0.0
- * @param promise - Promise
- * @param promises - Promise rest params
+ * @param promise - Promise or an array of Promises
  * @return - result
  */
 export function awaitTo<T, E = Error>(promise: Promise<T>): Promise<[E, undefined] | [null, T]>
