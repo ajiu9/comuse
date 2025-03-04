@@ -1,13 +1,22 @@
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { defineConfig } from 'vitepress'
-import { categoryNames, metadata } from '../metadata/metadata'
+import { currentVersion } from '../../meta/versions'
+import { categoryNames, coreCategoryNames, metadata } from '../metadata/metadata'
 import viteConfig from './vite.config'
 
 const Guide = [
   { text: 'Get Started', link: '/guide/' },
 ]
+
+const CoreCategories = coreCategoryNames.map(c => ({
+  text: c,
+  activeMatch: '___', // never active
+  link: `/functions#category=${c}`,
+}))
+
 const DefaultSideBar = [
   { text: 'Guide', items: Guide },
+  { text: 'Core Functions', items: CoreCategories },
 ]
 
 const FunctionsSideBar = getFunctionsSideBar()
@@ -26,11 +35,24 @@ export default defineConfig({
       dark: 'vitesse-dark',
     },
     codeTransformers: [
+      // @ts-expect-error: Type mismatch between @shikijs/types versions
       transformerTwoslash(),
     ],
   },
 
   themeConfig: {
+    logo: '/favicon.svg',
+    search: {
+      provider: 'local',
+    },
+    editLink: {
+      pattern: 'https://github.com/ajiu9/comuse/tree/main/packages/:path',
+      text: 'Suggest changes to this page',
+    },
+    footer: {
+      message: 'Released under the MIT License.',
+      copyright: 'Copyright © 2024-PRESENT Ajiu9',
+    },
     nav: [
       { text: 'Guide', link: '/guide' },
       {
@@ -55,10 +77,22 @@ export default defineConfig({
           },
         ],
       },
+      {
+        text: currentVersion,
+        items: [
+          {
+            items: [
+              { text: 'Release Notes', link: 'https://github.com/ajiu9/comuse/releases' },
+            ],
+          },
+        ],
+      },
     ],
     sidebar: {
       '/guide/': DefaultSideBar,
       '/functions': FunctionsSideBar,
+      '/shared/': FunctionsSideBar,
+      '/core/': FunctionsSideBar,
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/ajiu9/vistara' },
