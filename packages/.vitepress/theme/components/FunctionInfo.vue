@@ -6,7 +6,7 @@ import { computed } from 'vue'
 const props = defineProps<{ fn: string }>()
 const info = computed(() => functions.find(i => i.name === props.fn)!)
 const lastUpdated = formatTime(new Date(info.value?.lastUpdated || 0))
-const link = computed(() => `/functions\#category=${encodeURIComponent(info.value!.category!)}`)
+const link = computed(() => `/comuse/functions\#category=${encodeURIComponent(info.value!.category!)}`)
 
 function getFunctionLink(fn: string) {
   const info = functions.find(i => i.name === fn)
