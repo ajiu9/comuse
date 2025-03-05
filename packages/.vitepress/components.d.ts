@@ -14,5 +14,8 @@ declare module 'vue' {
     Home: typeof import('./theme/components/home.vue')['default']
     HomeContributors: typeof import('./theme/components/HomeContributors.vue')['default']
     Note: typeof import('./theme/components/Note.vue')['default']
+    OcticonGitCommit16: typeof import('~icons/octicon/git-commit16')['default']
+    OcticonGitPullRequestDraft16: typeof import('~icons/octicon/git-pull-request-draft16')['default']
+    OcticonRocket16: typeof import('~icons/octicon/rocket16')['default']
   }
 }

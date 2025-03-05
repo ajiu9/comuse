@@ -1,11 +1,11 @@
 import type { CommitInfo } from '@vueuse/metadata'
 import type { Plugin } from 'vite'
 
-const ID = '/virtual-changelog'
+const ID = 'virtual:changelog'
 
 export function ChangeLog(data: CommitInfo[]): Plugin {
   return {
-    name: 'vueuse-changelog',
+    name: 'comuse-changelog',
     resolveId(id) {
       return id === ID ? ID : null
     },

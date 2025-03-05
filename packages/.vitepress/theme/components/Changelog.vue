@@ -3,12 +3,10 @@ import type { CommitInfo } from '@vueuse/metadata'
 import { functions } from '@vueuse/metadata'
 import { computed } from 'vue'
 import { renderCommitMessage } from '../utils'
+// @ts-expect-error virtual
+import changelog from 'virtual:changelog'
 
 const props = defineProps<{ fn: string }>()
-
-// @ts-expect-error virtual
-// import changelog from '/virtual-changelog'
-const changelog = []
 
 const info = computed(() => functions.find(i => i.name === props.fn))
 
@@ -49,7 +47,7 @@ const commits = computed(() => {
         </div>
         <div>
           <a
-            :href="`https://github.com/vueuse/vueuse/releases/tag/${commit.version}`"
+            :href="`https://github.com/ajiu9/comuse/releases/tag/${commit.version}`"
             target="_blank"
           >
             <code class="!text-primary font-bold">{{ commit.version }}</code>
@@ -60,7 +58,7 @@ const commits = computed(() => {
       <template v-else>
         <octicon-git-commit-16 class="m-auto transform rotate-90 opacity-30" />
         <div>
-          <a :href="`https://github.com/vueuse/vueuse/commit/${commit.hash}`" target="_blank">
+          <a :href="`https://github.com/ajiu9/comuse/commit/${commit.hash}`" target="_blank">
             <code class="!text-xs !text-$vp-c-text-2 !hover:text-primary">{{ commit.hash.slice(0, 5) }}</code>
           </a>
           <span text="sm">
