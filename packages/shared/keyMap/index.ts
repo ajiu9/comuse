@@ -146,7 +146,3 @@ export class Keymap {
     return this.map[target] || {}
   }
 }
-
-// export function useKeyMap(element: HTMLElement): Keymap {
-//   return new Keymap(element)
-// }
