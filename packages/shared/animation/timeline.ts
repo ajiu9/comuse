@@ -35,6 +35,7 @@ export class TimeLine {
       const now = Date.now()
       for (const animation of this[ANIMATIONS]) {
         let t: number
+
         if ((this[START_TIME].get(animation) ?? 0) < startTime)
           t = now - startTime - this[PAUSE_TIME] - animation.delay
 

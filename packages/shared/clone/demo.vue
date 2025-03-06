@@ -4,7 +4,10 @@ import { ref } from 'vue'
 
 const input = { fruit: 'banana', drink: 'water' }
 
-const out = ref({})
+const out = ref({
+  fruit: '',
+  drink: '',
+})
 </script>
 
 <template>

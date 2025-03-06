@@ -44,3 +44,5 @@ export function awaitTo<T, P extends readonly unknown[] | [], E = Error>(
     .then<[null, [T, ...P]]>((data: [T, ...P]) => [null, data])
     .catch<[E, undefined]>((err: E) => [err, undefined])
 }
+
+export { awaitTo as to }
