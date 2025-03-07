@@ -60,7 +60,6 @@ export class TimeLine {
   }
 
   pause() {
-    if (this.state !== 'started') return
     this.state = 'paused'
     this[PAUSE_START] = Date.now()
     if (this[TICK_HANDLER] !== null) cancelAnimationFrame(this[TICK_HANDLER])
@@ -74,8 +73,8 @@ export class TimeLine {
   }
 
   reset() {
-    this.state = 'initial'
     this.pause()
+    this.state = 'initial'
     this[PAUSE_TIME] = 0
     this[PAUSE_START] = 0
     this[ANIMATIONS] = new Set()
