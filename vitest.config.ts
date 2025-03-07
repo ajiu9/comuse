@@ -4,7 +4,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   resolve: {
     alias: {
-      '@vueuse/shared': resolve(__dirname, 'packages/shared/index.ts'),
+      'comuse-shared': resolve(__dirname, 'packages/shared/index.ts'),
     },
     dedupe: [
       'vue',

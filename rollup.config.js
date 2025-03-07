@@ -1,4 +1,3 @@
-// import type {  PackageManifest } from '@vueuse/metadata'
 import { createRequire } from 'node:module'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -121,7 +120,7 @@ function createConfig(format, output, plugins = []) {
     ],
     plugins: [
       json({
-        namedExports: false,
+        // namedExports: false,
       }),
       alias({
         entries,

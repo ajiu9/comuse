@@ -23,7 +23,7 @@ export class TimeLine {
     this[PAUSE_TIME] = 0
     this[PAUSE_START] = 0
     this[TICK_HANDLER] = null
-    this[TICK] = () => { }
+    this[TICK] = () => {}
   }
 
   start() {
@@ -81,5 +81,9 @@ export class TimeLine {
     this[ANIMATIONS] = new Set()
     this[START_TIME] = new Map()
     this[TICK_HANDLER] = null
+  }
+
+  getState() {
+    return this.state
   }
 }

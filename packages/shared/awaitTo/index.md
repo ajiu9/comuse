@@ -1,5 +1,6 @@
 ---
-category: 'Tools'
+category: Tools
+alias: to
 ---
 
 # AwaitTo

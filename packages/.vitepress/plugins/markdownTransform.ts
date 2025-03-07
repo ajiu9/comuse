@@ -29,6 +29,7 @@ export function markdownTransform(): Plugin {
       //     return `[\`${fn.name}\`](${fn.docs}) `
       //   },
       // )
+      code = code.replace(/https?:\/\/ajiu9\.cn\/comuse\//g, '/')
       const [pkg, _name, i] = id.split('/').slice(-3)
       const name = functionNames.find(n => n.toLowerCase() === _name.toLowerCase()) || _name
 

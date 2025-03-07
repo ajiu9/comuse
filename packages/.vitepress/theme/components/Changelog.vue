@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { CommitInfo } from '@vueuse/metadata'
-import { functions } from '@vueuse/metadata'
+import type { CommitInfo } from 'comuse-metadata'
+import { functions } from 'comuse-metadata'
 import { computed } from 'vue'
 import { renderCommitMessage } from '../utils'
 // @ts-expect-error virtual

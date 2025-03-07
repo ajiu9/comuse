@@ -1,4 +1,4 @@
-import type { CommitInfo } from '@vueuse/metadata'
+import type { CommitInfo } from 'comuse-metadata'
 import process from 'node:process'
 import Git from 'simple-git'
 

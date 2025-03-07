@@ -10,7 +10,7 @@ const link = computed(() => `/comuse/functions\#category=${encodeURIComponent(in
 
 function getFunctionLink(fn: string) {
   const info = functions.find(i => i.name === fn)
-  return info?.docs?.replace(/https?:\/\/vueuse\.org\//g, '/')
+  return info?.docs?.replace(/https?:\/\/ajiu9\.cn\//g, '/')
 }
 </script>
 
@@ -24,7 +24,7 @@ function getFunctionLink(fn: string) {
       <div opacity="50">
         Package
       </div>
-      <div><code>@vueuse/{{ info.package }}</code></div>
+      <div><code>comuse/{{ info.package }}</code></div>
     </template>
     <template v-if="info.lastUpdated">
       <div opacity="50">

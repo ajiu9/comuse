@@ -1,4 +1,4 @@
-import type { CommitInfo } from '@vueuse/metadata'
+import type { CommitInfo } from 'comuse-metadata'
 import type { Plugin } from 'vite'
 
 const ID = 'virtual:changelog'

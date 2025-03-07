@@ -3,12 +3,12 @@ layout: home
 sidebar: false
 
 hero:
-  name: VueUse
+  name: Comuse
   text: Collection of Vue Composition Utilities
   tagline: Collection of Essential Vue Composition Utilities
   image:
     src: /favicon.svg
-    alt: VueUse
+    alt: Comuse
   actions:
     - theme: brand
       text: Get Started
@@ -21,7 +21,7 @@ hero:
       link: /add-ons
     - theme: alt
       text: View on GitHub
-      link: https://github.com/vueuse/vueuse
+      link: https://github.com/ajiu9/comuse
 
 features:
   - title: Feature Rich

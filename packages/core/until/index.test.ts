@@ -1,4 +1,4 @@
-import { invoke } from '@vueuse/shared'
+import { invoke } from 'comuse-shared'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ref } from 'vue'
 import { until } from '.'

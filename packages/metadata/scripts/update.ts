@@ -14,7 +14,7 @@ export const DIR_PACKAGE = resolve(__dirname, '..')
 export const DIR_ROOT = resolve(__dirname, '../../..')
 export const DIR_SRC = resolve(DIR_ROOT, 'packages')
 // export const DIR_TYPES = resolve(DIR_ROOT, 'types/packages')
-export const DOCS_URL = 'https://ajiu9.cn'
+export const DOCS_URL = 'https://ajiu9.cn/comuse'
 
 export const git = Git(DIR_ROOT)
 async function run() {
