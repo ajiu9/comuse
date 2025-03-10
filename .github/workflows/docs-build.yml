@@ -52,6 +52,14 @@ jobs:
           git fetch origin main:main
           git checkout main
 
-          # 合并 release 分支到 main
-          git merge release --no-ff -m "chore: Merge from release"
+          # 尝试合并，如果失败则强制使用 release 的 dist 文件
+          if ! git merge release --no-ff -m "chore: Merge from release"; then
+            # 保存 release 分支的 dist 文件
+            git checkout release -- packages/.vitepress/dist
+            # 标记冲突已解决
+            git add packages/.vitepress/dist
+            # 完成合并
+            git commit -m "chore: Merge from release (with dist from release)"
+          fi
+
           git push origin main
