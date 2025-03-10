@@ -52,16 +52,6 @@ jobs:
           git fetch origin main:main
           git checkout main
 
-          # 提交文档和 lock 文件更改到 main
-          git add .
-          git commit -m "chore: Merge from release"
-
-          # 合并 release 分支
-          git merge --no-ff release -m "chore: merge from release" || {
-            echo "Merge conflict occurred, using our version of lock file"
-            git add pnpm-lock.yaml
-            git commit -m "chore: resolve merge conflicts"
-          }
-
-          # 推送所有更改到 main
+          # 合并 release 分支到 main
+          git merge release --no-ff -m "chore: Merge from release"
           git push origin main
