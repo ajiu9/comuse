@@ -42,7 +42,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add .
-          git commit -m "chore: build docs" || echo "No changes to commit"
+          git commit -m "flow: build docs" || echo "No changes to commit"
 
       - name: Push to main
         run: |
