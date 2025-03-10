@@ -43,30 +43,30 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          # 保存当前的文档构建结果
+          # 保存当前的构建结果
           mv packages/.vitepress/dist ./dist-temp
+          cp pnpm-lock.yaml ./lock-temp
+
+          # 清理工作区
+          git reset --hard
+          git clean -fd
 
           # 获取并切换到 main 分支
           git fetch origin main:main
           git checkout main
 
-          # 恢复构建的文档
+          # 恢复构建的文档和 lock 文件
           rm -rf packages/.vitepress/dist
           mv ./dist-temp packages/.vitepress/dist
+          mv ./lock-temp pnpm-lock.yaml
 
-          # 提交文档更改
-          git add packages/.vitepress/dist
-          git commit -m "chore: update docs" || echo "No changes to commit"
+          # 提交文档和 lock 文件更改
+          git add packages/.vitepress/dist pnpm-lock.yaml
+          git commit -m "chore: update docs and lock file" || echo "No changes to commit"
 
-          # 更新 lock 文件
-          pnpm install
-          git add pnpm-lock.yaml
-          git commit -m "chore: update pnpm-lock.yaml" || echo "No lock file changes"
-
-          # 合并 release 分支（除了文档和 lock 文件）
+          # 合并 release 分支
           git merge --no-ff release -m "chore: merge from release" || {
-            echo "Merge conflict occurred, but docs and lock file are already updated"
-            git checkout --theirs pnpm-lock.yaml
+            echo "Merge conflict occurred, using our version of lock file"
             git add pnpm-lock.yaml
             git commit -m "chore: resolve merge conflicts"
           }
