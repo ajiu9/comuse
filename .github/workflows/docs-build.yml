@@ -37,16 +37,44 @@ jobs:
       - name: Build docs
         run: pnpm run docs:build
 
-      - name: Commit docs
+      - name: Merge to main
         run: |
+          # 配置 git
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add .
-          git commit -m "flow: build docs" || echo "No changes to commit"
 
-      - name: Push to main
-        run: |
+          # 创建安全的临时目录
+          TEMP_DIR="$RUNNER_TEMP/build-artifacts"
+          mkdir -p "$TEMP_DIR"
+
+          # 保存当前的构建结果到临时目录
+          cp -r packages/.vitepress/dist "$TEMP_DIR/dist"
+          cp pnpm-lock.yaml "$TEMP_DIR/pnpm-lock.yaml"
+
+          # 清理工作区
+          git reset --hard
+          git clean -fd
+
+          # 获取并切换到 main 分支
           git fetch origin main:main
           git checkout main
-          git merge --no-ff release -m "chore: merge docs from release"
+
+          # 恢复构建的文档和 lock 文件
+          rm -rf packages/.vitepress/dist
+          mkdir -p packages/.vitepress
+          cp -r "$TEMP_DIR/dist" packages/.vitepress/dist
+          cp "$TEMP_DIR/pnpm-lock.yaml" pnpm-lock.yaml
+
+          # 提交文档和 lock 文件更改
+          git add packages/.vitepress/dist pnpm-lock.yaml
+          git commit -m "chore: update docs and lock file" || echo "No changes to commit"
+
+          # 合并 release 分支
+          git merge --no-ff release -m "chore: merge from release" || {
+            echo "Merge conflict occurred, using our version of lock file"
+            git add pnpm-lock.yaml
+            git commit -m "chore: resolve merge conflicts"
+          }
+
+          # 推送所有更改到 main
           git push origin main
