@@ -37,30 +37,39 @@ jobs:
       - name: Build docs
         run: pnpm run docs:build
 
-      - name: Commit docs
+      - name: Merge to main
         run: |
           # 配置 git
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          # 获取最新的 main 分支
-          git fetch origin main:main
+          # 保存当前的文档构建结果
+          mv packages/.vitepress/dist ./dist-temp
 
-          # 切换到 main 分支
+          # 获取并切换到 main 分支
+          git fetch origin main:main
           git checkout main
 
-          # 在合并之前重新生成 lock 文件
+          # 恢复构建的文档
+          rm -rf packages/.vitepress/dist
+          mv ./dist-temp packages/.vitepress/dist
+
+          # 提交文档更改
+          git add packages/.vitepress/dist
+          git commit -m "chore: update docs" || echo "No changes to commit"
+
+          # 更新 lock 文件
           pnpm install
           git add pnpm-lock.yaml
           git commit -m "chore: update pnpm-lock.yaml" || echo "No lock file changes"
 
-          # 尝试合并
-          if ! git merge --no-ff release -m "chore: merge docs from release"; then
-            # 如果合并失败，使用 main 分支的 lock 文件
+          # 合并 release 分支（除了文档和 lock 文件）
+          git merge --no-ff release -m "chore: merge from release" || {
+            echo "Merge conflict occurred, but docs and lock file are already updated"
             git checkout --theirs pnpm-lock.yaml
             git add pnpm-lock.yaml
-            git commit -m "chore: resolve merge conflicts in pnpm-lock.yaml"
-          fi
+            git commit -m "chore: resolve merge conflicts"
+          }
 
-          # 推送更改
+          # 推送所有更改到 main
           git push origin main
