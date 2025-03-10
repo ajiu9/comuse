@@ -87,6 +87,9 @@ onMounted(() => {
       let currentVy = vy
       const friction = 0.95
 
+      // 检查是否在浏览器环境中
+      if (typeof window === 'undefined') return
+
       const animate = () => {
         if (!box.value || !gestureArea.value) return
 
@@ -113,10 +116,10 @@ onMounted(() => {
         box.value.style.transform = `translate(${currentX}px, ${currentY}px)`
 
         if ((Math.abs(currentVx) > 0.1 || Math.abs(currentVy) > 0.1) && !(currentVx === 0 && currentVy === 0))
-          requestAnimationFrame(animate)
+          window.requestAnimationFrame(animate)
       }
 
-      requestAnimationFrame(animate)
+      window.requestAnimationFrame(animate)
     }
   })
 
