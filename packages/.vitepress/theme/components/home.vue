@@ -1,6 +1,6 @@
 <template>
   <div class="home" mt-4 flex flex-col items-center>
-    <span>22</span>
+    <span>hello</span>
     <HomeContributors />
   </div>
 </template>
