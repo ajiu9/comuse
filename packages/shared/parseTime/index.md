@@ -6,6 +6,16 @@ category: Time
 
 Automatically update the time ago string when the time changes.
 
+formatter:
+year: yyyy
+quarter: q
+month: MM
+day: dd
+hour: hh
+minute: mm
+second: ss
+millisecond: S
+
 ## Usage
 
 ```js

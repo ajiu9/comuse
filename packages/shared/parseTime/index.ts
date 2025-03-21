@@ -1,3 +1,6 @@
+export const now = () => Date.now()
+export const timestamp = () => +Date.now()
+
 export function parseTime(time: any, fmt: string): string | null {
   if (arguments.length === 0)
     return null
@@ -21,6 +24,12 @@ export function parseTime(time: any, fmt: string): string | null {
   if (/(y+)/.test(fmt))
     fmt = fmt.replace(RegExp.$1, (`${date.getFullYear()}`).substr(4 - RegExp.$1.length))
 
+  if (/(S+)/.test(fmt)) {
+    let millseconds = `${date.getMilliseconds()}`
+    millseconds = millseconds.padStart(4, '0')
+    fmt = fmt.replace(RegExp.$1, millseconds.substr(4 - RegExp.$1.length))
+  }
+
   const o: { [key: string]: number } = {
     'M+': date.getMonth() + 1,
     'd+': date.getDate(),
@@ -28,7 +37,6 @@ export function parseTime(time: any, fmt: string): string | null {
     'm+': date.getMinutes(),
     's+': date.getSeconds(),
     'q+': Math.floor((date.getMonth() + 3) / 3),
-    'S': date.getMilliseconds(),
   }
   for (const k in o) {
     if (new RegExp(`(${k})`).test(fmt)) {
@@ -71,4 +79,8 @@ export function formatTime(time: number | string | Date, fmt?: string): string |
 
 function padLeftZero(str: string): string {
   return str.padStart(2, '0')
+}
+
+export const nowStr = (format: string = 'yyyy-MM-dd hh:mm:ss') => {
+  return parseTime(now(), format)
 }

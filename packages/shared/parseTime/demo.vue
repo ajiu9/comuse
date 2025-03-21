@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { formatTime, parseTime, timestamp } from 'comuse-shared'
+import { formatTime, nowStr, parseTime, timestamp } from 'comuse-shared'
 import { computed, ref } from 'vue'
 
 const slider = ref(0)
 const value = computed(() => timestamp() + slider.value ** 3)
+
+const format = ref('yyyyMMddhhmmss')
+const nowString = ref('')
 </script>
 
 <template>
@@ -15,6 +18,23 @@ const value = computed(() => timestamp() + slider.value ** 3)
   <input v-model="slider" class="slider" type="range" min="-3800" max="0">
   <div class="text-center opacity-50">
     {{ slider ** 3 }}ms
+  </div>
+
+  <div class="justify-center mt-4">
+    <div class="flex items-center">
+      <span mr-5 w-10>format:</span>
+      <input v-model="format" type="text" class="inline-block">
+    </div>
+    <div class="flex items-center mb-5 mt-5">
+      <span mr-5 w-10>format:</span>
+      <input v-model="nowString" type="text" class="text-primary" readonly>
+    </div>
+
+    <button
+      @click="() => nowString = nowStr(format)"
+    >
+      formatTime
+    </button>
   </div>
 </template>
 

@@ -1,8 +1,6 @@
 import type { AnyFn } from 'typing-ts'
 
 export const isClient = typeof window !== 'undefined' && typeof document !== 'undefined'
-export const now = () => Date.now()
-export const timestamp = () => +Date.now()
 
 const toString = Object.prototype.toString
 export const toTypeString = (value: unknown): string => toString.call(value)
