@@ -4,10 +4,10 @@
  * @returns {void}
  */
 export function windowPrint(content: string): void {
-  let iframe = document.body.querySelector<HTMLIFrameElement>('#window-print')
+  let iframe = document.body.querySelector<HTMLIFrameElement>('#comuse-window-print')
   if (!iframe) {
     iframe = document.createElement('iframe')
-    iframe.id = 'window-print'
+    iframe.id = 'comuse-window-print'
     iframe.setAttribute('style', 'display:none;position:absolute;width:0px;height:0px;left:-500px;top:-500px;')
     document.body.appendChild(iframe)
   }
