@@ -1,6 +1,5 @@
 import type { AnyFn } from 'typing-ts'
 
-export * from './fixNumber'
 export * from './is'
 export * from './pattern'
 
@@ -89,10 +88,6 @@ export function promiseFactory<T extends object>(
   }
 }
 
-/**
- * @param {Function} fn
- * @param {number} delay
- */
 export function debounce(fn: AnyFn, delay: number) {
   let timer: ReturnType<typeof setTimeout> | undefined
 
@@ -119,4 +114,43 @@ export function throttle(fn: AnyFn, duration: number) {
       }, duration)
     }
   }
+}
+
+export function splitKeyValues(
+  id: string,
+  name: string,
+  options?: { separator?: string, key?: string, value?: string },
+): { [key: string]: string }[] {
+  let data: { [key: string]: string }[] = []
+  const separator = options?.separator || ','
+  const key = options?.key || 'id'
+  const value = options?.value || 'name'
+
+  if (id && name) {
+    const names = name.split(separator)
+    data = id.split(separator).map((item, index) => {
+      return {
+        [key]: item,
+        [value]: names[index],
+      }
+    })
+  }
+  return data
+}
+
+/**
+ * Test if a function executes within a specified timeout period
+ * @param fn Function to test
+ * @param timeout Timeout duration in milliseconds
+ * @returns Promise that resolves if function completes within timeout, rejects otherwise
+ */
+export function testTimeout<T>(fn: () => Promise<T>, timeout: number): Promise<T> {
+  return Promise.race([
+    fn(),
+    new Promise<T>((_, reject) => {
+      setTimeout(() => {
+        reject(new Error('Function execution timed out'))
+      }, timeout)
+    }),
+  ])
 }

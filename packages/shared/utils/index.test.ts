@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { debounce } from './index'
+import { debounce, splitKeyValues, throttle } from './index'
 
 describe('debounce', () => {
   let callback: vi.Mock
@@ -45,5 +45,56 @@ describe('debounce', () => {
     debounced.call(context, 'argument')
     vi.advanceTimersByTime(100)
     expect(callback).toHaveBeenCalledWith(context, 'argument')
+  })
+})
+
+describe('throttle', () => {
+  let callback: vi.Mock
+
+  beforeEach(() => {
+    callback = vi.fn()
+    vi.useFakeTimers()
+  })
+
+  afterEach(() => {
+    vi.clearAllTimers()
+  })
+
+  it('should call the function immediately on the first call', () => {
+    const throttled = throttle(callback, 100)
+    throttled()
+    expect(callback).toHaveBeenCalledTimes(1)
+  })
+
+  it('should not call the function after the delay if not called again', () => {
+    const throttled = throttle(callback, 100)
+    throttled()
+    vi.advanceTimersByTime(100)
+    expect(callback).toHaveBeenCalledTimes(1)
+  })
+  it('should call the function one time after the delay', () => {
+    const throttled = throttle(callback, 100)
+    throttled()
+    throttled()
+    vi.advanceTimersByTime(100)
+    expect(callback).toHaveBeenCalledTimes(1)
+  })
+
+  it('should call the function with the correct context and arguments', () => {
+    const context = { name: 'test' }
+    const throttled = throttle(function (this: any, arg: any) {
+      callback(this, arg)
+    }, 100)
+
+    throttled.call(context, 'argument')
+    vi.advanceTimersByTime(100)
+    expect(callback).toHaveBeenCalledWith(context, 'argument')
+  })
+})
+
+describe('splitKeyValues', () => {
+  it('should split key values correctly', () => {
+    const result = splitKeyValues('id1,id2', 'name1,name2')
+    expect(result).toEqual([{ id: 'id1', name: 'name1' }, { id: 'id2', name: 'name2' }])
   })
 })
