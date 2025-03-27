@@ -1,0 +1,23 @@
+import {
+  getCurrentInstance,
+  onMounted,
+  shallowRef,
+} from 'vue'
+
+/**
+ * Mounted state in ref.
+ *
+ * @see https://vueuse.org/useMounted
+ */
+export function useMounted() {
+  const isMounted = shallowRef(false)
+
+  const instance = getCurrentInstance()
+  if (instance) {
+    onMounted(() => {
+      isMounted.value = true
+    }, instance)
+  }
+
+  return isMounted
+}
