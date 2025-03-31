@@ -31,6 +31,8 @@ const sortMethod = computed<'category' | 'name' | 'updated' | null>({
   set: val => query.sort = val,
 })
 
+const hasFilters = computed(() => Boolean(search.value || category.value || sortMethod.value))
+
 function toggleCategory(cate: string) {
   category.value = category.value === cate ? null : cate
 }
@@ -83,6 +85,12 @@ function toggleSort(method: string) {
     <input v-model="search" class="w-full" type="text" role="search" placeholder="Search...">
   </div>
   <div h="1px" bg="$vp-c-divider" m="b-4" />
+  <div flex="~ col gap-3" p="t-5" class="relative">
+    <div v-if="hasFilters" class="transition mb-2 opacity-60 absolute top-3 right-0 z-10">
+      <i i-carbon-filter-remove />
+      Clear Filters
+    </div>
+  </div>
 </template>
 
 <style scoped lang="postcss">
