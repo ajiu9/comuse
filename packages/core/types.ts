@@ -1,7 +1,7 @@
-import type { Fn } from 'typing-ts'
-
 import type { MaybeRef, MaybeRefOrGetter, Ref } from 'vue'
 
+export type Fn = () => void
+export type AnyFn = (...args: any[]) => any
 export type ShallowUnwrapRef<T> = T extends Ref<infer P> ? P : T
 
 /**

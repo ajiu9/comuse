@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      typing-ts:
-        specifier: ^0.0.4
-        version: 0.0.4
     devDependencies:
       '@ajiu9/eslint-config':
         specifier: ^2.5.2
@@ -3476,9 +3472,6 @@ packages:
     resolution: {integrity: sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==}
     engines: {node: '>=14.17'}
     hasBin: true
-
-  typing-ts@0.0.4:
-    resolution: {integrity: sha512-goP4HClJ3JxaPkLF2O2sluLPYmgkowQbWNLyzwKtc+qF0frRSzOmXiREbT6Pngva4lFBbgMNi1wfZ4nPRJeojQ==}
 
   ufo@1.5.4:
     resolution: {integrity: sha512-UsUk3byDzKd04EyoZ7U4DOlxQaD14JUKQl6/P7wiX4FNvUfm3XL246n9W5AmqwW5RSFJ27NAuM0iLscAOYUiGQ==}
@@ -7408,8 +7401,6 @@ snapshots:
   type-fest@0.20.2: {}
 
   typescript@5.8.2: {}
-
-  typing-ts@0.0.4: {}
 
   ufo@1.5.4: {}
 

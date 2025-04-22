@@ -1,4 +1,4 @@
-import type { AnyFn } from 'typing-ts'
+import type { AnyFn } from '../types'
 
 export * from './is'
 export * from './pattern'
