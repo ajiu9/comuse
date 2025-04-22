@@ -1,4 +1,4 @@
-import type { AnyFn } from 'typing-ts'
+import type { AnyFn } from '../types'
 
 export type Promisify<T> = Promise<Awaited<T>>
 export type ArgumentsType<T> = T extends (...args: infer U) => any ? U : never

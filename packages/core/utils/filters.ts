@@ -1,5 +1,4 @@
-import type { AnyFn } from 'typing-ts'
-import type { MaybeRefOrGetter } from '../types'
+import type { AnyFn, MaybeRefOrGetter } from '../types'
 import type { ArgumentsType, Promisify } from './types'
 import { NOOP } from 'comuse-shared'
 import { isRef, toValue } from 'vue'

@@ -27,9 +27,9 @@ const pkg = require(resolve('package.json'))
 const packageOptions = pkg.buildOptions || {}
 const name = packageOptions.filename || path.basename(packageDir)
 
-const externals = [
-  'vue',
-]
+// const externals = [
+//   'vue',
+// ]
 
 const outputConfigs = {
   'esm-bundler': {
@@ -116,7 +116,7 @@ function createConfig(format, output, plugins = []) {
     // used alone.
     external: [
       resolveExternal(),
-      ...externals,
+      // ...externals,
     ],
     plugins: [
       json({
