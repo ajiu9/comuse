@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { debounce, splitKeyValues, throttle } from './index'
+import { debounce, randomString, splitKeyValues, throttle } from './index'
 
 describe('debounce', () => {
   let callback: vi.Mock
@@ -96,5 +96,22 @@ describe('splitKeyValues', () => {
   it('should split key values correctly', () => {
     const result = splitKeyValues('id1,id2', 'name1,name2')
     expect(result).toEqual([{ id: 'id1', name: 'name1' }, { id: 'id2', name: 'name2' }])
+  })
+})
+
+describe('randomString', () => {
+  it('should generate a random string', () => {
+    const result = randomString(32)
+    expect(result).toHaveLength(32)
+  })
+  it('should only generate  alphanumeric characters', () => {
+    const result = randomString(32)
+    const regex = /^[a-zA-Z0-9]+$/
+    expect(result).toMatch(regex)
+  })
+  it('should generate a random string with numbers only', () => {
+    const result = randomString(32, 'number')
+    const regex = /^[0-9]+$/
+    expect(result).toMatch(regex)
   })
 })
