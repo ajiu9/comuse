@@ -154,3 +154,24 @@ export function testTimeout<T>(fn: () => Promise<T>, timeout: number): Promise<T
     }),
   ])
 }
+
+/**
+ * Generate a random string of specified length and type
+ * @param length Length of the random string
+ * @param type Type of characters to include (default: 'mix', options: 'number', 'mix')
+ * @returns Random string
+ */
+type RandomStringType = 'number' | 'mix'
+export function randomString(length = 8, type: RandomStringType = 'mix'): string {
+  let result = ''
+  if (type === 'number') {
+    for (let t = 0; t < length; t++)
+      result += Math.floor(Math.random() * 10).toString()
+  }
+  else {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    for (let i = 0; i < length; i++)
+      result += chars.charAt(Math.floor(Math.random() * chars.length))
+  }
+  return result
+}

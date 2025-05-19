@@ -1,3 +1,2 @@
-'use strict'
-
-module.exports = require('./dist/comuse.cjs')
+export * from 'comuse-core'
+export * from 'comuse-shared'
