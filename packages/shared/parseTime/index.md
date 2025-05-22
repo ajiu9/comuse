@@ -20,9 +20,9 @@ formatter:
 ## Usage
 
 ```js
-import { formatTime, paresTime } from 'comuse-shared'
+import { formatTime, parseTime } from 'comuse-shared'
 
 const timeAgo = formatTime(new Date(2024, 12, 1))
 
-paresTime(new Date(), 'yyyy-MM-dd hh:mm:ss')
+parseTime(new Date(), 'yyyy-MM-dd hh:mm:ss')
 ```
