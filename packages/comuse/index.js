@@ -1,2 +1,1 @@
-export * from 'comuse-core'
-export * from 'comuse-shared'
+module.exports = require('./dist/comuse.cjs.js')
