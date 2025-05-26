@@ -30,3 +30,20 @@ export interface Pausable {
    */
   resume: Fn
 }
+
+export interface UseConvertObjectKeysReturn {
+  /**
+   * Convert object keys from camelCase to snake_case
+   */
+  camelToSnake: (str: string) => string
+
+  /**
+   * Convert object keys from snake_case to camelCase
+   */
+  snakeToCamel: (str: string) => string
+
+  /**
+   * Convert object keys between camelCase and snake_case
+   */
+  convertObjectKeys: (obj: Record<string, any>, toSnake?: boolean) => Record<string, any>
+}

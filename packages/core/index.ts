@@ -1,6 +1,7 @@
 export * from './tryOnScopeDispose'
 export * from './types'
 export * from './until'
+export * from './useConvertObjectKeys'
 export * from './useCounter'
 export * from './useDebounce'
 export * from './useKeyMap'
