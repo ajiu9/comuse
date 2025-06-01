@@ -10,13 +10,13 @@ Throttle execution of a function. Especially useful for rate limiting execution 
 ## Usage
 
 ```js
-import { useThrottle } from 'comuse-core'
+import { useDebounce } from 'comuse-core'
 
-const throttledFn = useThrottle(() => {
+const debounceFn = useDebounce(() => {
   // do something, it will be called at most 1 time per second
 }, 1000)
 
-window.addEventListener('resize', throttledFn)
+window.addEventListener('resize', useDebounce)
 ```
 
 ## Recommended Reading
