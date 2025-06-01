@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { useThrottle } from 'comuse-core'
+import { useDebounce } from 'comuse-core'
 import { ref } from 'vue'
 
 const updated = ref(0)
 const clicked = ref(0)
-const throttledFn = useThrottle(() => {
+const debounce = useDebounce(() => {
   updated.value += 1
 }, 1000)
 
 function clickedFn() {
   clicked.value += 1
-  throttledFn()
+  debounce()
 }
 </script>
 

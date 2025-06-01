@@ -10,7 +10,7 @@ import { createFilterWrapper, debounceFilter } from '../utils'
  *
  * @return A new, debounce, function.
  */
-export function useDebounceFn<T extends FunctionArgs>(
+export function useDebounce<T extends FunctionArgs>(
   fn: T,
   ms: number = 200,
   options: DebounceFilterOptions = {},
