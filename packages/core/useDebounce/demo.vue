@@ -1,27 +1,25 @@
 <script setup lang="ts">
-import { useDebounce } from 'comuse-core'
-import { ref } from 'vue'
+import { useDebounce } from '@vueuse/core'
+import { shallowRef } from 'vue'
 
-const updated = ref(0)
-const clicked = ref(0)
-const debounce = useDebounce(() => {
+const updated = shallowRef(0)
+const clicked = shallowRef(0)
+const debouncedFn = useDebounce(() => {
   updated.value += 1
-}, 1000)
+}, 1000, { maxWait: 5000 })
 
 function clickedFn() {
   clicked.value += 1
-  debounce()
+  debouncedFn()
 }
 </script>
 
 <template>
-  <div>
-    <button @click="clickedFn">
-      Smash me!
-    </button>
-    <note>Delay is set to 1000ms for this demo.</note>
+  <button @click="clickedFn">
+    Smash me!
+  </button>
+  <note>Delay is set to 1000ms and maxWait is set to 5000ms for this demo.</note>
 
-    <p>Button clicked: {{ clicked }}</p>
-    <p>Event handler called: {{ updated }}</p>
-  </div>
+  <p>Button clicked: {{ clicked }}</p>
+  <p>Event handler called: {{ updated }}</p>
 </template>
