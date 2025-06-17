@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { debounce, randomString, splitKeyValues, throttle } from './index'
+import { debounce, randomString, splitKeyValues, throttle, uuid } from './index'
 
 describe('debounce', () => {
   let callback: vi.Mock
@@ -113,5 +113,12 @@ describe('randomString', () => {
     const result = randomString(32, 'number')
     const regex = /^[0-9]+$/
     expect(result).toMatch(regex)
+  })
+})
+
+describe('uuid', () => {
+  it('should generate a random uuid', () => {
+    const result = uuid()
+    expect(result).toHaveLength(36)
   })
 })

@@ -41,3 +41,13 @@ const data = splitKeyValues('id1,id2', 'name1,name2')
 
 console.log(data) // [{ id: 'id1', name: 'name1' }, { id: 'id2', name: 'name2' }]
 ```
+
+## uuid
+
+### usage
+
+```ts
+import { uuid } from 'comuse-shared'
+
+console.log(uuid()) // '4222fcfe-5721-4632-bede-6043885be57d'
+```
