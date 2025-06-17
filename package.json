@@ -1,7 +1,7 @@
 {
   "name": "comuse",
   "type": "module",
-  "version": "3.2.11",
+  "version": "3.2.12",
   "private": true,
   "packageManager": "pnpm@9.3.0",
   "description": "A library of commonly used utility functions",
