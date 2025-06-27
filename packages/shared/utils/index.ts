@@ -217,3 +217,14 @@ export function openFile(url: string) {
   }
   fileRead.click()
 }
+
+export function toThousand(val: any) {
+  if (!val)
+    return val === 0 || val === '0' ? 0 : ''
+
+  val = val.toString()
+  if (val.split('.').length === 1)
+    return (val || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
+  else
+    return `${val.split('.')[0].replace(/(\d)(?=(?:\d{3})+$)/g, '$&,')}.${val.split('.')[1]}`
+}
