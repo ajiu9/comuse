@@ -61,3 +61,13 @@ import { openFile } from 'comuse-shared'
 
 openFile('https://example.com/file.txt')
 ```
+
+## toThousand
+
+### usage
+
+```ts
+import { toThousand } from 'comuse-shared'
+
+console.log(toThousand(1234567.89)) // '1,234,567'
+```
