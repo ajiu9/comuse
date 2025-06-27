@@ -186,9 +186,34 @@ export function randomString(length = 8, type: RandomStringType = 'mix'): string
  * @returns - uuid
  */
 export const uuid = (): string => {
-  // @ts-ignore
   const temp = ([1e7] + -1e3 + -4e3 + -8e3 + -1e11)
   return temp.replace(/[018]/g, (c: any) =>
     (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16),
   )
+}
+
+/**
+ * Open a file in the browser
+ *
+ * @param url - file url
+ */
+export function openFile(url: string) {
+  let fileRead: any = document.body.querySelector('#file-read')
+  let protocol = 'https:'
+  try {
+    protocol = parent?.location?.protocol
+  }
+  catch {}
+  url = url.replace('http:', protocol)
+  url = url.replace('https:', protocol)
+  if (fileRead)
+    fileRead.href = url
+  else {
+    fileRead = document.createElement('a')
+    fileRead.id = 'file-read'
+    fileRead.href = url
+    fileRead.setAttribute('target', '_blank')
+    document.body.appendChild(fileRead)
+  }
+  fileRead.click()
 }

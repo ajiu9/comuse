@@ -51,3 +51,13 @@ import { uuid } from 'comuse-shared'
 
 console.log(uuid()) // '4222fcfe-5721-4632-bede-6043885be57d'
 ```
+
+## openFile
+
+### usage
+
+```ts
+import { openFile } from 'comuse-shared'
+
+openFile('https://example.com/file.txt')
+```
