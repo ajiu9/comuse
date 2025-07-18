@@ -1,20 +1,27 @@
 <script setup lang="ts">
-import { clone } from 'comuse-shared'
+import { uuid } from 'comuse-shared'
 import { ref } from 'vue'
 
-const input = { fruit: 'banana', drink: 'water' }
+const out = ref([])
 
-const out = ref({
-  fruit: '',
-  drink: '',
-})
+const add = () => {
+  out.value.push(uuid())
+}
+
+const remove = (index: number) => {
+  out.value.splice(index, 1)
+}
 </script>
 
 <template>
-  <input v-model="out.fruit" type="text">
-  <input v-model="out.drink" type="text">
+  <div v-for="(item, index) in out" :key="item">
+    <span>{{ item }}</span>
+    <button @click="remove(index)">
+      remove
+    </button>
+  </div>
 
-  <button @click="() => out = clone(input)">
-    reset
+  <button @click="add">
+    add
   </button>
 </template>
