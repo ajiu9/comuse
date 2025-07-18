@@ -1,0 +1,1 @@
+const o=()=>`10000000-1000-4000-8000${-1e11}`.replace(/[018]/g,e=>(e^crypto.getRandomValues(new Uint8Array(1))[0]&15>>e/4).toString(16)),a=(t,e=0)=>Math.floor(Math.random()*(t-e))+e;export{a as g,o as u};
