@@ -19,6 +19,6 @@ const result = computed(() => parseUrlParam(url.value, covert.value))
   </div>
   <div>
     <strong class="block mb-1">Result:</strong>
-    <pre class="bg-gray-100 rounded p-3 text-sm overflow-x-auto">{{ result }}</pre>
+    <code>{{ result }}</code>
   </div>
 </template>
