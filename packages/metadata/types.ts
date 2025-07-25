@@ -58,3 +58,20 @@ export interface CommitInfo {
   author_name: string
   author_email: string
 }
+
+export interface VueUseFunction {
+  name: string
+  package: string
+  importPath?: string
+  lastUpdated?: number
+  category?: string
+  description?: string
+  docs?: string
+  deprecated?: boolean
+  internal?: boolean
+  component?: boolean
+  directive?: boolean
+  external?: string
+  alias?: string[]
+  related?: string[]
+}

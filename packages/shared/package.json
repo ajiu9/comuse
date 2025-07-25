@@ -11,17 +11,25 @@
     "directory": "packages/animation"
   },
   "keywords": [
+    "vue",
     "javaScript",
     "util"
   ],
   "sideEffects": false,
-  "main": "index.js",
-  "module": "dist/shared.esm-bundler.js",
-  "types": "dist/shared.d.cts",
+  "main": "./index.mjs",
+  "module": "./index.mjs",
+  "unpkg": "./index.iife.min.js",
+  "jsdelivr": "./index.iife.min.js",
+  "types": "./index.d.mts",
   "files": [
-    "dist",
-    "index.js"
+    "**/*.d.mts",
+    "**/*.js",
+    "**/*.mjs"
   ],
+  "scripts": {
+    "build": "rollup --config=rollup.config.ts --configPlugin=rollup-plugin-esbuild",
+    "prepack": "pnpm run build"
+  },
   "buildOptions": {
     "name": "shared",
     "formats": [

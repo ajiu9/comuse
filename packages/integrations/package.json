@@ -1,0 +1,45 @@
+{
+  "name": "comuse-integrations",
+  "version": "3.2.15",
+  "description": "Integration wrappers for utility libraries",
+  "author": "ajiu9 <615944323@qq.com> (https://github.com/ajiu9/)",
+  "license": "MIT",
+  "homepage": "https://github.com/ajiu9/comuse",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ajiu9/comuse",
+    "directory": "packages/comuse"
+  },
+  "keywords": [
+    "vue",
+    "javaScript",
+    "util"
+  ],
+  "sideEffects": false,
+  "main": "./index.mjs",
+  "module": "./index.mjs",
+  "unpkg": "./index.iife.min.js",
+  "jsdelivr": "./index.iife.min.js",
+  "types": "./index.d.mts",
+  "files": [
+    "**/*.d.mts",
+    "**/*.js",
+    "**/*.mjs"
+  ],
+  "scripts": {
+    "build": "rollup --config=rollup.config.ts --configPlugin=rollup-plugin-esbuild",
+    "prepack": "pnpm run build"
+  },
+  "dependencies": {
+    "comuse-core": "workspace:*",
+    "comuse-shared": "workspace:*"
+  },
+  "buildOptions": {
+    "name": "Comuse",
+    "formats": [
+      "esm-bundler",
+      "cjs",
+      "global"
+    ]
+  }
+}

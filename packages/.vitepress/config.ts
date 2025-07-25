@@ -1,7 +1,7 @@
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { defineConfig } from 'vitepress'
 import { currentVersion } from '../../meta/versions'
-import { categoryNames, coreCategoryNames, metadata } from '../metadata/metadata'
+import { addonCategoryNames, categoryNames, coreCategoryNames, metadata } from '../metadata/metadata'
 import viteConfig from './vite.config'
 
 const Guide = [
@@ -13,6 +13,15 @@ const CoreCategories = coreCategoryNames.map(c => ({
   activeMatch: '___', // never active
   link: `/functions#category=${c}`,
 }))
+
+const AddonCategories = [
+  ...addonCategoryNames
+    .map(c => ({
+      text: c.slice(1),
+      activeMatch: '___', // never active
+      link: `/functions#category=${encodeURIComponent(c)}`,
+    })),
+]
 
 const DefaultSideBar = [
   { text: 'Guide', items: Guide },
@@ -35,7 +44,6 @@ export default defineConfig({
       dark: 'vitesse-dark',
     },
     codeTransformers: [
-      // @ts-expect-error: Type mismatch between @shikijs/types versions
       transformerTwoslash(),
     ],
   },
@@ -65,16 +73,8 @@ export default defineConfig({
               { text: 'Recent Updated', link: '/functions#sort=updated' },
             ],
           },
-          {
-            text: 'Core', items: [
-              { text: 'Shared', link: '/functions#category=animation' },
-            ],
-          },
-          {
-            text: 'Shared', items: [
-              { text: 'Shared', link: '/functions#category=shared' },
-            ],
-          },
+          { text: 'Core', items: CoreCategories },
+          { text: 'Add-ons', items: AddonCategories },
         ],
       },
       {
@@ -93,6 +93,8 @@ export default defineConfig({
       '/functions': FunctionsSideBar,
       '/shared/': FunctionsSideBar,
       '/core/': FunctionsSideBar,
+      '/integrations/': FunctionsSideBar,
+
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/ajiu9/vistara' },

@@ -5,6 +5,7 @@ export default ajiu9({
   ignores: [
     '**/cache',
     '**/dist',
+    'playgrounds',
   ],
 },
 {
@@ -20,7 +21,14 @@ export default ajiu9({
   rules: {
     'no-alert': 'off',
     'no-console': 'off',
-    'no-proto': 'off',
-    'no-restricted-properties': 'off',
+    'no-undef': 'off',
+    'no-unused-vars': 'off',
+    'no-restricted-imports': 'off',
+    'vue/no-unused-vars': 'off',
+    'vue/no-unused-refs': 'off',
+    'vue/require-v-for-key': 'off',
+    'ts/no-unused-vars': 'off',
+    'ts/no-redeclare': 'off',
+    'unused-imports/no-unused-vars': 'off',
   },
 })

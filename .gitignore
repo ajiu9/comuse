@@ -10,5 +10,8 @@ cache
 .eslintcache
 .vitepress/cache
 
+packages/**/*.js
 packages/**/*.[cm]js
-!packages/**/index.js
+packages/**/*.d.ts
+packages/**/*.d.[cm]ts
+!packages/.vitepress/

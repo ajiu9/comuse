@@ -1,5 +1,5 @@
 {
-  "name": "comuse",
+  "name": "comuse-monorepo",
   "type": "module",
   "version": "3.2.15",
   "private": true,
@@ -18,7 +18,7 @@
     "node": ">=16.11.0"
   },
   "scripts": {
-    "build": "pnpm run update && node scripts/build.js",
+    "build": "pnpm run update &&pnpm -r run build",
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
     "release": "pnpm build && bumpp -r && pnpm -r publish --access public",
@@ -46,6 +46,7 @@
     "@vitest/coverage-v8": "2.1.5",
     "bumpp": "^9.11.1",
     "comuse-core": "workspace:*",
+    "comuse-integrations": "workspace:*",
     "comuse-metadata": "workspace:*",
     "comuse-shared": "workspace:*",
     "esbuild": "^0.19.12",
@@ -62,8 +63,10 @@
     "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-esbuild": "^5.0.0",
     "rollup-plugin-polyfill-node": "^0.12.0",
+    "rollup-plugin-pure": "^0.4.0",
     "simple-git": "^3.27.0",
     "simple-git-hooks": "^2.11.1",
+    "tinyglobby": "^0.2.14",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
     "unocss": "^0.62.4",

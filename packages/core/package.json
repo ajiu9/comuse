@@ -11,18 +11,35 @@
     "directory": "packages/comuse"
   },
   "keywords": [
+    "vue",
     "javaScript",
     "util"
   ],
   "sideEffects": false,
-  "main": "index.js",
-  "module": "dist/core.esm-bundler.js",
-  "types": "./dist/core.d.ts",
+  "exports": {
+    ".": "./index.mjs",
+    "./*": "./*",
+    "./metadata": "./metadata.mjs"
+  },
+  "main": "./index.mjs",
+  "module": "./index.mjs",
+  "unpkg": "./index.iife.min.js",
+  "jsdelivr": "./index.iife.min.js",
+  "types": "./index.d.mts",
   "files": [
-    "dist",
-    "index.js"
+    "*.d.mts",
+    "*.js",
+    "*.mjs"
   ],
+  "scripts": {
+    "build": "rollup --config=rollup.config.ts --configPlugin=rollup-plugin-esbuild",
+    "prepack": "pnpm run build"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
   "dependencies": {
+    "comuse-metadata": "workspace:*",
     "comuse-shared": "workspace:*"
   },
   "buildOptions": {

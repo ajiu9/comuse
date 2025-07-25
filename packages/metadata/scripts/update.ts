@@ -1,13 +1,14 @@
-import type { ComuseFunction, PackageIndexes } from 'comuse-metadata'
+import type { ComuseFunction, ComusePackage, PackageIndexes } from 'comuse-metadata'
 
 import { existsSync } from 'node:fs'
 import * as fs from 'node:fs/promises'
 import { join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import fg from 'fast-glob'
 import matter from 'gray-matter'
 import Git from 'simple-git'
+import { glob } from 'tinyglobby'
 import { packages } from '../../../meta/packages'
+import { getCategories } from '../utils'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 export const DIR_PACKAGE = resolve(__dirname, '..')
@@ -25,7 +26,7 @@ async function run() {
 run()
 
 export async function listFunctions(dir: string, ignore: string[] = []) {
-  const files = await fg('*', {
+  const files = await glob('*', {
     onlyDirectories: true,
     cwd: dir,
     ignore: [
@@ -36,7 +37,7 @@ export async function listFunctions(dir: string, ignore: string[] = []) {
     ],
   })
   files.sort()
-  return files
+  return files.map(path => path.endsWith('/') ? path.slice(0, -1) : path)
 }
 
 export async function readMetadata() {
@@ -52,10 +53,10 @@ export async function readMetadata() {
 
     const functions = await listFunctions(dir)
 
-    const pkg = {
+    const pkg: ComusePackage = {
       ...info,
       dir: relative(DIR_ROOT, dir).replace(/\\/g, '/'),
-      docs: undefined,
+      docs: info.addon ? `${DOCS_URL}/${info.name}/README.html` : undefined,
     }
 
     indexes.packages[info.name] = pkg
@@ -103,7 +104,7 @@ export async function readMetadata() {
       description = description.trim()
       description = description.charAt(0).toLowerCase() + description.slice(1)
 
-      fn.category = category
+      fn.category = ['core', 'shared'].includes(pkg.name) ? category : `@${pkg.display}`
       fn.description = description
 
       if (alias?.length)
@@ -136,21 +137,6 @@ export async function readMetadata() {
   indexes.functions.forEach(fn => fn.related?.sort())
 
   return indexes
-}
-
-export function getCategories(functions: ComuseFunction[]): string[] {
-  return uniq(
-    functions
-      .filter(i => !i.internal)
-      .map(i => i.category)
-      .filter(Boolean),
-  ).sort(
-    (a, b) => (a.startsWith('@') && !b.startsWith('@'))
-      ? 1
-      : (b.startsWith('@') && !a.startsWith('@'))
-          ? -1
-          : a.localeCompare(b),
-  )
 }
 
 export function uniq<T extends any[]>(a: T) {
