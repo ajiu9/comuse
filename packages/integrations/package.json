@@ -41,5 +41,10 @@
       "cjs",
       "global"
     ]
+  },
+  "devDependencies": {
+    "@types/qrcode": "^1.5.5",
+    "qrcode": "^1.5.4",
+    "vconsole": "^3.15.1"
   }
 }

@@ -45,9 +45,11 @@ export const packages: PackageManifest[] = [
     submodules: true,
     external: [
       'qrcode',
+      'vconsole',
     ],
     globals: {
       qrcode: 'QRCode',
+      vconsole: 'VConsole',
     },
   },
 ]

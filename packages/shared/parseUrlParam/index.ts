@@ -15,7 +15,7 @@ import { pattern } from '../utils/pattern'
  * @param covert - Converts a specific string to a corresponding value (Scientific notation, binary, octal and hexadecimal types of data are not converted, like: 0b111, 0o13, 0xFF, 1e3, -1e-2)
  * @returns object
  */
-function parseUrlParam(url: string, covert = false) {
+export function parseUrlParam(url: string, covert = false) {
   if (!url) {
     // eslint-disable-next-line no-console
     console.info('url is required')
@@ -48,5 +48,3 @@ function parseUrlParam(url: string, covert = false) {
   if (covert) return result as Record<string, unknown>
   return result as Record<string, string>
 }
-
-export default parseUrlParam

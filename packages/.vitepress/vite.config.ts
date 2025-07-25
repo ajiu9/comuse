@@ -57,6 +57,10 @@ export default defineConfig({
       'comuse-shared',
       'comuse-core',
     ],
+    include: [
+      'qrcode',
+      'vconsole',
+    ],
   },
   build: {
     rollupOptions: {
