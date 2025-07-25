@@ -1,6 +1,5 @@
-import type { Ref } from 'vue'
+import type VConsole from 'vconsole'
 import { getUrlParam, inBrowser } from 'comuse-shared'
-import VConsole from 'vconsole'
 import { shallowRef } from 'vue'
 
 declare global {
@@ -9,25 +8,20 @@ declare global {
   }
 }
 
-let vConsole: Ref<VConsole | null>
-const defaultOptions = {
-  debug: false,
-  hostname: [],
-}
+let vConsole: ReturnType<typeof shallowRef<VConsole | null>>
 
 export interface UseVConsoleOptions {
   debug: boolean
   hostname: string[]
 }
 
-export function useVConsole(options: Partial<UseVConsoleOptions> = {}) {
+const defaultOptions: UseVConsoleOptions = {
+  debug: false,
+  hostname: [],
+}
+
+export async function useVConsole(options: Partial<UseVConsoleOptions> = {}) {
   if (!inBrowser) return
-  if (!VConsole) {
-    console.warn(
-      '[comuse-integrations] no "VConsole" instance found, please be sure to import `vConsole` before `comuse-integrations`.',
-    )
-    return
-  }
 
   options = Object.assign({}, defaultOptions, {
     debug: !!getUrlParam('debug'),
@@ -36,8 +30,10 @@ export function useVConsole(options: Partial<UseVConsoleOptions> = {}) {
 
   if (!vConsole) {
     vConsole = shallowRef(null)
-    if (options.debug || options.hostname?.includes(window.location.hostname))
+    if (options.debug || options.hostname?.includes(window.location.hostname)) {
+      const { default: VConsole } = await import('vconsole')
       window.vConsole = vConsole.value = new VConsole()
+    }
   }
 
   return vConsole
