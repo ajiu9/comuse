@@ -24,7 +24,6 @@ export async function useVConsole(options: Partial<UseVConsoleOptions> = {}) {
   if (!vConsole) {
     vConsole = shallowRef(null)
     if (options.debug || options.hostname?.includes(window.location.hostname)) {
-      // 这里不做类型推断，直接 any
       const { default: VConsole } = await import('vconsole')
       ;(window as any).vConsole = vConsole.value = new VConsole()
     }
