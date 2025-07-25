@@ -50,6 +50,7 @@ export default defineConfig({
       'comuse-core': resolve(__dirname, '../core/index.ts'),
       'comuse-metadata': resolve(__dirname, '../metadata/index.ts'),
       'comuse-shared': resolve(__dirname, '../shared/index.ts'),
+      'comuse-integrations': resolve(__dirname, '../integrations/index.ts'),
     },
   },
   optimizeDeps: {
