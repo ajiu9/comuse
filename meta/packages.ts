@@ -31,16 +31,23 @@ export const packages: PackageManifest[] = [
     manualImport: true,
     iife: false,
     utils: true,
-    external: [
-      'comuse-metadata',
-    ],
   },
   {
     name: 'shared',
     display: 'Shared',
     description: 'Shared utilities',
+  },
+  {
+    name: 'integrations',
+    display: 'Integrations',
+    description: 'Integration wrappers for utility libraries',
+    addon: true,
+    submodules: true,
     external: [
-      'comuse-shared',
+      'qrcode',
     ],
+    globals: {
+      qrcode: 'QRCode',
+    },
   },
 ]

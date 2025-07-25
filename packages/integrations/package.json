@@ -1,14 +1,14 @@
 {
-  "name": "comuse-shared",
+  "name": "comuse-integrations",
   "version": "3.2.15",
-  "description": "",
+  "description": "Integration wrappers for utility libraries",
   "author": "ajiu9 <615944323@qq.com> (https://github.com/ajiu9/)",
   "license": "MIT",
   "homepage": "https://github.com/ajiu9/comuse",
   "repository": {
     "type": "git",
     "url": "https://github.com/ajiu9/comuse",
-    "directory": "packages/animation"
+    "directory": "packages/comuse"
   },
   "keywords": [
     "vue",
@@ -30,12 +30,16 @@
     "build": "rollup --config=rollup.config.ts --configPlugin=rollup-plugin-esbuild",
     "prepack": "pnpm run build"
   },
+  "dependencies": {
+    "comuse-core": "workspace:*",
+    "comuse-shared": "workspace:*"
+  },
   "buildOptions": {
-    "name": "shared",
+    "name": "Comuse",
     "formats": [
       "esm-bundler",
       "cjs",
-      "dts"
+      "global"
     ]
   }
 }

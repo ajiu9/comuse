@@ -2,12 +2,19 @@
   "name": "comuse-metadata",
   "version": "3.2.15",
   "description": "comuse metadata",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/metadata.d.ts",
+  "main": "./index.mjs",
+  "module": "./index.mjs",
+  "types": "./index.d.mts",
+  "files": [
+    "*.d.mts",
+    "*.js",
+    "*.mjs",
+    "index.json"
+  ],
   "scripts": {
-    "update": "tsx scripts/update",
-    "build": "rollup --config=rollup.config.ts --configPlugin=rollup-plugin-esbuild"
+    "update": "tsx scripts/update.ts",
+    "build": "rollup --config=rollup.config.ts --configPlugin=rollup-plugin-esbuild",
+    "prepack": "pnpm run build"
   },
   "buildOptions": {
     "name": "comuse-metadata",

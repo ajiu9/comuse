@@ -11,6 +11,7 @@
     "directory": "packages/comuse"
   },
   "keywords": [
+    "vue",
     "javaScript",
     "util"
   ],
@@ -23,6 +24,7 @@
     "index.js"
   ],
   "dependencies": {
+    "comuse-metadata": "workspace:*",
     "comuse-shared": "workspace:*"
   },
   "buildOptions": {
