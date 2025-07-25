@@ -1,4 +1,43 @@
 import ajiu9 from '@ajiu9/eslint-config'
+import { getUrlParam, inBrowser } from 'comuse-shared'
+import { shallowRef } from 'vue'
+
+declare global {
+  interface Window {
+    vConsole?: any // 用 any 或者自己写一个简单的类型
+  }
+}
+
+let vConsole: ReturnType<typeof shallowRef<any | null>>
+
+export interface UseVConsoleOptions {
+  debug: boolean
+  hostname: string[]
+}
+
+const defaultOptions: UseVConsoleOptions = {
+  debug: false,
+  hostname: [],
+}
+
+export async function useVConsole(options: Partial<UseVConsoleOptions> = {}) {
+  if (!inBrowser) return
+
+  options = Object.assign({}, defaultOptions, {
+    debug: !!getUrlParam('debug'),
+    ...options,
+  })
+
+  if (!vConsole) {
+    vConsole = shallowRef(null)
+    if (options.debug || options.hostname?.includes(window.location.hostname)) {
+      const { default: VConsole } = await import('vconsole')
+      window.vConsole = vConsole.value = new VConsole()
+    }
+  }
+
+  return vConsole
+}
 
 export default ajiu9({
   formatters: true,

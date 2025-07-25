@@ -1,14 +1,7 @@
-import type VConsole from 'vconsole'
 import { getUrlParam, inBrowser } from 'comuse-shared'
 import { shallowRef } from 'vue'
 
-declare global {
-  interface Window {
-    vConsole?: VConsole
-  }
-}
-
-let vConsole: ReturnType<typeof shallowRef<VConsole | null>>
+let vConsole: ReturnType<typeof shallowRef<any | null>>
 
 export interface UseVConsoleOptions {
   debug: boolean
@@ -32,7 +25,7 @@ export async function useVConsole(options: Partial<UseVConsoleOptions> = {}) {
     vConsole = shallowRef(null)
     if (options.debug || options.hostname?.includes(window.location.hostname)) {
       const { default: VConsole } = await import('vconsole')
-      window.vConsole = vConsole.value = new VConsole()
+      ;(window as Window & { vConsole?: InstanceType<typeof VConsole> }).vConsole = vConsole.value = new VConsole()
     }
   }
 
