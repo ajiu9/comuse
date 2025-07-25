@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import parseUrlParam from './index'
+import { parseUrlParam } from './index'
 
 const url = ref('?a=1&b=true&c=null&d=undefined&e=NaN&f=10.5&g=Infinity&h=test')
 const covert = ref(false)

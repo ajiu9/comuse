@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import parseUrlParam from './index'
+import { parseUrlParam } from './index'
 
 describe('parseUrlParam', () => {
   it('should parse string values without convert', () => {
