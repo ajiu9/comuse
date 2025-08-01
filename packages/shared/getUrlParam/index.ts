@@ -12,7 +12,6 @@ import { parseUrlParam } from '../parseUrlParam'
  * getUrlParam('key1', 'https://test.com?key1=100#/home?key1=200')
  * // key1 => 100
  * ```
- * @since 5.0.0
  * @param key - key name
  * @param url - pass in the url string
  * @returns - result

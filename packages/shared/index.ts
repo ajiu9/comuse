@@ -17,6 +17,7 @@ export * from './parseUrlParam'
 export * from './promise'
 export * from './rand'
 export * from './removeEvent'
+export * from './types'
 export * from './utils'
 export * from './windowPrint'
 

@@ -5,6 +5,10 @@
 <img alt="Function Count" src="https://ajiu9.cn/comuse/badge-function-count.svg">
 </p>
 
+:::tip
+some copy from [vueuse](https://vueuse.org/)
+:::
+
 ## 🚀 Features
 
 - 🎪 [**Interactive docs & demos**](https://ajiu9.cn/comuse)

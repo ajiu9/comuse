@@ -15,6 +15,7 @@ const categoriesOrder = [
   'Time',
   'Utilities',
   'Env',
+  'Reactivity',
 ]
 
 export const metadata = _metadata as PackageIndexes
