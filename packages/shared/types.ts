@@ -9,3 +9,5 @@ export type Nullable<T> = T | null | undefined
 export type Arrayable<T> = T | Array<T>
 
 export type AnyFn = (...args: any[]) => any
+
+export type Awaitable<T> = Promise<T> | T

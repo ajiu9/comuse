@@ -6,8 +6,6 @@ import {
 
 /**
  * Mounted state in ref.
- *
- * @see https://vueuse.org/useMounted
  */
 export function useMounted() {
   const isMounted = shallowRef(false)

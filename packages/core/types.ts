@@ -1,7 +1,6 @@
-import type { MaybeRef, MaybeRefOrGetter, Ref } from 'vue'
+import type { ComponentPublicInstance, MaybeRef, MaybeRefOrGetter, Ref, WatchOptions } from 'vue'
 
 export type Fn = () => void
-export type AnyFn = (...args: any[]) => any
 export type ShallowUnwrapRef<T> = T extends Ref<infer P> ? P : T
 
 /**
@@ -12,23 +11,6 @@ export type ElementOf<T> = T extends (infer E)[] ? E : never
 export type {
   MaybeRef,
   MaybeRefOrGetter,
-}
-
-export interface Pausable {
-  /**
-   * A ref indicate whether a pausable instance is active
-   */
-  isActive: Readonly<Ref<boolean>>
-
-  /**
-   * Temporary pause the effect from executing
-   */
-  pause: Fn
-
-  /**
-   * Resume the effects
-   */
-  resume: Fn
 }
 
 export interface UseConvertObjectKeysReturn {
@@ -46,4 +28,27 @@ export interface UseConvertObjectKeysReturn {
    * Convert object keys between camelCase and snake_case
    */
   convertObjectKeys: (obj: Record<string, any>, toSnake?: boolean) => Record<string, any>
+}
+
+export type VueInstance = ComponentPublicInstance
+
+export type MaybeElementRef<T extends MaybeElement = MaybeElement> = MaybeRef<T>
+export type MaybeComputedElementRef<T extends MaybeElement = MaybeElement> = MaybeRefOrGetter<T>
+export type MaybeElement = HTMLElement | SVGElement | VueInstance | undefined | null
+
+/**
+ * A ref that allow to set null or undefined
+ */
+export type RemovableRef<T> = Omit<Ref<T>, 'value'> & {
+  get value(): T
+  set value(value: T | null | undefined)
+}
+
+export interface ConfigurableFlush {
+  /**
+   * Timing for monitoring changes, refer to WatchOptions for more details
+   *
+   * @default 'pre'
+   */
+  flush?: WatchOptions['flush']
 }

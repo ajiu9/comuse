@@ -1,7 +1,8 @@
-import type { AnyFn, MaybeRefOrGetter } from '../types'
-import type { ArgumentsType, Promisify } from './types'
+import type { AnyFn } from 'comuse-shared'
+import type { MaybeRefOrGetter } from '../types'
+import type { ArgumentsType, Pausable, Promisify } from './types'
 import { NOOP } from 'comuse-shared'
-import { isRef, toValue } from 'vue'
+import { isRef, readonly, toRef, toValue } from 'vue'
 
 export type FunctionArgs<Args extends any[] = any[], Return = void> = (...args: Args) => Return
 
@@ -29,6 +30,15 @@ export interface DebounceFilterOptions {
    * @default false
    */
   rejectOnCancel?: boolean
+}
+
+export interface ConfigurableEventFilter {
+  /**
+   * Filter for if events should to be received.
+   *
+   * @see https://vueuse.org/guide/config.html#event-filters
+   */
+  eventFilter?: EventFilter
 }
 
 export interface ThrottleFilterOptions {
@@ -64,6 +74,10 @@ export function createFilterWrapper<T extends AnyFn>(filter: EventFilter, fn: T)
   }
 
   return wrapper
+}
+
+export const bypassFilter: EventFilter = (invoke) => {
+  return invoke()
 }
 
 /**
@@ -194,4 +208,41 @@ export function throttleFilter(...args: any[]) {
   }
 
   return filter
+}
+
+export interface PausableFilterOptions {
+  /**
+   * The initial state
+   *
+   * @default 'active'
+   */
+  initialState?: 'active' | 'paused'
+}
+
+/**
+ * EventFilter that gives extra controls to pause and resume the filter
+ *
+ * @param extendFilter  Extra filter to apply when the PausableFilter is active, default to none
+ * @param options Options to configure the filter
+ */
+export function pausableFilter(extendFilter: EventFilter = bypassFilter, options: PausableFilterOptions = {}): Pausable & { eventFilter: EventFilter } {
+  const {
+    initialState = 'active',
+  } = options
+
+  const isActive = toRef(initialState === 'active')
+
+  function pause() {
+    isActive.value = false
+  }
+  function resume() {
+    isActive.value = true
+  }
+
+  const eventFilter: EventFilter = (...args) => {
+    if (isActive.value)
+      extendFilter(...args)
+  }
+
+  return { isActive: readonly(isActive), pause, resume, eventFilter }
 }

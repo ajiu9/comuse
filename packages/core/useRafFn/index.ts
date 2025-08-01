@@ -1,5 +1,6 @@
 import type { ConfigurableWindow } from '../_configurable'
-import type { MaybeRefOrGetter, Pausable } from '../types'
+import type { MaybeRefOrGetter } from '../types'
+import type { Pausable } from '../utils/types'
 import { computed, readonly, ref, toValue } from 'vue'
 import { defaultWindow } from '../_configurable'
 import { tryOnScopeDispose } from '../tryOnScopeDispose'
