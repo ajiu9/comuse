@@ -1,6 +1,6 @@
 {
   "name": "comuse-metadata",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "comuse metadata",
   "main": "./index.mjs",
   "module": "./index.mjs",
