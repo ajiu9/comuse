@@ -1,13 +1,13 @@
 <p align="center">
-<a href="https://www.npmjs.com/package/comuse" target="__blank"><img src="https://img.shields.io/npm/v/comuse?color=a1b858&label=" alt="NPM version"></a>
-<a href="https://www.npmjs.com/package/comuse" target="__blank"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/comuse?color=50a36f&label="></a>
+<a href="https://www.npmjs.com/package/comuse-core" target="__blank"><img src="https://img.shields.io/npm/v/comuse-core?color=a1b858&label=" alt="NPM version"></a>
+<a href="https://www.npmjs.com/package/comuse" target="__blank"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/comuse-core?color=50a36f&label="></a>
 <a href="https://ajiu9.cn/comuse" target="__blank"><img src="https://img.shields.io/static/v1?label=&message=docs%20%26%20demos&color=1e8a7a" alt="Docs & Demos"></a>
-<img alt="Function Count" src="https://ajiu9.cn/comuse/badge-function-count.svg">
+<br>
+<a href="https://github.com/ajiu9/comuse" target="__blank"><img alt="GitHub stars" src="https://img.shields.io/github/stars/ajiu9/comuse?style=social"></a>
+</p>
 </p>
 
-:::tip
-some copy from [vueuse](https://vueuse.org/)
-:::
+> some of the copy from [vueuse](https://vueuse.org/)
 
 ## 🚀 Features
 
