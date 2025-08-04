@@ -14,7 +14,7 @@ const defaultOptions: UseVConsoleOptions = {
 }
 
 export async function useVConsole(options: Partial<UseVConsoleOptions> = {}) {
-  if (!inBrowser) return
+  if (!inBrowser()) return
 
   options = Object.assign({}, defaultOptions, {
     debug: !!getUrlParam('debug'),
