@@ -1,5 +1,4 @@
 import type { Animation, TimelineState } from './types'
-import { isClient } from '../utils'
 
 const TICK = Symbol('tick')
 const TICK_HANDLER = Symbol('tick-handler')
@@ -49,9 +48,7 @@ export class TimeLine {
         }
         if (t > 0) animation.receiveTime(t)
       }
-      // 只在浏览器环境中使用 requestAnimationFrame
-      if (isClient && typeof requestAnimationFrame !== 'undefined')
-        this[TICK_HANDLER] = requestAnimationFrame(this[TICK])
+      this[TICK_HANDLER] = requestAnimationFrame(this[TICK])
     }
     this[TICK]()
   }
@@ -65,8 +62,7 @@ export class TimeLine {
   pause() {
     this.state = 'paused'
     this[PAUSE_START] = Date.now()
-    if (this[TICK_HANDLER] !== null && isClient && typeof cancelAnimationFrame !== 'undefined')
-      cancelAnimationFrame(this[TICK_HANDLER])
+    if (this[TICK_HANDLER] !== null) cancelAnimationFrame(this[TICK_HANDLER])
   }
 
   resume() {
