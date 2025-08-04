@@ -23,7 +23,7 @@ export async function useVConsole(options: Partial<UseVConsoleOptions> = {}) {
 
   if (!vConsole) {
     vConsole = shallowRef(null)
-    if (options.debug || options.hostname?.includes(window.location.hostname)) {
+    if (options.debug || options.hostname?.includes(window?.location?.hostname)) {
       const { default: VConsole } = await import('vconsole')
       ;(window as any).vConsole = vConsole.value = new VConsole()
     }
