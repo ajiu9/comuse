@@ -30,7 +30,7 @@ export function getUrlParam(key: string, url?: string): string | undefined {
       console.info('url is required')
       return undefined
     }
-    url = location.search
+    url = location?.search || ''
   }
   else
     url = url.slice(url.indexOf('?')).split('#')[0]
