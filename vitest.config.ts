@@ -21,4 +21,12 @@ export default defineConfig({
       exclude: ['./packages/**/demo.vue'],
     },
   },
+  ssr: {
+    noExternal: [
+      'comuse-shared',
+      'comuse-core',
+      'comuse-metadata',
+      'comuse-integrations',
+    ],
+  },
 })
