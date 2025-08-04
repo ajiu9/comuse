@@ -23,10 +23,7 @@ export default defineConfig({
   },
   ssr: {
     noExternal: [
-      'comuse-shared',
-      'comuse-core',
-      'comuse-metadata',
-      'comuse-integrations',
+      /comuse-.*/,
     ],
   },
 })
