@@ -73,4 +73,14 @@ export default defineConfig({
       },
     },
   },
+  css: {
+    postcss: {
+      plugins: [],
+    },
+  },
+  ssr: {
+    noExternal: [
+      '@vue/repl',
+    ],
+  },
 })
