@@ -1,4 +1,4 @@
-import type { PackageIndexes, PackageManifest } from '@vueuse/metadata'
+import type { PackageIndexes, PackageManifest } from 'comuse-metadata'
 import type { OutputOptions, RollupOptions } from 'rollup'
 import type { Options as ESBuildOptions } from 'rollup-plugin-esbuild'
 import fs from 'node:fs'
