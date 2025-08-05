@@ -18,7 +18,7 @@ Pausable watch
 Use as normal the `watch`, but return extra `pause()` and `resume()` functions to control.
 
 ```ts
-import { watchPausable } from '@vueuse/core'
+import { watchPausable } from 'comuse-core'
 import { nextTick, shallowRef } from 'vue'
 
 const source = shallowRef('foo')

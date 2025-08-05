@@ -25,7 +25,7 @@ export function getUrlParam(key: string, url?: string): string | undefined {
     return undefined
   }
   else if (!url) {
-    if (!inBrowser) {
+    if (!inBrowser()) {
       // eslint-disable-next-line no-console
       console.info('url is required')
       return undefined

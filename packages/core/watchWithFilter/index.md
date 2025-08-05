@@ -11,7 +11,7 @@ category: Watch
 Similar to `watch`, but offering an extra option `eventFilter` which will be applied to the callback function.
 
 ```ts
-import { debounceFilter, watchWithFilter } from '@vueuse/core'
+import { debounceFilter, watchWithFilter } from 'conuse-core'
 
 watchWithFilter(
   source,

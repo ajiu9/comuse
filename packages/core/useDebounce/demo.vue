@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useDebounce } from '@vueuse/core'
+import { useDebounce } from 'comuse-core'
 import { shallowRef } from 'vue'
 
 const updated = shallowRef(0)
