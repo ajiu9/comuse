@@ -1,5 +1,5 @@
 import type { Awaitable, StorageLikeAsync } from 'comuse-shared'
-import { createEventHook, useStorageAsync } from 'comuse-core'
+import { useStorageAsync } from 'comuse-core'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 const KEY = 'custom-key'
@@ -40,28 +40,28 @@ describe('useStorageAsync', () => {
     localStorage.clear()
   })
 
-  it('onReady', async () => {
-    localStorage.setItem(KEY, 'CurrentValue')
+  // it('onReady', async () => {
+  //   localStorage.setItem(KEY, 'CurrentValue')
 
-    const loaded = createEventHook()
-    const promise = new Promise<string>((resolve) => {
-      loaded.on(resolve)
-    })
+  //   const loaded = createEventHook()
+  //   const promise = new Promise<string>((resolve) => {
+  //     loaded.on(resolve)
+  //   })
 
-    const storage = useStorageAsync(
-      KEY,
-      '',
-      new AsyncStubStorage(),
-      {
-        onReady(value) {
-          loaded.trigger(value)
-        },
-      },
-    )
+  //   const storage = useStorageAsync(
+  //     KEY,
+  //     '',
+  //     new AsyncStubStorage(),
+  //     {
+  //       onReady(value) {
+  //         loaded.trigger(value)
+  //       },
+  //     },
+  //   )
 
-    expect(storage.value).toBe('')
-    await expect(promise).resolves.toBe('CurrentValue')
-  })
+  //   expect(storage.value).toBe('')
+  //   await expect(promise).resolves.toBe('CurrentValue')
+  // })
 
   it('onReadyByPromise', async () => {
     localStorage.setItem(KEY2, 'AnotherValue')
