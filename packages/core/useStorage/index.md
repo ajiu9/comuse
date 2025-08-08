@@ -104,3 +104,105 @@ import { StorageSerializers, useStorage } from 'comuse-core'
 const objectLike = useStorage('key', null, undefined, { serializer: StorageSerializers.object })
 objectLike.value = { foo: 'bar' }
 ```
+
+## 微信小程序适配示例
+
+```ts
+import type { StorageLike } from 'comuse-core/ssr-handlers'
+import { useStorage } from 'comuse-core'
+
+const wxStorage: StorageLike = {
+  getItem(key) {
+    try {
+      const v = wx.getStorageSync(key)
+      if (v === undefined || v === null) return null
+      return typeof v === 'string' ? v : JSON.stringify(v)
+    }
+    catch {
+      return null
+    }
+  },
+  setItem(key, value) {
+    try { wx.setStorageSync(key, value) }
+    catch {}
+  },
+  removeItem(key) {
+    try { wx.removeStorageSync(key) }
+    catch {}
+  },
+}
+
+// usage (disable cross-document listener)
+const state = useStorage('comuse-local-storage', { foo: 1 }, wxStorage, {
+  listenToStorageChanges: false,
+  initOnMounted: false,
+})
+```
+
+use Taro
+
+```ts
+import type { StorageLike } from 'comuse-core'
+import { getStorageSync, removeStorageSync, setStorageSync } from '@tarojs/taro'
+
+export const wxStorage: StorageLike = {
+  getItem(key) {
+    try {
+      const v = getStorageSync(key)
+      if (v === undefined || v === null) return null
+      return typeof v === 'string' ? v : JSON.stringify(v)
+    }
+    catch {
+      return null
+    }
+  },
+  setItem(key, value) {
+    try {
+      setStorageSync(key, value)
+    }
+    catch {}
+  },
+  removeItem(key) {
+    try {
+      removeStorageSync(key)
+    }
+    catch {}
+  },
+}
+```
+
+useStorageAsync
+
+```ts
+import type { StorageLikeAsync } from 'comuse-core/ssr-handlers'
+import { useStorageAsync } from 'comuse-core/useStorageAsync'
+
+const wxStorageAsync: StorageLikeAsync = {
+  getItem(key) {
+    return new Promise((resolve) => {
+      wx.getStorage({
+        key, success: res => resolve(
+          typeof res?.data === 'string' ? res.data : JSON.stringify(res?.data ?? null)
+        ), fail: () => resolve(null)
+      })
+    })
+  },
+  setItem(key, value) {
+    return new Promise((resolve) => {
+      wx.setStorage({ key, data: value, complete: () => resolve() })
+    })
+  },
+  removeItem(key) {
+    return new Promise((resolve) => {
+      wx.removeStorage({ key, complete: () => resolve() })
+    })
+  },
+}
+
+const state = await useStorageAsync('comuse-local-storage', { foo: 1 }, wxStorageAsync, {
+  listenToStorageChanges: false,
+  initOnMounted: false,
+})
+```
+
+- [微信小程序存储能力](https://developers.weixin.qq.com/miniprogram/dev/framework/ability/storage.html)。

@@ -34,6 +34,8 @@ const externals = [
   /comuse-.*/,
 ]
 
+const isWatch = !!process.env.ROLLUP_WATCH
+
 export function createRollupConfig(
   pkg: PackageManifest,
   cwd = process.cwd(),
@@ -116,7 +118,7 @@ export function createRollupConfig(
       ],
     })
 
-    if (dts !== false) {
+    if (dts !== false && !isWatch) {
       configs.push({
         input,
         output: [
