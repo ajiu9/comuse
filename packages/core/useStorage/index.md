@@ -123,11 +123,15 @@ const wxStorage: StorageLike = {
     }
   },
   setItem(key, value) {
-    try { wx.setStorageSync(key, value) }
+    try {
+      wx.setStorageSync(key, value)
+    }
     catch {}
   },
   removeItem(key) {
-    try { wx.removeStorageSync(key) }
+    try {
+      wx.removeStorageSync(key)
+    }
     catch {}
   },
 }
@@ -135,7 +139,6 @@ const wxStorage: StorageLike = {
 // usage (disable cross-document listener)
 const state = useStorage('comuse-local-storage', { foo: 1 }, wxStorage, {
   listenToStorageChanges: false,
-  initOnMounted: false,
 })
 ```
 

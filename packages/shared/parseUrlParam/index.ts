@@ -1,6 +1,31 @@
 import { pattern } from '../utils/pattern'
 
 /**
+ * Convert string value to appropriate type
+ * @param value - string value to convert
+ * @returns converted value
+ */
+function convertValue(value: string): unknown {
+  const VALUE_MAP = {
+    'null': null,
+    undefined,
+    'true': true,
+    'false': false,
+    NaN,
+    Infinity,
+    '-Infinity': -Infinity,
+  }
+
+  if (value in VALUE_MAP)
+    return VALUE_MAP[value as keyof typeof VALUE_MAP]
+
+  if (pattern.number.test(value))
+    return Number(value)
+
+  return value
+}
+
+/**
  * parse url params
  *
  * @example
@@ -24,27 +49,22 @@ export function parseUrlParam(url: string, covert = false) {
 
   url = url.substring(url.lastIndexOf('?') + 1) // delete string before "?"
 
-  const VALUE_MAP = {
-    'null': null,
-    undefined,
-    'true': true,
-    'false': false,
-    NaN,
-    Infinity,
-    '-Infinity': -Infinity,
-  }
   const result: Record<string, unknown> = {}
 
-  url.replace(/([^?&=]+)=([^?&=]*)/g, (rs: string, $1: string, $2: string) => {
-    const key = decodeURIComponent($1)
-    $2 = decodeURIComponent($2)
-    result[key] = $2
-    if (covert) {
-      if ($2 in VALUE_MAP) result[key] = VALUE_MAP[$2 as keyof typeof VALUE_MAP]
-      else if (pattern.number.test($2)) result[key] = Number($2)
-    }
-    return rs
+  // Extract all key-value pairs using regex
+  const params = url.match(/([^?&=]+)=([^?&=]*)/g) || []
+
+  params.forEach((param) => {
+    const [key, value] = param.split('=')
+    const decodedKey = decodeURIComponent(key)
+    const decodedValue = decodeURIComponent(value)
+
+    if (covert)
+      result[decodedKey] = convertValue(decodedValue)
+    else
+      result[decodedKey] = decodedValue
   })
+
   if (covert) return result as Record<string, unknown>
   return result as Record<string, string>
 }

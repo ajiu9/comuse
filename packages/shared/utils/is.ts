@@ -1,7 +1,5 @@
 import type { AnyFn } from '../types'
 
-export const isClient = typeof window !== 'undefined' && typeof document !== 'undefined'
-
 const toString = Object.prototype.toString
 export const toTypeString = (value: unknown): string => toString.call(value)
 export const isObject = (val: any): val is object => toString.call(val) === '[object Object]'

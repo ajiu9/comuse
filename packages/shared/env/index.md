@@ -17,13 +17,13 @@ const version = osVersion()
 console.log(version)
 ```
 
-### inBrowser
+### isClient
 
 ```ts
-import { inBrowser } from 'comuse-shared'
+import { isClient } from 'comuse-shared'
 
-if (inBrowser())
-  console.log('Browser')
+if (isClient)
+  console.log('isClient')
 ```
 
 ### isAlipay
