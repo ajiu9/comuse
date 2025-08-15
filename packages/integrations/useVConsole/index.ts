@@ -1,4 +1,4 @@
-import { getUrlParam, inBrowser } from 'comuse-shared'
+import { getUrlParam, isClient } from 'comuse-shared'
 import { shallowRef } from 'vue'
 
 let vConsole: ReturnType<typeof shallowRef<any | null>>
@@ -14,7 +14,7 @@ const defaultOptions: UseVConsoleOptions = {
 }
 
 export async function useVConsole(options: Partial<UseVConsoleOptions> = {}) {
-  if (!inBrowser()) return
+  if (!isClient) return
 
   options = Object.assign({}, defaultOptions, {
     debug: !!getUrlParam('debug'),

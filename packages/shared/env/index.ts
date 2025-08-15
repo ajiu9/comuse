@@ -2,7 +2,7 @@ export const isWechat = () => navigator.userAgent.toLowerCase().includes('microm
 
 export const isAlipay = () => navigator.userAgent.toLowerCase().includes('alipayclient')
 
-export const inBrowser = () => typeof window !== 'undefined'
+export const isClient = typeof window !== 'undefined' && typeof document !== 'undefined'
 
 export interface OsVersion {
   name: 'Windows' | 'MacOS' | 'Android' | 'iOS' | 'WindowsPhone' | 'Debian' | 'WebOS' | 'Harmony'
@@ -39,7 +39,7 @@ export interface OsVersion {
  */
 export function osVersion(ua?: string): OsVersion | null {
   if (!ua) {
-    if (!inBrowser()) {
+    if (!isClient) {
       // eslint-disable-next-line no-console
       console.info('url is required')
       return null
