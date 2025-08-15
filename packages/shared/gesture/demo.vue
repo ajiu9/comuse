@@ -116,10 +116,10 @@ onMounted(() => {
         box.value.style.transform = `translate(${currentX}px, ${currentY}px)`
 
         if ((Math.abs(currentVx) > 0.1 || Math.abs(currentVy) > 0.1) && !(currentVx === 0 && currentVy === 0))
-          window.requestAnimationFrame(animate)
+          window?.requestAnimationFrame(animate)
       }
 
-      window.requestAnimationFrame(animate)
+      window?.requestAnimationFrame(animate)
     }
   })
 
