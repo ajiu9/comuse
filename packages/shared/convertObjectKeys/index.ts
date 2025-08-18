@@ -29,7 +29,8 @@ export function camelToSnake(str: string): string {
  * @param converter 转换函数 (snakeToCamel 或 camelToSnake)
  * @returns 转换后的新对象
  */
-export function convertObjectKeys(obj: Record<string, any>, converter: (str: string) => string): Record<string, any> {
+// 增加是否递归转换
+export function convertObjectKeys(obj: Record<string, any>, converter: (str: string) => string, recursive = true): Record<string, any> {
   if (!obj || typeof obj !== 'object' || Array.isArray(obj))
     return obj
 
@@ -37,8 +38,26 @@ export function convertObjectKeys(obj: Record<string, any>, converter: (str: str
 
   for (const key in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, key)) {
-      const newKey = converter(key)
-      result[newKey] = obj[key]
+      // 递归转换嵌套对象
+      if (recursive) {
+        if (typeof obj[key] === 'object' && !Array.isArray(obj[key]))
+          result[converter(key)] = convertObjectKeys(obj[key], converter, recursive)
+        else if (Array.isArray(obj[key])) {
+          result[converter(key)] = obj[key].map((item: any) => {
+            if (typeof item === 'object')
+              return convertObjectKeys(item, converter, recursive)
+            return item
+          })
+        }
+        else {
+          const newKey = converter(key)
+          result[newKey] = obj[key]
+        }
+      }
+      else {
+        const newKey = converter(key)
+        result[newKey] = obj[key]
+      }
     }
   }
 
