@@ -35,3 +35,56 @@ describe('snakeToCamel', () => {
     expect(result).toBe('snakeCase')
   })
 })
+
+// recursive
+describe('convertObjectKeys recursive true', () => {
+  it('should convert nested object keys', () => {
+    const obj = {
+      nested: {
+        camelCaseKey: 'value',
+      },
+    }
+    const result = convertObjectKeys(obj, camelToSnake)
+    expect(result).toEqual({
+      nested: {
+        camel_case_key: 'value',
+      },
+    })
+  })
+  // array
+  it('should convert array', () => {
+    const obj = {
+      nested: [
+        {
+          camelCaseKey: 'value',
+          nested: {
+            camelCaseKey: 'value',
+          },
+        },
+        {
+          camelCaseKey: 'value2',
+          nested: {
+            camelCaseKey: 'value',
+          },
+        },
+      ],
+    }
+    const result = convertObjectKeys(obj, camelToSnake)
+    expect(result).toEqual({
+      nested: [
+        {
+          camel_case_key: 'value',
+          nested: {
+            camel_case_key: 'value',
+          },
+        },
+        {
+          camel_case_key: 'value2',
+          nested: {
+            camel_case_key: 'value',
+          },
+        },
+      ],
+    })
+  })
+})
