@@ -6,6 +6,11 @@ export default ajiu9({
     '**/cache',
     '**/dist',
     'playgrounds',
+    '**/*.d.mts',
+    '**/*.mjs',
+    '**/*.min.js',
+    '**/*.life.min.js',
+    '**/*.life.js',
   ],
 },
 {
