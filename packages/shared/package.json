@@ -16,12 +16,20 @@
     "util"
   ],
   "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.cjs"
+    },
+    "./*": "./*"
+  },
   "main": "./index.mjs",
   "module": "./index.mjs",
   "unpkg": "./index.iife.min.js",
   "jsdelivr": "./index.iife.min.js",
   "types": "./index.d.mts",
   "files": [
+    "**/*.cjs",
     "**/*.d.mts",
     "**/*.js",
     "**/*.mjs"
