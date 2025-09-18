@@ -1,7 +1,7 @@
 {
   "name": "comuse-monorepo",
   "type": "module",
-  "version": "4.1.3",
+  "version": "4.1.4",
   "private": true,
   "packageManager": "pnpm@9.3.0",
   "description": "A library of commonly used utility functions",
