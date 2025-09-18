@@ -36,6 +36,7 @@ export const packages: PackageManifest[] = [
     name: 'shared',
     display: 'Shared',
     description: 'Shared utilities',
+    cjs: true,
   },
   {
     name: 'integrations',

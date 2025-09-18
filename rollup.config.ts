@@ -40,7 +40,7 @@ export function createRollupConfig(
   pkg: PackageManifest,
   cwd = process.cwd(),
 ) {
-  const { globals, external, submodules, iife, build, mjs, dts, target = 'es2018' } = pkg
+  const { globals, external, submodules, iife, build, mjs, dts, cjs, target = 'es2018' } = pkg
   if (build === false)
     return []
 
@@ -74,6 +74,12 @@ export function createRollupConfig(
       output.push({
         file: `${fn}.mjs`,
         format: 'es',
+      })
+    }
+    if (cjs === true) {
+      output.push({
+        file: `${fn}.cjs`,
+        format: 'cjs',
       })
     }
 
