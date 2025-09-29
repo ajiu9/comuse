@@ -35,5 +35,6 @@ export default ajiu9({
     'ts/no-unused-vars': 'off',
     'ts/no-redeclare': 'off',
     'unused-imports/no-unused-vars': 'off',
+    'no-proto': 'off',
   },
 })
