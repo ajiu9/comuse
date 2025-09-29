@@ -12,6 +12,9 @@ export default ajiu9({
     '**/*.life.min.js',
     '**/*.life.js',
   ],
+  rules: {
+    'no-proto': 'off',
+  },
 },
 {
   files: [
