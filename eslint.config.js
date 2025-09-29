@@ -12,6 +12,9 @@ export default ajiu9({
     '**/*.life.min.js',
     '**/*.life.js',
   ],
+  rules: {
+    'no-proto': 'off',
+  },
 },
 {
   files: [
@@ -35,6 +38,5 @@ export default ajiu9({
     'ts/no-unused-vars': 'off',
     'ts/no-redeclare': 'off',
     'unused-imports/no-unused-vars': 'off',
-    'no-proto': 'off',
   },
 })
