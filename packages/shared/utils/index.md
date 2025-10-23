@@ -71,3 +71,15 @@ import { toThousand } from 'comuse-shared'
 
 console.log(toThousand(1234567.89)) // '1,234,567'
 ```
+
+### randomString
+
+### usage
+
+```ts
+import { randomString } from 'comuse-shared'
+
+console.log(randomString(10)) // 'a1b2c3d4e5'
+
+console.log(randomString(10, 'number')) // '1234567890'
+```
