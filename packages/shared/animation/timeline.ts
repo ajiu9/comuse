@@ -1,4 +1,5 @@
 import type { Animation, TimelineState } from './types'
+import { isClient } from '../env'
 
 const TICK = Symbol('tick')
 const TICK_HANDLER = Symbol('tick-handler')
@@ -48,6 +49,7 @@ export class TimeLine {
         }
         if (t > 0) animation.receiveTime(t)
       }
+      if (!isClient) return
       this[TICK_HANDLER] = requestAnimationFrame(this[TICK])
     }
     this[TICK]()
