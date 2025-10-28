@@ -137,6 +137,9 @@ importers:
       vue:
         specifier: ^3.5.13
         version: 3.5.21(typescript@5.9.2)
+      vue-tsc:
+        specifier: ^3.1.2
+        version: 3.1.2(typescript@5.9.2)
       yaml:
         specifier: ^2.8.0
         version: 2.8.1
@@ -3233,6 +3236,14 @@ packages:
     resolution: {integrity: sha512-Z1Uc8IB57Lm6k7q6KIDu/p+JWtf3xsXJqAX/5r18hYOTpJyBn0KXUR8oTJ4WFYOcDzWC9n3IflGgHowx6U6z9Q==}
     dev: true
 
+  /@volar/typescript@2.4.23:
+    resolution: {integrity: sha512-lAB5zJghWxVPqfcStmAP1ZqQacMpe90UrP5RJ3arDyrhy4aCUQqmxPPLB2PWDKugvylmO41ljK7vZ+t6INMTag==}
+    dependencies:
+      '@volar/language-core': 2.4.23
+      path-browserify: 1.0.1
+      vscode-uri: 3.1.0
+    dev: true
+
   /@vue/compiler-core@3.5.21:
     resolution: {integrity: sha512-8i+LZ0vf6ZgII5Z9XmUvrCyEzocvWT+TeR2VBUVlzIH6Tyv57E20mPZ1bCS+tbejgUgmjrEh7q/0F0bibskAmw==}
     dependencies:
@@ -3314,6 +3325,24 @@ packages:
       minimatch: 9.0.5
       muggle-string: 0.4.1
       path-browserify: 1.0.1
+      typescript: 5.9.2
+    dev: true
+
+  /@vue/language-core@3.1.2(typescript@5.9.2):
+    resolution: {integrity: sha512-PyFDCqpdfYUT+oMLqcc61oHfJlC6yjhybaefwQjRdkchIihToOEpJ2Wu/Ebq2yrnJdd1EsaAvZaXVAqcxtnDxQ==}
+    peerDependencies:
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@volar/language-core': 2.4.23
+      '@vue/compiler-dom': 3.5.21
+      '@vue/shared': 3.5.21
+      alien-signals: 3.0.3
+      muggle-string: 0.4.1
+      path-browserify: 1.0.1
+      picomatch: 4.0.3
       typescript: 5.9.2
     dev: true
 
@@ -3470,6 +3499,10 @@ packages:
 
   /alien-signals@0.2.2:
     resolution: {integrity: sha512-cZIRkbERILsBOXTQmMrxc9hgpxglstn69zm+F1ARf4aPAzdAFYd6sBq87ErO0Fj3DV94tglcyHG5kQz9nDC/8A==}
+    dev: true
+
+  /alien-signals@3.0.3:
+    resolution: {integrity: sha512-2JXjom6R7ZwrISpUphLhf4htUq1aKRCennTJ6u9kFfr3sLmC9+I4CxxVi+McoFnIg+p1HnVrfLT/iCt4Dlz//Q==}
     dev: true
 
   /ansi-escapes@7.1.0:
@@ -8752,6 +8785,10 @@ packages:
       - terser
     dev: true
 
+  /vscode-uri@3.1.0:
+    resolution: {integrity: sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ==}
+    dev: true
+
   /vue-eslint-parser@9.4.3(eslint@9.35.0):
     resolution: {integrity: sha512-2rYRLWlIpaiN8xbPiDyXZXRgLGOtWxERV7ND5fFAv5qo1D2N9Fu9MNajBNc6o13lZ+24DAWCkQCvj4klgmcITg==}
     engines: {node: ^14.17.0 || >=16.0.0}
@@ -8776,6 +8813,17 @@ packages:
       vue: ^3.0.0
     dependencies:
       vue: 3.5.21(typescript@5.9.2)
+    dev: true
+
+  /vue-tsc@3.1.2(typescript@5.9.2):
+    resolution: {integrity: sha512-3fd4DY0rFczs5f+VB3OhcLU83V6+3Puj2yLBe0Ak65k7ERk+STVNKaOAi0EBo6Lc15UiJB6LzU6Mxy4+h/pKew==}
+    hasBin: true
+    peerDependencies:
+      typescript: '>=5.0.0'
+    dependencies:
+      '@volar/typescript': 2.4.23
+      '@vue/language-core': 3.1.2(typescript@5.9.2)
+      typescript: 5.9.2
     dev: true
 
   /vue@3.5.21(typescript@5.9.2):
