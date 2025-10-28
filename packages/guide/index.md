@@ -11,6 +11,7 @@ npm i comuse
 Simply importing the functions you need from `comuse`
 
 ```ts twoslash
+// @errors: 2307
 import { createSingletonPromise } from 'comuse-shared'
 const promise = createSingletonPromise(async () => {})
 ```
