@@ -21,6 +21,11 @@ export default defineConfig({
       ],
     },
   },
+  // 添加这行：为浏览器环境提供明确的标识
+  define: {
+    'process.env.BROWSER': JSON.stringify(true),
+    'import.meta.env.BROWSER': JSON.stringify(true),
+  },
   plugins: [
     // custom
     markdownTransform(),
@@ -55,12 +60,14 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: [
-      'comuse-shared',
-      'comuse-core',
+      // 'comuse-shared',
+      // 'comuse-core',
     ],
     include: [
       'qrcode',
       'vconsole',
+      'comuse-shared',
+      'comuse-core',
     ],
   },
   build: {
