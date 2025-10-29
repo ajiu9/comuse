@@ -1,0 +1,13 @@
+import type { AnyFn } from '../types';
+export declare const toTypeString: (value: unknown) => string;
+export declare const isObject: (val: any) => val is object;
+export declare const isArray: (arg: any) => arg is any[];
+export declare const isMap: (val: unknown) => val is Map<any, any>;
+export declare const isSet: (val: unknown) => val is Set<any>;
+export declare const isDate: (val: unknown) => val is Date;
+export declare const isRegExp: (val: unknown) => val is RegExp;
+export declare const isFunction: (val: unknown) => val is AnyFn;
+export declare const isString: (val: unknown) => val is string;
+export declare const isSymbol: (val: unknown) => val is symbol;
+export declare function isPromise<T = any>(val: unknown): val is Promise<T>;
+export declare const hasOwn: <T extends object, K extends keyof T>(val: T, key: K) => key is K;

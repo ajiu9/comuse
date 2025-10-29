@@ -31,7 +31,8 @@
     "test:cov": "vitest run --coverage",
     "test:browser": "vitest --project browser --workspace=vitest.workspace.ts",
     "test:unit": "vitest --project unit --workspace=vitest.workspace.ts",
-    "update": "pnpm run -C packages/metadata update"
+    "update": "pnpm run -C packages/metadata update",
+    "build:types": "vue-tsc --emitDeclarationOnly"
   },
   "devDependencies": {
     "@ajiu9/eslint-config": "^2.5.2",

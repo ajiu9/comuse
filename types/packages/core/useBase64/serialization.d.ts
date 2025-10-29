@@ -1,0 +1,1 @@
+export declare function getDefaultSerialization<T extends object>(target: T): ((v: unknown[]) => string) | ((v: Record<string, unknown>) => string) | ((v: Set<unknown>) => string) | ((v: Map<string, unknown>) => string);

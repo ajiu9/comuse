@@ -1,0 +1,10 @@
+import type { PackageIndexes } from './types';
+export declare const metadata: PackageIndexes;
+export declare const functions: PackageIndexes["functions"];
+export declare const packages: PackageIndexes["packages"];
+export declare const categories: PackageIndexes["categories"];
+export declare const functionNames: string[];
+export declare const categoryNames: string[];
+export declare const coreCategoryNames: string[];
+export declare const addonCategoryNames: string[];
+export declare function getFunction(name: string): import("./types").ComuseFunction | undefined;

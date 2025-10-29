@@ -1,0 +1,8 @@
+import type { MaybeComputedElementRef, MaybeElement, VueInstance } from '../types';
+export type UnRefElementReturn<T extends MaybeElement = MaybeElement> = T extends VueInstance ? Exclude<MaybeElement, VueInstance> : T | undefined;
+/**
+ * Get the dom element of a ref of element or Vue component instance
+ *
+ * @param elRef
+ */
+export declare function unrefElement<T extends MaybeElement>(elRef: MaybeComputedElementRef<T>): UnRefElementReturn<T>;
