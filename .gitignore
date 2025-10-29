@@ -16,3 +16,4 @@ packages/**/*.d.ts
 packages/**/*.d.[cm]ts
 !packages/.vitepress/
 .trae
+types
