@@ -67,6 +67,8 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
+          if (id.includes('comuse-'))
+            return 'comuse'
           if (id.includes('@vue/') || id.includes('/vue/'))
             return 'vue'
         },
