@@ -21,11 +21,6 @@ export default defineConfig({
       ],
     },
   },
-  // 添加这行：为浏览器环境提供明确的标识
-  define: {
-    'process.env.BROWSER': JSON.stringify(true),
-    'import.meta.env.BROWSER': JSON.stringify(true),
-  },
   plugins: [
     // custom
     markdownTransform(),
@@ -49,21 +44,6 @@ export default defineConfig({
     }),
     UnoCSS(),
     Inspect(),
-    // 添加一个简单的插件来修复环境检测问题
-    {
-      name: 'fix-browser-detection',
-      enforce: 'post',
-      transform(code, id) {
-        // 修复isClient检测逻辑
-        if (id.includes('shared/env/index.ts')) {
-          return code.replace(
-            'export const isClient = typeof window !== \'undefined\' && typeof document !== \'undefined\'',
-            'export const isClient = (typeof window !== \'undefined\' && typeof document !== \'undefined\') || (typeof process !== \'undefined\' && process.env?.BROWSER === true) || (typeof import !== \'undefined\' && import.meta?.env?.BROWSER === true)',
-          )
-        }
-        return code
-      },
-    },
   ],
   resolve: {
     alias: {
@@ -75,8 +55,8 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: [
-      'comuse-shared',
-      'comuse-core',
+      // 'comuse-shared',
+      // 'comuse-core',
     ],
     include: [
       'qrcode',
@@ -84,7 +64,6 @@ export default defineConfig({
     ],
   },
   build: {
-    target: 'es2020',
     rollupOptions: {
       output: {
         manualChunks: (id) => {
