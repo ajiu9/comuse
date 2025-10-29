@@ -21,6 +21,11 @@ export default defineConfig({
       ],
     },
   },
+  // 添加 define 配置，确保浏览器环境标识正确
+  define: {
+    'import.meta.env.SSR': 'false',
+    'process.env.BROWSER': 'true',
+  },
   plugins: [
     // custom
     markdownTransform(),
