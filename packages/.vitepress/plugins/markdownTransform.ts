@@ -119,33 +119,25 @@ const Demo = defineAsyncComponent(() => import('./${demoPath}'))
 <DemoContainer>
 <p class="demo-source-link"><a href="${URL}/${demoPath}" target="_blank">source</a></p>
 <ClientOnly>
-<Suspense>
-  <Demo/>
-  <template #fallback>
-    Loading demo...
-  </template>
-</Suspense>
+  <Suspense>
+    <Demo/>
+    <template #fallback>
+      Loading demo...
+    </template>
+  </Suspense>
 </ClientOnly>
 </DemoContainer>
 `
       : `
 <script setup>
-import { defineAsyncComponent } from 'vue'
-const Demo = defineAsyncComponent(() => import('./${demoPath}'))
+import Demo from './${demoPath}'
 </script>
 
 ## Demo
 
 <DemoContainer>
 <p class="demo-source-link"><a href="${URL}/${demoPath}" target="_blank">source</a></p>
-<ClientOnly>
-<Suspense>
-  <Demo/>
-  <template #fallback>
-    Loading demo...
-  </template>
-</Suspense>
-</ClientOnly>
+<Demo/>
 </DemoContainer>
 `
     : ''
