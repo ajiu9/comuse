@@ -6,7 +6,6 @@ import process from 'process'
 import json from '@rollup/plugin-json'
 import dts from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
-import { PluginPure as pure } from 'rollup-plugin-pure'
 import { globSync } from 'tinyglobby'
 
 const metadata = JSON.parse(fs.readFileSync(new URL('./packages/metadata/index.json', import.meta.url), 'utf-8'))
@@ -16,9 +15,6 @@ const configs: RollupOptions[] = []
 
 const pluginEsbuild = esbuild()
 const pluginDts = dts()
-const pluginPure = pure({
-  functions: ['defineComponent'],
-})
 
 function esbuildMinifier(options: ESBuildOptions) {
   const { renderChunk } = esbuild(options)
@@ -116,7 +112,6 @@ export function createRollupConfig(
           ? esbuild({ target })
           : pluginEsbuild,
         json(),
-        pluginPure,
       ],
       external: [
         ...externals,
@@ -151,7 +146,6 @@ export function createRollupConfig(
         ],
         plugins: [
           pluginEsbuild,
-          pluginPure,
         ],
         external: [
           ...externals,
