@@ -8,6 +8,7 @@ import { computed, ref as deepRef, nextTick, shallowRef, toValue, watch } from '
 import { defaultWindow } from '../_configurable'
 import { getSSRHandler } from '../ssr-handlers'
 import { tryOnMounted } from '../tryOnMounted'
+import { useEventListener } from '../useEventListener'
 import { pausableWatch } from '../watchPausable'
 import { guessSerializerType } from './guess'
 
@@ -201,13 +202,11 @@ export function useStorage<T extends (string | number | boolean | object | null)
    *
    * TODO: Consider implementing a BroadcastChannel-based solution that fixes this.
    */
-
   if (window && listenToStorageChanges) {
-    // TODO: add event listener
     if (storage instanceof Storage)
-      window?.addEventListener('storage', onStorageEvent, { passive: true })
+      useEventListener(window, 'storage', onStorageEvent, { passive: true })
     else
-      window?.dispatchEvent(new CustomEvent(customStorageEventName, { detail: onStorageCustomEvent }))
+      useEventListener(window, customStorageEventName, onStorageCustomEvent)
   }
 
   if (initOnMounted) {

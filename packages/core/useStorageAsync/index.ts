@@ -5,6 +5,7 @@ import type { SerializerAsync, UseStorageOptions } from '../useStorage'
 import { ref as deepRef, shallowRef, toValue } from 'vue'
 import { defaultWindow } from '../_configurable'
 import { getSSRHandler } from '../ssr-handlers'
+import { useEventListener } from '../useEventListener'
 import { StorageSerializers } from '../useStorage'
 import { guessSerializerType } from '../useStorage/guess'
 import { watchWithFilter } from '../watchWithFilter'
@@ -106,8 +107,7 @@ export function useStorageAsync<T extends(string | number | boolean | object | n
   })
 
   if (window && listenToStorageChanges)
-    window.addEventListener('storage', e => Promise.resolve().then(() => read(e)), { passive: true })
-
+    useEventListener(window, 'storage', e => Promise.resolve().then(() => read(e)), { passive: true })
   if (storage) {
     watchWithFilter(
       data,

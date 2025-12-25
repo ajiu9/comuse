@@ -74,7 +74,6 @@ export default defineConfig({
         },
       },
     },
-    ssr: false,
   },
   css: {
     postcss: {
