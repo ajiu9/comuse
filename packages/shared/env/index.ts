@@ -2,7 +2,7 @@ export const isWechat = () => navigator.userAgent.toLowerCase().includes('microm
 
 export const isAlipay = () => navigator.userAgent.toLowerCase().includes('alipayclient')
 
-export const isClient = typeof window !== 'undefined' && typeof document !== 'undefined'
+export const isClient = (() => typeof window !== 'undefined' && typeof document !== 'undefined')()
 
 export interface OsVersion {
   name: 'Windows' | 'MacOS' | 'Android' | 'iOS' | 'WindowsPhone' | 'Debian' | 'WebOS' | 'Harmony'
