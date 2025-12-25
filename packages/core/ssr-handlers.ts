@@ -32,7 +32,7 @@ const _global
           : {}
 
 const globalKey = '__comuse_ssr_handlers__'
-const handlers = /* #__PURE__ */ getHandlers()
+const handlers = getHandlers()
 
 function getHandlers() {
   if (!(globalKey in _global))
