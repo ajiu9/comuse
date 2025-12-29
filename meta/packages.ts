@@ -47,10 +47,12 @@ export const packages: PackageManifest[] = [
     external: [
       'qrcode',
       'vconsole',
+      'axios',
     ],
     globals: {
       qrcode: 'QRCode',
       vconsole: 'VConsole',
+      axios: 'axios',
     },
   },
 ]
