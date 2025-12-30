@@ -18,8 +18,7 @@
   "sideEffects": false,
   "exports": {
     ".": "./index.mjs",
-    "./*": "./*",
-    "./metadata": "./metadata.mjs"
+    "./*": "./*"
   },
   "main": "./index.mjs",
   "module": "./index.mjs",
