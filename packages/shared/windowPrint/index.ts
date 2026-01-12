@@ -1,9 +1,15 @@
+import { isClient } from '../env'
+
 /**
  * @description Print using window.print via an iframe
  * @param {string} content - The content to be printed
  * @returns {void}
  */
 export function windowPrint(content: string): void {
+  if (!isClient) {
+    console.warn('windowPrint can only be used in browser environment')
+    return
+  }
   let iframe = document.body.querySelector<HTMLIFrameElement>('#comuse-window-print')
   if (!iframe) {
     iframe = document.createElement('iframe')

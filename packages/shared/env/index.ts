@@ -1,6 +1,6 @@
-export const isWechat = () => navigator.userAgent.toLowerCase().includes('micromessenger')
+export const isWechat = () => isClient && navigator.userAgent.toLowerCase().includes('micromessenger')
 
-export const isAlipay = () => navigator.userAgent.toLowerCase().includes('alipayclient')
+export const isAlipay = () => isClient && navigator.userAgent.toLowerCase().includes('alipayclient')
 
 export const isClient = typeof window !== 'undefined' && typeof document !== 'undefined'
 

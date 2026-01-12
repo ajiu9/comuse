@@ -1,4 +1,5 @@
 import type { AnyFn } from '../types'
+import { isClient } from '../env'
 
 export * from './is'
 export * from './pattern'
@@ -137,16 +138,24 @@ export function randomString(length = 8, type: RandomStringType = 'mix'): string
  * @param url - file url
  */
 export function openFile(url: string) {
+  if (!isClient) {
+    console.warn('openFile can only be used in browser environment')
+    return
+  }
+
   let fileRead: any = document.body.querySelector('#file-read')
   let protocol = 'https:'
   try {
-    protocol = parent?.location?.protocol
+    protocol = parent?.location?.protocol || protocol
   }
   catch {}
+
   url = url.replace('http:', protocol)
   url = url.replace('https:', protocol)
+
   if (fileRead)
     fileRead.href = url
+
   else {
     fileRead = document.createElement('a')
     fileRead.id = 'file-read'
@@ -154,6 +163,7 @@ export function openFile(url: string) {
     fileRead.setAttribute('target', '_blank')
     document.body.appendChild(fileRead)
   }
+
   fileRead.click()
 }
 
