@@ -24,7 +24,7 @@ const qrcode = useQRCode('text-to-encode')
 or passing a `ref` to it, the returned data URL ref will change along with the source ref's changes.
 
 ```ts
-import { useQRCode } from 'comuse-integrationsintegrations/useQRCode'
+import { useQRCode } from 'comuse-integrations/useQRCode'
 import { shallowRef } from 'vue'
 
 const text = shallowRef('text-to-encode')
