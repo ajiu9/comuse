@@ -81,8 +81,15 @@ export default defineConfig({
     },
   },
   ssr: {
+    // 将 comuse 的包包含在 SSR bundle 中，避免 external 化导致的 SSR 问题
     noExternal: [
       '@vue/repl',
+      'comuse-core',
+      'comuse-metadata',
+      'comuse-shared',
+      'comuse-integrations',
     ],
+    // 确保以 web 为目标，避免 Node.js 特定 API
+    target: 'web',
   },
 })
