@@ -47,10 +47,10 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      'comuse-core': resolve(__dirname, '../core/index.ts'),
-      'comuse-metadata': resolve(__dirname, '../metadata/index.ts'),
-      'comuse-shared': resolve(__dirname, '../shared/index.ts'),
-      'comuse-integrations': resolve(__dirname, '../integrations/index.ts'),
+      'comuse-core': resolve(__dirname, '../core/index.mjs'),
+      'comuse-metadata': resolve(__dirname, '../metadata/index.mjs'),
+      'comuse-shared': resolve(__dirname, '../shared/index.mjs'),
+      'comuse-integrations': resolve(__dirname, '../integrations/index.mjs'),
     },
   },
   optimizeDeps: {
@@ -81,15 +81,9 @@ export default defineConfig({
     },
   },
   ssr: {
-    // 将 comuse 的包包含在 SSR bundle 中，避免 external 化导致的 SSR 问题
+    // 只保留 @vue/repl，其他包 external 化以避免 SSR 问题
     noExternal: [
       '@vue/repl',
-      'comuse-core',
-      'comuse-metadata',
-      'comuse-shared',
-      'comuse-integrations',
     ],
-    // 确保以 web 为目标，避免 Node.js 特定 API
-    target: 'web',
   },
 })
