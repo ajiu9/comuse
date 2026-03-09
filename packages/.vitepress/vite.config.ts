@@ -55,8 +55,10 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: [
-      // 'comuse-shared',
-      // 'comuse-core',
+      'comuse-shared',
+      'comuse-core',
+      'comuse-metadata',
+      'comuse-integrations',
     ],
     include: [
       'qrcode',
