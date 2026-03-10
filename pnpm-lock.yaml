@@ -188,6 +188,16 @@ importers:
 
   packages/shared: {}
 
+  packages/skills:
+    dependencies:
+      comuse-metadata:
+        specifier: workspace:*
+        version: link:../metadata
+    devDependencies:
+      tsx:
+        specifier: ^4.19.3
+        version: 4.20.5
+
 packages:
 
   /@ajiu9/eslint-config@2.5.3(@babel/core@7.28.4)(@vue/compiler-sfc@3.5.21)(eslint-plugin-format@0.1.3)(eslint@9.35.0)(typescript@5.9.2):

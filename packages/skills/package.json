@@ -20,10 +20,13 @@
   "files": [
     "skills"
   ],
-  "scripts": {
-    "build": "rollup --config=rollup.config.ts --configPlugin=rollup-plugin-esbuild"
+ "scripts": {
+    "build": "tsx build.ts"
   },
-    "dependencies": {
+  "dependencies": {
     "comuse-metadata": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.3"
   }
 }
