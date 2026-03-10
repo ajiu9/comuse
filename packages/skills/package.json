@@ -1,0 +1,29 @@
+{
+  "name": "comuse-skills",
+  "version": "4.2.1",
+  "type": "module",
+  "description": "comuse skills",
+  "author": "ajiu9 <615944323@qq.com> (https://github.com/ajiu9/)",
+  "license": "MIT",
+  "homepage": "https://github.com/ajiu9/comuse",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ajiu9/comuse",
+   "directory": "packages/skills"
+  },
+  "keywords": [
+    "vue",
+    "vue-use",
+    "utils",
+    "skills"
+  ],
+  "files": [
+    "skills"
+  ],
+  "scripts": {
+    "build": "rollup --config=rollup.config.ts --configPlugin=rollup-plugin-esbuild"
+  },
+    "dependencies": {
+    "comuse-metadata": "workspace:*"
+  }
+}
