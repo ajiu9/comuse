@@ -18,7 +18,7 @@
     "node": ">=16.11.0"
   },
   "scripts": {
-    "build": "pnpm run update &&pnpm -r run build",
+    "build": "pnpm run update && pnpm -r run build",
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
     "release": "pnpm build && bumpp -r && pnpm -r publish --access public",
