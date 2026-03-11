@@ -1,4 +1,4 @@
-# VueUse Skills
+# Comuse Skills
 
 Agent Skills for ComUse — a collection of essential Vue Composition Utilities.
 
@@ -24,19 +24,11 @@ First, add a `prepare` script to your `package.json` so the skills are symlinked
 }
 ```
 
-Then, install both `skills-npm` and `comuse/skills`:
+Then, install both `skills-npm` and `comuse-skills`:
 
 ```bash
-npm i -D comuse/skills skills-npm
+npm i -D comuse-skills skills-npm
 ```
-
-## Install via [skills](https://github.com/vercel-labs/skills)
-
-```bash
-npx skills add comuse/comuse
-```
-
-Install skills via [skills](https://github.com/vercel-labs/skills) you need to be careful about the potential version mismatch between the skill and your local ComUse version.
 
 ## Example Usage
 
