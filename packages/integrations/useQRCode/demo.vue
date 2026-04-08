@@ -14,5 +14,5 @@ const qrcode = useQRCode(text, {
     Text content for QRCode
   </note>
   <input v-model="text" type="text">
-  <img v-if="text" class="mt-6 mb-2 rounded border" :src="qrcode" alt="QR Code">
+  <img v-if="text && qrcode" class="mt-6 mb-2 rounded border" :src="qrcode" alt="QR Code">
 </template>

@@ -47,16 +47,18 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      'comuse-core': resolve(__dirname, '../core/index.ts'),
-      'comuse-metadata': resolve(__dirname, '../metadata/index.ts'),
-      'comuse-shared': resolve(__dirname, '../shared/index.ts'),
-      'comuse-integrations': resolve(__dirname, '../integrations/index.ts'),
+      'comuse-core': resolve(__dirname, '../core/index.mjs'),
+      'comuse-metadata': resolve(__dirname, '../metadata/index.mjs'),
+      'comuse-shared': resolve(__dirname, '../shared/index.mjs'),
+      'comuse-integrations': resolve(__dirname, '../integrations/index.mjs'),
     },
   },
   optimizeDeps: {
     exclude: [
-      // 'comuse-shared',
-      // 'comuse-core',
+      'comuse-shared',
+      'comuse-core',
+      'comuse-metadata',
+      'comuse-integrations',
     ],
     include: [
       'qrcode',
@@ -81,6 +83,7 @@ export default defineConfig({
     },
   },
   ssr: {
+    // 只保留 @vue/repl，其他包 external 化以避免 SSR 问题
     noExternal: [
       '@vue/repl',
     ],

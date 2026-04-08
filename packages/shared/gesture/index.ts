@@ -1,3 +1,5 @@
+import { isClient } from '../env'
+
 type TouchIdentifier = number
 
 export interface GestureRecognizer {
@@ -264,6 +266,11 @@ export class Dispatcher {
 }
 
 export function enableGesture(element: Element): void {
+  if (!isClient) {
+    console.warn('enableGesture can only be used in browser environment')
+    return
+  }
+  
   // eslint-disable-next-line no-new
   new Listener(element, new Recognizer(new Dispatcher(element)))
 }

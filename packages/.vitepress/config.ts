@@ -6,6 +6,7 @@ import viteConfig from './vite.config'
 
 const Guide = [
   { text: 'Get Started', link: '/guide/' },
+  { text: 'Work with AI', link: '/guide/work-with-ai' },
 ]
 
 const CoreCategories = coreCategoryNames.map(c => ({

@@ -1,7 +1,7 @@
 {
   "name": "comuse-monorepo",
   "type": "module",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "private": true,
   "packageManager": "pnpm@9.3.0",
   "description": "A library of commonly used utility functions",
@@ -18,14 +18,15 @@
     "node": ">=16.11.0"
   },
   "scripts": {
-    "build": "pnpm run update &&pnpm -r run build",
+    "build": "pnpm run update && pnpm -r run build",
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
     "release": "pnpm build && bumpp -r && pnpm -r publish --access public",
     "clean": "rimraf packages/*/dist",
     "docs": "pnpm run update && vitepress dev packages --open",
     "docs:build": "pnpm run update && vitepress build packages",
-    "docs:preview": "pnpm run update && vitepress preview packages",
+    "docs:build:vitepress": "NODE_OPTIONS=\"--max-old-space-size=5120\" vitepress build packages",
+    "docs:serve": "vitepress serve packages",
     "prepare": "simple-git-hooks",
     "test": "pnpm run test:unit",
     "test:cov": "vitest run --coverage",

@@ -1,0 +1,32 @@
+{
+  "name": "comuse-skills",
+  "version": "4.3.0",
+  "type": "module",
+  "description": "comuse skills",
+  "author": "ajiu9 <615944323@qq.com> (https://github.com/ajiu9/)",
+  "license": "MIT",
+  "homepage": "https://github.com/ajiu9/comuse",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ajiu9/comuse",
+   "directory": "packages/skills"
+  },
+  "keywords": [
+    "vue",
+    "vue-use",
+    "utils",
+    "skills"
+  ],
+  "files": [
+    "skills"
+  ],
+ "scripts": {
+    "build": "tsx build.ts"
+  },
+  "dependencies": {
+    "comuse-metadata": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.3"
+  }
+}
