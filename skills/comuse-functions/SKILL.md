@@ -104,6 +104,7 @@ IMPORTANT: Each function entry includes a short `Description` and a detailed `Re
 | [`clone`](references/clone.md) | > [_proto_](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto) can be redefined as an own property on any object instance through Object.defineProperty() without triggering the setter | AUTO |
 | [`compareNumbers`](references/compareNumbers.md) | ## Usage | AUTO |
 | [`convertObjectKeys`](references/convertObjectKeys.md) | ## Usage | AUTO |
+| [`nodeCache`](references/nodeCache.md) | A simple in-memory cache with TTL support | AUTO |
 | [`parseGitUrl`](references/parseGitUrl.md) | ## Usage | AUTO |
 | [`promise`](references/promise.md) | ### usage | AUTO |
 | [`rand`](references/rand.md) | ### usage | AUTO |
