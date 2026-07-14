@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      fuse.js:
-        specifier: ^7.5.0
-        version: 7.5.0
     devDependencies:
       '@ajiu9/eslint-config':
         specifier: ^2.5.2
@@ -78,6 +74,9 @@ importers:
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.2
+      fuse.js:
+        specifier: ^7.5.0
+        version: 7.5.0
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3

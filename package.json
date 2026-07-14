@@ -35,9 +35,6 @@
     "update": "pnpm run -C packages/metadata update",
     "build:types": "vue-tsc --emitDeclarationOnly"
   },
-  "dependencies": {
-    "fuse.js": "^7.5.0"
-  },
   "devDependencies": {
     "@ajiu9/eslint-config": "^2.5.2",
     "@iconify/json": "^2.2.313",
@@ -61,6 +58,7 @@
     "execa": "^7.2.0",
     "fast-glob": "^3.3.3",
     "fs-extra": "^11.3.0",
+    "fuse.js": "^7.5.0",
     "gray-matter": "^4.0.3",
     "jsdom": "^25.0.1",
     "lint-staged": "^15.4.3",
