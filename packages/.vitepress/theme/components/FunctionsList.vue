@@ -34,7 +34,7 @@ const sortMethod = computed<'category' | 'name' | 'updated' | null>({
 const showCategory = computed(() => !search.value && (!sortMethod.value || sortMethod.value === 'category'))
 
 const items = computed(() => {
-  const fn = functions.filter(i => !i.internal)
+  const fn = functions.filter(i => !i.internal && i.description)
   if (!category.value)
     return fn
   return fn.filter(item => item.category === category.value)
