@@ -4,6 +4,8 @@ category: Utilities
 
 # parseGitUrl
 
+Parse Git URL strings and normalize them to HTTPS format.
+
 ## Usage
 
 ```ts

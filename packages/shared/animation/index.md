@@ -4,6 +4,8 @@ category: Animation
 
 # Animation
 
+Animation class for creating configurable animations with custom timing functions.
+
 ## Usage
 
 ```ts

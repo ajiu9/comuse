@@ -2,7 +2,9 @@
 category: Utilities
 ---
 
-## uuid
+# uuid
+
+Browser-side generation of UUID v4.
 
 ### usage
 
@@ -12,7 +14,9 @@ import { uuid } from 'comuse-shared'
 console.log(uuid()) // '4222fcfe-5721-4632-bede-6043885be57d'
 ```
 
-## getRandom
+# getRandom
+
+Generate a random integer in range [min, max).
 
 ## usage
 

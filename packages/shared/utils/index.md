@@ -2,7 +2,9 @@
 category: Utilities
 ---
 
-## debounce
+# debounce
+
+Debounce execution of a function.
 
 ### usage
 
@@ -16,7 +18,9 @@ const fn = debounce(() => {
 fn()
 ```
 
-## throttle
+# throttle
+
+Throttle execution of a function.
 
 ### usage
 
@@ -30,7 +34,9 @@ const fn = throttle(() => {
 fn()
 ```
 
-## splitKeyValues
+# splitKeyValues
+
+Split key-value strings into object array.
 
 ### usage
 
@@ -42,7 +48,9 @@ const data = splitKeyValues('id1,id2', 'name1,name2')
 console.log(data) // [{ id: 'id1', name: 'name1' }, { id: 'id2', name: 'name2' }]
 ```
 
-## uuid
+# uuid
+
+Generate UUID v4.
 
 ### usage
 
@@ -52,7 +60,9 @@ import { uuid } from 'comuse-shared'
 console.log(uuid()) // '4222fcfe-5721-4632-bede-6043885be57d'
 ```
 
-## openFile
+# openFile
+
+Open a file or URL.
 
 ### usage
 
@@ -62,7 +72,9 @@ import { openFile } from 'comuse-shared'
 openFile('https://example.com/file.txt')
 ```
 
-## toThousand
+# toThousand
+
+Format number with thousand separators.
 
 ### usage
 
@@ -72,7 +84,9 @@ import { toThousand } from 'comuse-shared'
 console.log(toThousand(1234567.89)) // '1,234,567'
 ```
 
-### randomString
+# randomString
+
+Generate random string.
 
 ### usage
 
