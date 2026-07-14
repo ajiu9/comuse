@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     Changelog: typeof import('./theme/components/Changelog.vue')['default']
     DemoContainer: typeof import('./theme/components/DemoContainer.vue')['default']
+    FunctionBadge: typeof import('./theme/components/FunctionBadge.vue')['default']
     FunctionInfo: typeof import('./theme/components/FunctionInfo.vue')['default']
     FunctionsList: typeof import('./theme/components/FunctionsList.vue')['default']
     Home: typeof import('./theme/components/home.vue')['default']
