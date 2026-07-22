@@ -2,11 +2,11 @@
 category: Utilities
 ---
 
-## promiseFactory
+# promiseFactory
+
+Convert an object to a promise-like API with thenable support.
 
 ### usage
-
-Convert an object to a promise like api
 
 ```ts
 import { promiseFactory, waiting } from 'comuse-shared'

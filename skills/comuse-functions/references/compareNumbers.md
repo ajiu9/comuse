@@ -4,6 +4,8 @@ category: "Utilities"
 
 # CompareNumbers
 
+Compare two numbers with precision, returning equality and comparison results.
+
 ## Usage
 
 ```ts

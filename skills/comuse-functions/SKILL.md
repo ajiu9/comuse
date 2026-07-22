@@ -59,7 +59,7 @@ IMPORTANT: Each function entry includes a short `Description` and a detailed `Re
 
 | Function | Description | Invocation |
 |----------|-------------|------------|
-| [`animation`](references/animation.md) | ## Usage | AUTO |
+| [`animation`](references/animation.md) | Animation class for creating configurable animations with custom timing functions | AUTO |
 | [`ease`](references/ease.md) | > [easing-function](https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function) | AUTO |
 | [`gesture`](references/gesture.md) |  | AUTO |
 | [`useInterval`](references/useInterval.md) | Reactive counter increases on every interval | AUTO |
@@ -102,12 +102,12 @@ IMPORTANT: Each function entry includes a short `Description` and a detailed `Re
 |----------|-------------|------------|
 | [`amountCapital`](references/amountCapital.md) | 金额转大写 | AUTO |
 | [`clone`](references/clone.md) | > [_proto_](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto) can be redefined as an own property on any object instance through Object.defineProperty() without triggering the setter | AUTO |
-| [`compareNumbers`](references/compareNumbers.md) | ## Usage | AUTO |
-| [`convertObjectKeys`](references/convertObjectKeys.md) | ## Usage | AUTO |
+| [`compareNumbers`](references/compareNumbers.md) | Compare two numbers with precision | AUTO |
+| [`convertObjectKeys`](references/convertObjectKeys.md) | Convert object keys between snake_case and camelCase formats | AUTO |
 | [`nodeCache`](references/nodeCache.md) | A simple in-memory cache with TTL support | AUTO |
-| [`parseGitUrl`](references/parseGitUrl.md) | ## Usage | AUTO |
-| [`promise`](references/promise.md) | ### usage | AUTO |
-| [`rand`](references/rand.md) | ### usage | AUTO |
+| [`parseGitUrl`](references/parseGitUrl.md) | Parse Git URL strings and normalize them to HTTPS format | AUTO |
+| [`promise`](references/promise.md) | Convert an object to a promise-like API with thenable support | AUTO |
+| [`rand`](references/rand.md) | Browser-side generation of UUID v4 | AUTO |
 | [`useBase64`](references/useBase64.md) | Reactive base64 transforming | AUTO |
 | [`useConvertObjectKeys`](references/useConvertObjectKeys.md) | Basic counter with utility functions | AUTO |
 | [`useCounter`](references/useCounter.md) | Basic counter with utility functions | AUTO |
@@ -115,7 +115,7 @@ IMPORTANT: Each function entry includes a short `Description` and a detailed `Re
 | [`useSupported`](references/useSupported.md) | SSR compatibility `isSupported` | AUTO |
 | [`useThrottle`](references/useThrottle.md) | Throttle execution of a function | AUTO |
 | [`useToggle`](references/useToggle.md) | A boolean switcher with utility functions | AUTO |
-| [`utils`](references/utils.md) | ### usage | AUTO |
+| [`utils`](references/utils.md) | Debounce execution of a function | AUTO |
 
 ### Env
 
@@ -128,6 +128,7 @@ IMPORTANT: Each function entry includes a short `Description` and a detailed `Re
 | Function | Description | Invocation |
 |----------|-------------|------------|
 | [`useAxios`](references/useAxios.md) | Wrapper for [`axios`](https://github.com/axios/axios) | EXTERNAL |
+| [`useProxy`](references/useProxy.md) | Dynamic proxy IP management utility | EXTERNAL |
 | [`useQRCode`](references/useQRCode.md) | Wrapper for [`qrcode`](https://github.com/soldair/node-qrcode) | EXTERNAL |
 | [`useVConsole`](references/useVConsole.md) | Wrapper for [`vconsole`](https://github.com/Tencent/vConsole) | EXTERNAL |
 
