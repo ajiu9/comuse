@@ -42,6 +42,9 @@ const { getAgent, getIp } = useProxy({
 // Get a proxy agent (no validation)
 const { proxy, agent } = await getAgent()
 
+// Get with a custom cache key (reuses cached IP across calls)
+const { proxy, agent } = await getAgent({ cacheKey: 'my-key' })
+
 // Use the agent in requests
 import axios from 'axios'
 const res = await axios.get('https://example.com/api', {
@@ -89,7 +92,43 @@ const { getAgent } = useProxy({
   retryDelay: 100,
 })
 
-const { proxy, agent } = await getAgent(true)
+const { proxy, agent } = await getAgent({ needValid: true })
+```
+
+### With custom cache key
+
+Use a custom `cacheKey` to reuse the same proxy IP across multiple calls. The proxy is cached and reused until it expires or is explicitly deleted.
+
+```ts
+const { getAgent, delIp } = useProxy({
+  suppliers: [...],
+  createAgent: (proxy) => new HttpsProxyAgent({ host: proxy.ip, port: proxy.port }),
+})
+
+// First call fetches a new IP, caches under 'my-task'
+const { proxy, agent } = await getAgent({ cacheKey: 'my-task', needValid: true })
+
+// Subsequent calls reuse the cached IP (no extra supplier request)
+const { agent: same } = await getAgent({ cacheKey: 'my-task' })
+
+// Delete the cache entry to force a fresh IP on next call
+delIp('my-task')
+```
+
+### Debug mode
+
+Enable `debug` to log internal operations (cache hits/misses, IP fetching, validation, retries). Use a custom `logger` to redirect output.
+
+```ts
+const { getAgent } = useProxy({
+  suppliers: [...],
+  createAgent: [...],
+  debug: true,
+  // Custom logger with prefix
+  logger: (level, ...args) => {
+    console.log(`[my-app] [${level}]`, ...args)
+  },
+})
 ```
 
 ### Multiple suppliers with fallback
@@ -159,7 +198,7 @@ try {
 catch (error) {
   if (isProxyError(error)) {
     // Get a fresh agent and retry
-    const { agent: newAgent } = await getAgent(true)
+    const { agent: newAgent } = await getAgent({ needValid: true })
   }
 }
 ```
@@ -172,7 +211,7 @@ Returns an object with the following functions:
 
 | Function | Description |
 |----------|-------------|
-| `getAgent(needValid?)` | Get a validated proxy agent. Fetches IP, creates agent, optionally validates. Retries on failure. |
+| `getAgent(options?)` | Get a validated proxy agent. Fetches IP, creates agent, optionally validates. Retries on failure. |
 | `getIp(key)` | Get proxy IP config (with caching). |
 | `delIp(key)` | Delete a cached IP entry. |
 | `clearCache()` | Clear all cached IP entries. |
@@ -190,6 +229,21 @@ Returns an object with the following functions:
 | `maxRetries` | `number` | `3` | Max retry attempts |
 | `retryDelay` | `number` | `100` | Delay between retries (ms) |
 | `timeout` | `number` | `3000` | Supplier request timeout (ms) |
+| `debug` | `boolean` | `false` | Enable debug logging |
+| `logger` | `(level: LogLevel, ...args: any[]) => void` | console (when `debug: true`) | Custom logger function |
+
+### `GetAgentOptions`
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `cacheKey` | `string` | auto-generated | Cache key for reusing the same proxy IP across calls |
+| `needValid` | `boolean` | `false` | Whether to validate the proxy before returning |
+
+### `LogLevel`
+
+```ts
+type LogLevel = 'debug' | 'info' | 'warn' | 'error'
+```
 
 ### `ProxySupplier`
 

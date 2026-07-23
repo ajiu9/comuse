@@ -29,6 +29,15 @@ export interface CacheLike {
   del: (key: string) => boolean
 }
 
+export interface GetAgentOptions {
+  /** Cache key for reusing the same proxy IP across calls */
+  cacheKey?: string
+  /** Whether to validate the proxy before returning */
+  needValid?: boolean
+}
+
+export type LogLevel = 'debug' | 'info' | 'warn' | 'error'
+
 export interface UseProxyOptions {
   /** Proxy suppliers, tried in order */
   suppliers: ProxySupplier[]
@@ -46,14 +55,17 @@ export interface UseProxyOptions {
   retryDelay?: number
   /** Request timeout in ms, default 3000 */
   timeout?: number
+  /** Enable debug logging, default false */
+  debug?: boolean
+  /** Custom logger, defaults to console */
+  logger?: (level: LogLevel, ...args: any[]) => void
 }
 
 export interface UseProxyReturn {
   /**
    * Get a validated proxy agent.
-   * @param needValid whether to validate the proxy before returning
    */
-  getAgent: (needValid?: boolean) => Promise<{ proxy: ProxyConfig, agent: any }>
+  getAgent: (options?: GetAgentOptions) => Promise<{ proxy: ProxyConfig, agent: any }>
   /**
    * Get proxy IP config (with caching).
    * @param key cache key
@@ -140,7 +152,17 @@ export function useProxy(options: UseProxyOptions): UseProxyReturn {
     maxRetries = 3,
     retryDelay = 100,
     timeout = 3000,
+    debug = false,
+    logger,
   } = options
+
+  const log: (level: LogLevel, ...args: any[]) => void = logger
+    || ((level, ...args) => {
+      if (debug) {
+        const prefix = level === 'error' ? '❌' : level === 'warn' ? '⚠️' : level === 'info' ? 'ℹ️' : '🐛'
+        console.error(`[useProxy] ${prefix}`, ...args)
+      }
+    })
 
   if (!suppliers || suppliers.length === 0)
     throw new Error('[useProxy] At least one supplier is required')
@@ -149,10 +171,14 @@ export function useProxy(options: UseProxyOptions): UseProxyReturn {
    * Try all suppliers in order, return the first successful result.
    */
   async function getRemoteIp(): Promise<ProxyConfig> {
+    log('debug', `fetching proxy from ${suppliers.length} supplier(s)`)
     for (const supplier of suppliers) {
       const result = await fetchFromSupplier(supplier, timeout)
-      if (result)
+      if (result) {
+        log('info', `got IP from supplier "${supplier.name}": ${result.ip}:${result.port}`)
         return result
+      }
+      log('warn', `supplier "${supplier.name}" failed, trying next...`)
     }
     throw new Error('[useProxy] All suppliers failed')
   }
@@ -162,12 +188,16 @@ export function useProxy(options: UseProxyOptions): UseProxyReturn {
    */
   async function getIp(key: string): Promise<ProxyConfig> {
     const cached = cache.get(key) as ProxyConfig | null
-    if (cached)
+    if (cached) {
+      log('debug', `cache HIT for key "${key}": ${cached.ip}:${cached.port}`)
       return cached
+    }
 
+    log('debug', `cache MISS for key "${key}", fetching from remote...`)
     const proxy = await getRemoteIp()
     // Default TTL: 3 minutes
     cache.put(key, proxy, 3 * 60 * 1000)
+    log('debug', `cached proxy under key "${key}" (TTL: 3min)`)
     return proxy
   }
 
@@ -175,8 +205,12 @@ export function useProxy(options: UseProxyOptions): UseProxyReturn {
    * Get and optionally validate a proxy agent.
    */
   async function getAgent(
-    needValid = false,
+    options: GetAgentOptions = {},
   ): Promise<{ proxy: ProxyConfig, agent: any }> {
+    const { cacheKey, needValid = false } = options
+
+    log('debug', `getAgent called | cacheKey: "${cacheKey || '<auto>'}" | needValid: ${needValid} | maxRetries: ${maxRetries}`)
+
     let proxy: ProxyConfig | null = null
     let agent: any = null
     let tryCount = 0
@@ -184,40 +218,53 @@ export function useProxy(options: UseProxyOptions): UseProxyReturn {
     while (tryCount < maxRetries) {
       try {
         tryCount++
-        // Different cache key per attempt to avoid reusing a stale IP
-        const cacheKey = `useProxy_${tryCount}`
-        proxy = await getIp(cacheKey)
+
+        // Use custom cacheKey if provided, else use auto-generated key per attempt
+        const effectiveKey = cacheKey || `useProxy_${tryCount}`
+        log('debug', `attempt ${tryCount}/${maxRetries} | effectiveKey: "${effectiveKey}"`)
+
+        proxy = await getIp(effectiveKey)
         agent = createAgent(proxy)
+        log('debug', `agent created for ${proxy.ip}:${proxy.port}`)
 
         if (needValid && validateProxy) {
+          log('debug', `validating proxy ${proxy.ip}:${proxy.port}...`)
           const valid = await validateProxy(proxy, agent)
           if (!valid) {
-            // Validation failed, clear cache and retry
-            cache.del(cacheKey)
+            log('warn', `proxy ${proxy.ip}:${proxy.port} validation FAILED, retrying...`)
+            // Clear the cached entry so next attempt fetches a fresh IP
+            cache.del(effectiveKey)
             await waiting(retryDelay)
             continue
           }
+          log('info', `proxy ${proxy.ip}:${proxy.port} validation PASSED`)
         }
 
+        log('info', `getAgent success | proxy: ${proxy.ip}:${proxy.port} | attempt: ${tryCount}`)
         return { proxy, agent }
       }
-      catch {
-        // Failed to get IP or create agent, retry
+      catch (error) {
+        log('error', `attempt ${tryCount} failed:`, error)
         await waiting(retryDelay)
       }
     }
 
-    if (proxy && agent)
+    if (proxy && agent) {
+      log('warn', `returning last proxy ${proxy.ip}:${proxy.port} despite maxRetries exhausted`)
       return { proxy, agent }
+    }
 
+    log('error', `all ${maxRetries} attempts exhausted, throwing`)
     throw new Error(`[useProxy] Failed to get a valid proxy after ${maxRetries} attempts`)
   }
 
   function delIp(key: string): void {
+    log('debug', `deleting cache key "${key}"`)
     cache.del(key)
   }
 
   function clearCache(): void {
+    log('debug', 'clearing all cached proxies')
     defaultCache.clear()
   }
 

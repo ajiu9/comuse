@@ -140,7 +140,7 @@ describe('useProxy', () => {
         },
       })
 
-      const result = await getAgent(true)
+      const result = await getAgent({ needValid: true })
       expect(validateCalled).toBe(true)
       expect(result.proxy.ip).toBe('2.2.2.2')
     })
@@ -182,6 +182,105 @@ describe('useProxy', () => {
       const { proxy } = await getAgent()
       expect(proxy.ip).toBe('4.4.4.4')
       expect(mockedAxios).toHaveBeenCalledTimes(2)
+    })
+
+    it('should reuse proxy with custom cacheKey', async () => {
+      mockedAxios.mockResolvedValue({
+        data: { code: 200, data: { ip: '5.5.5.5', port: '3128' } },
+      } as any)
+
+      const { getAgent } = useProxy({
+        suppliers: [mockSupplier],
+        createAgent: createMockAgent,
+      })
+
+      const r1 = await getAgent({ cacheKey: 'reuse-key' })
+      const r2 = await getAgent({ cacheKey: 'reuse-key' })
+
+      expect(r1.proxy.ip).toBe('5.5.5.5')
+      expect(r2.proxy.ip).toBe('5.5.5.5')
+      // Second call hits cache, no extra supplier request
+      expect(mockedAxios).toHaveBeenCalledTimes(1)
+    })
+
+    it('should fetch new IP when cacheKey validation fails and retries', async () => {
+      mockedAxios.mockResolvedValue({
+        data: { code: 200, data: { ip: '6.6.6.6', port: '8080' } },
+      } as any)
+
+      let validateCount = 0
+      const { getAgent } = useProxy({
+        suppliers: [mockSupplier],
+        createAgent: createMockAgent,
+        validateProxy: async () => {
+          validateCount++
+          return validateCount >= 2
+        },
+        retryDelay: 10,
+      })
+
+      const { proxy } = await getAgent({ cacheKey: 'retry-key', needValid: true })
+      expect(proxy.ip).toBe('6.6.6.6')
+      // Supplier should be called twice: first IP invalidated, second IP fetched
+      expect(mockedAxios).toHaveBeenCalledTimes(2)
+    })
+
+    it('should use auto-generated key when cacheKey is omitted', async () => {
+      mockedAxios.mockResolvedValue({
+        data: { code: 200, data: { ip: '7.7.7.7', port: '8080' } },
+      } as any)
+
+      const { getAgent } = useProxy({
+        suppliers: [mockSupplier],
+        createAgent: createMockAgent,
+      })
+
+      // Both calls use the same auto-generated key (useProxy_1), second hits cache
+      const r1 = await getAgent()
+      const r2 = await getAgent()
+      expect(r1.proxy.ip).toBe('7.7.7.7')
+      expect(r2.proxy.ip).toBe('7.7.7.7')
+      expect(mockedAxios).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  describe('debug mode', () => {
+    it('should call logger when debug is enabled', async () => {
+      mockedAxios.mockResolvedValue({
+        data: { code: 200, data: { ip: '8.8.8.8', port: '8888' } },
+      } as any)
+
+      const logs: any[] = []
+      const { getAgent } = useProxy({
+        suppliers: [mockSupplier],
+        createAgent: createMockAgent,
+        debug: true,
+        logger: (level, ...args) => {
+          logs.push({ level, args })
+        },
+      })
+
+      await getAgent({ cacheKey: 'debug-key' })
+      expect(logs.length).toBeGreaterThan(0)
+      expect(logs.some(l => l.args.join(' ').includes('debug-key'))).toBe(true)
+    })
+
+    it('should not call console when debug is false with no custom logger', async () => {
+      const consoleSpy = vi.spyOn(console, 'log')
+      mockedAxios.mockResolvedValue({
+        data: { code: 200, data: { ip: '9.9.9.9', port: '9999' } },
+      } as any)
+
+      const { getAgent } = useProxy({
+        suppliers: [mockSupplier],
+        createAgent: createMockAgent,
+      })
+
+      await getAgent()
+      // No debug logs should be emitted
+      const proxyLogs = consoleSpy.mock.calls.filter(c => c[0]?.includes?.('[useProxy]'))
+      expect(proxyLogs.length).toBe(0)
+      consoleSpy.mockRestore()
     })
   })
 
