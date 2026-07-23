@@ -101,8 +101,17 @@ Use a custom `cacheKey` to reuse the same proxy IP across multiple calls. The pr
 
 ```ts
 const { getAgent, delIp } = useProxy({
-  suppliers: [...],
-  createAgent: (proxy) => new HttpsProxyAgent({ host: proxy.ip, port: proxy.port }),
+  suppliers: [
+    {
+      name: 'my-supplier',
+      url: 'https://proxy.example.com/api/getip',
+      parser: (res) => {
+        if (res.code !== 200) return null
+        return { ip: res.data.ip, port: res.data.port }
+      },
+    },
+  ],
+  createAgent: proxy => new HttpsProxyAgent({ host: proxy.ip, port: proxy.port }),
 })
 
 // First call fetches a new IP, caches under 'my-task'
@@ -121,8 +130,17 @@ Enable `debug` to log internal operations (cache hits/misses, IP fetching, valid
 
 ```ts
 const { getAgent } = useProxy({
-  suppliers: [...],
-  createAgent: [...],
+  suppliers: [
+    {
+      name: 'my-supplier',
+      url: 'https://proxy.example.com/api/getip',
+      parser: (res) => {
+        if (res.code !== 200) return null
+        return { ip: res.data.ip, port: res.data.port }
+      },
+    },
+  ],
+  createAgent: proxy => new HttpsProxyAgent({ host: proxy.ip, port: proxy.port }),
   debug: true,
   // Custom logger with prefix
   logger: (level, ...args) => {
@@ -168,27 +186,72 @@ import { useProxy } from 'comuse-integrations'
 const proxyCache = new Map()
 
 const { getIp } = useProxy({
-  suppliers: [...],
-  createAgent: [...],
+  suppliers: [
+    {
+      name: 'my-supplier',
+      url: 'https://proxy.example.com/api/getip',
+      parser: (res) => {
+        if (res.code !== 200) return null
+        return { ip: res.data.ip, port: res.data.port }
+      },
+    },
+  ],
+  createAgent: proxy => new HttpsProxyAgent({ host: proxy.ip, port: proxy.port }),
   cache: {
-    get: (key) => proxyCache.get(key) ?? null,
+    get: key => proxyCache.get(key) ?? null,
     put: (key, value, ttl) => {
       proxyCache.set(key, value)
       if (ttl) setTimeout(() => proxyCache.delete(key), ttl)
     },
-    del: (key) => { proxyCache.delete(key); return true },
+    del: (key) => {
+      proxyCache.delete(key)
+      return true
+    },
   },
+})
+```
+
+### TTL configuration
+
+The cache TTL is determined by priority: the proxy API's `expire` field → `defaultTTL` option.
+
+```ts
+const { getAgent } = useProxy({
+  suppliers: [
+    {
+      name: 'my-supplier',
+      url: 'https://proxy.example.com/api/getip',
+      parser: (res) => {
+        if (res.code !== 200) return null
+        // If the response includes an `expire` timestamp (e.g. "2026-07-23 16:00:48"),
+        // it takes priority over `defaultTTL`
+        return { ip: res.data[0].ip, port: res.data[0].port, expire: res.data[0].expire }
+      },
+    },
+  ],
+  createAgent: proxy => new HttpsProxyAgent({ host: proxy.ip, port: proxy.port }),
+  defaultTTL: 5 * 60 * 1000, // 5 minutes, used when no `expire` field
+  expireBuffer: 20000, // 20s safety margin before actual expiry
 })
 ```
 
 ### Error classification
 
 ```ts
-import { useProxy, defaultIsProxyError } from 'comuse-integrations'
+import { defaultIsProxyError, useProxy } from 'comuse-integrations'
 
 const { getAgent, isProxyError } = useProxy({
-  suppliers: [...],
-  createAgent: [...],
+  suppliers: [
+    {
+      name: 'my-supplier',
+      url: 'https://proxy.example.com/api/getip',
+      parser: (res) => {
+        if (res.code !== 200) return null
+        return { ip: res.data.ip, port: res.data.port }
+      },
+    },
+  ],
+  createAgent: proxy => new HttpsProxyAgent({ host: proxy.ip, port: proxy.port }),
 })
 
 // Use it after a failed request to decide whether to retry with a new IP
@@ -229,6 +292,8 @@ Returns an object with the following functions:
 | `maxRetries`    | `number`                                               | `3`                          | Max retry attempts                 |
 | `retryDelay`    | `number`                                               | `100`                        | Delay between retries (ms)         |
 | `timeout`       | `number`                                               | `3000`                       | Supplier request timeout (ms)      |
+| `defaultTTL`    | `number`                                               | `3 * 60 * 1000` (3 min)      | Default cache TTL when no `expire` |
+| `expireBuffer`  | `number`                                               | `20000` (20s)                | Expiry buffer to avoid edge cases  |
 | `debug`         | `boolean`                                              | `false`                      | Enable debug logging               |
 | `logger`        | `(level: LogLevel, ...args: any[]) => void`            | console (when `debug: true`) | Custom logger function             |
 

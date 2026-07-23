@@ -18,6 +18,16 @@ const mockSupplier: ProxySupplier = {
   },
 }
 
+const mockSupplierWithExpire: ProxySupplier = {
+  name: 'test-supplier-expire',
+  url: 'https://proxy.example.com/api/getip',
+  parser: (res: any) => {
+    if (res?.code === 200)
+      return { ip: res.data.ip, port: res.data.port, expire: res.data.expire }
+    return null
+  },
+}
+
 function createMockAgent(proxy: ProxyConfig) {
   return { type: 'mock-agent', host: proxy.ip, port: proxy.port }
 }
@@ -162,7 +172,7 @@ describe('useProxy', () => {
         retryDelay: 10,
       })
 
-      const { proxy } = await getAgent(true)
+      const { proxy } = await getAgent({ needValid: true })
       expect(proxy.ip).toBe('3.3.3.3')
     })
 
@@ -281,6 +291,113 @@ describe('useProxy', () => {
       const proxyLogs = consoleSpy.mock.calls.filter(c => c[0]?.includes?.('[useProxy]'))
       expect(proxyLogs.length).toBe(0)
       consoleSpy.mockRestore()
+    })
+  })
+
+  describe('TTL configuration', () => {
+    it('should use defaultTTL when proxy has no expire field', async () => {
+      mockedAxios.mockResolvedValue({
+        data: { code: 200, data: { ip: '1.2.3.4', port: '8080' } },
+      } as any)
+
+      let capturedTTL: number | undefined
+      const mockCache = {
+        get: (_key: string) => null,
+        put: (_key: string, _value: any, ttl?: number) => {
+          capturedTTL = ttl
+        },
+        del: (_key: string) => true,
+      }
+
+      const { getIp } = useProxy({
+        suppliers: [mockSupplier],
+        createAgent: createMockAgent,
+        cache: mockCache,
+        defaultTTL: 5 * 60 * 1000,
+      })
+
+      await getIp('ttl-key')
+      expect(capturedTTL).toBe(5 * 60 * 1000)
+    })
+
+    it('should use expire field from proxy response for TTL', async () => {
+      const futureTime = new Date(Date.now() + 120000).toISOString() // 2 min from now
+      mockedAxios.mockResolvedValue({
+        data: { code: 200, data: { ip: '1.2.3.4', port: '8080', expire: futureTime } },
+      } as any)
+
+      let capturedTTL: number | undefined
+      const mockCache = {
+        get: (_key: string) => null,
+        put: (_key: string, _value: any, ttl?: number) => {
+          capturedTTL = ttl
+        },
+        del: (_key: string) => true,
+      }
+
+      const { getIp } = useProxy({
+        suppliers: [mockSupplierWithExpire],
+        createAgent: createMockAgent,
+        cache: mockCache,
+      })
+
+      await getIp('expire-key')
+      // TTL should be roughly 120000ms - 20000ms (buffer) = 100000ms
+      expect(capturedTTL).toBeGreaterThan(0)
+      expect(capturedTTL).toBeLessThanOrEqual(120000)
+    })
+
+    it('should use custom expireBuffer', async () => {
+      const futureTime = new Date(Date.now() + 60000).toISOString() // 1 min from now
+      mockedAxios.mockResolvedValue({
+        data: { code: 200, data: { ip: '1.2.3.4', port: '8080', expire: futureTime } },
+      } as any)
+
+      let capturedTTL: number | undefined
+      const mockCache = {
+        get: (_key: string) => null,
+        put: (_key: string, _value: any, ttl?: number) => {
+          capturedTTL = ttl
+        },
+        del: (_key: string) => true,
+      }
+
+      const { getIp } = useProxy({
+        suppliers: [mockSupplierWithExpire],
+        createAgent: createMockAgent,
+        cache: mockCache,
+        expireBuffer: 10000,
+      })
+
+      await getIp('buffer-key')
+      // TTL should be roughly 60000ms - 10000ms (buffer) = 50000ms
+      expect(capturedTTL).toBeGreaterThan(0)
+      expect(capturedTTL).toBeLessThanOrEqual(50000)
+    })
+
+    it('should clamp TTL to 0 when expire has already passed', async () => {
+      const pastTime = new Date(Date.now() - 60000).toISOString() // 1 min ago
+      mockedAxios.mockResolvedValue({
+        data: { code: 200, data: { ip: '1.2.3.4', port: '8080', expire: pastTime } },
+      } as any)
+
+      let capturedTTL: number | undefined
+      const mockCache = {
+        get: (_key: string) => null,
+        put: (_key: string, _value: any, ttl?: number) => {
+          capturedTTL = ttl
+        },
+        del: (_key: string) => true,
+      }
+
+      const { getIp } = useProxy({
+        suppliers: [mockSupplierWithExpire],
+        createAgent: createMockAgent,
+        cache: mockCache,
+      })
+
+      await getIp('expired-key')
+      expect(capturedTTL).toBe(0)
     })
   })
 

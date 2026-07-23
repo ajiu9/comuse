@@ -55,6 +55,10 @@ export interface UseProxyOptions {
   retryDelay?: number
   /** Request timeout in ms, default 3000 */
   timeout?: number
+  /** Default cache TTL in ms, default 3 * 60 * 1000 (3 min) */
+  defaultTTL?: number
+  /** Expiry buffer in ms to avoid edge cases, default 20000 (20s) */
+  expireBuffer?: number
   /** Enable debug logging, default false */
   debug?: boolean
   /** Custom logger, defaults to console */
@@ -119,27 +123,6 @@ export function defaultIsProxyError(error: any): boolean {
 
 // ==================== Internal helpers ====================
 
-/**
- * Request a proxy IP from a single supplier.
- */
-async function fetchFromSupplier(
-  supplier: ProxySupplier,
-  timeout: number,
-): Promise<ProxyConfig | null> {
-  try {
-    const response = await axios({
-      method: supplier.method || 'GET',
-      url: supplier.url,
-      timeout,
-      ...supplier.config,
-    })
-    return supplier.parser(response.data)
-  }
-  catch {
-    return null
-  }
-}
-
 // ==================== Main ====================
 
 export function useProxy(options: UseProxyOptions): UseProxyReturn {
@@ -152,6 +135,8 @@ export function useProxy(options: UseProxyOptions): UseProxyReturn {
     maxRetries = 3,
     retryDelay = 100,
     timeout = 3000,
+    defaultTTL = 3 * 60 * 1000,
+    expireBuffer = 20000,
     debug = false,
     logger,
   } = options
@@ -166,6 +151,36 @@ export function useProxy(options: UseProxyOptions): UseProxyReturn {
 
   if (!suppliers || suppliers.length === 0)
     throw new Error('[useProxy] At least one supplier is required')
+
+  /**
+   * Calculate remaining TTL from proxy expire timestamp, minus buffer.
+   */
+  function calcExpireTime(expire: string | number): number {
+    const expireTime = new Date(expire).getTime()
+    return Math.max(0, expireTime - Date.now() - expireBuffer)
+  }
+
+  /**
+   * Request a proxy IP from a single supplier.
+   */
+  async function fetchFromSupplier(
+    supplier: ProxySupplier,
+    requestTimeout: number,
+  ): Promise<ProxyConfig | null> {
+    try {
+      const response = await axios({
+        method: supplier.method || 'GET',
+        url: supplier.url,
+        timeout: requestTimeout,
+        ...supplier.config,
+      })
+      return supplier.parser(response.data)
+    }
+    catch (error) {
+      log('error', `supplier "${supplier.name}" request failed:`, error)
+      return null
+    }
+  }
 
   /**
    * Try all suppliers in order, return the first successful result.
@@ -195,9 +210,9 @@ export function useProxy(options: UseProxyOptions): UseProxyReturn {
 
     log('debug', `cache MISS for key "${key}", fetching from remote...`)
     const proxy = await getRemoteIp()
-    // Default TTL: 3 minutes
-    cache.put(key, proxy, 3 * 60 * 1000)
-    log('debug', `cached proxy under key "${key}" (TTL: 3min)`)
+    const ttl = proxy.expire ? calcExpireTime(proxy.expire) : defaultTTL
+    cache.put(key, proxy, ttl)
+    log('debug', `cached proxy under key "${key}" (TTL: ${ttl}ms)`)
     return proxy
   }
 
