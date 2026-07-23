@@ -22,6 +22,9 @@ npm i axios@^1
 import { useProxy } from 'comuse-integrations'
 import { HttpsProxyAgent } from 'https-proxy-agent'
 
+// Use the agent in requests
+import axios from 'axios'
+
 const { getAgent, getIp } = useProxy({
   suppliers: [
     {
@@ -33,7 +36,7 @@ const { getAgent, getIp } = useProxy({
       },
     },
   ],
-  createAgent: (proxy) => new HttpsProxyAgent({
+  createAgent: proxy => new HttpsProxyAgent({
     host: proxy.ip,
     port: proxy.port,
   }),
@@ -44,9 +47,6 @@ const { proxy, agent } = await getAgent()
 
 // Get with a custom cache key (reuses cached IP across calls)
 const { proxy, agent } = await getAgent({ cacheKey: 'my-key' })
-
-// Use the agent in requests
-import axios from 'axios'
 const res = await axios.get('https://example.com/api', {
   httpsAgent: agent,
 })
@@ -62,8 +62,8 @@ import { HttpsProxyAgent } from 'https-proxy-agent'
 const { getAgent } = useProxy({
   suppliers: [
     {
-      name: 'tianqi',
-      url: 'http://api.tianqiip.com/getip',
+      name: 'proxy',
+      url: 'http://api.example.com/getip',
       config: {
         params: {
           secret: 'xxx',
@@ -77,7 +77,7 @@ const { getAgent } = useProxy({
       },
     },
   ],
-  createAgent: (proxy) => new HttpsProxyAgent({
+  createAgent: proxy => new HttpsProxyAgent({
     host: proxy.ip,
     port: proxy.port,
   }),
@@ -153,7 +153,7 @@ const { getAgent } = useProxy({
       },
     },
   ],
-  createAgent: (proxy) => new HttpsProxyAgent({ host: proxy.ip, port: proxy.port }),
+  createAgent: proxy => new HttpsProxyAgent({ host: proxy.ip, port: proxy.port }),
 })
 
 // supplier-a is tried first, if it fails, supplier-b is used
@@ -209,35 +209,35 @@ catch (error) {
 
 Returns an object with the following functions:
 
-| Function | Description |
-|----------|-------------|
-| `getAgent(options?)` | Get a validated proxy agent. Fetches IP, creates agent, optionally validates. Retries on failure. |
-| `getIp(key)` | Get proxy IP config (with caching). |
-| `delIp(key)` | Delete a cached IP entry. |
-| `clearCache()` | Clear all cached IP entries. |
-| `isProxyError(error)` | Check if an error is proxy-related. |
+| Function              | Description                                                                                       |
+| --------------------- | ------------------------------------------------------------------------------------------------- |
+| `getAgent(options?)`  | Get a validated proxy agent. Fetches IP, creates agent, optionally validates. Retries on failure. |
+| `getIp(key)`          | Get proxy IP config (with caching).                                                               |
+| `delIp(key)`          | Delete a cached IP entry.                                                                         |
+| `clearCache()`        | Clear all cached IP entries.                                                                      |
+| `isProxyError(error)` | Check if an error is proxy-related.                                                               |
 
 ### `UseProxyOptions`
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `suppliers` | `ProxySupplier[]` | **required** | Proxy IP suppliers, tried in order |
-| `createAgent` | `(proxy: ProxyConfig) => any` | **required** | Create a proxy agent instance |
-| `validateProxy` | `(proxy: ProxyConfig, agent: any) => Promise<boolean>` | - | Validate proxy before returning |
-| `cache` | `CacheLike` | built-in memory cache | Custom cache implementation |
-| `isProxyError` | `(error: any) => boolean` | `defaultIsProxyError` | Custom error classifier |
-| `maxRetries` | `number` | `3` | Max retry attempts |
-| `retryDelay` | `number` | `100` | Delay between retries (ms) |
-| `timeout` | `number` | `3000` | Supplier request timeout (ms) |
-| `debug` | `boolean` | `false` | Enable debug logging |
-| `logger` | `(level: LogLevel, ...args: any[]) => void` | console (when `debug: true`) | Custom logger function |
+| Option          | Type                                                   | Default                      | Description                        |
+| --------------- | ------------------------------------------------------ | ---------------------------- | ---------------------------------- |
+| `suppliers`     | `ProxySupplier[]`                                      | **required**                 | Proxy IP suppliers, tried in order |
+| `createAgent`   | `(proxy: ProxyConfig) => any`                          | **required**                 | Create a proxy agent instance      |
+| `validateProxy` | `(proxy: ProxyConfig, agent: any) => Promise<boolean>` | -                            | Validate proxy before returning    |
+| `cache`         | `CacheLike`                                            | built-in memory cache        | Custom cache implementation        |
+| `isProxyError`  | `(error: any) => boolean`                              | `defaultIsProxyError`        | Custom error classifier            |
+| `maxRetries`    | `number`                                               | `3`                          | Max retry attempts                 |
+| `retryDelay`    | `number`                                               | `100`                        | Delay between retries (ms)         |
+| `timeout`       | `number`                                               | `3000`                       | Supplier request timeout (ms)      |
+| `debug`         | `boolean`                                              | `false`                      | Enable debug logging               |
+| `logger`        | `(level: LogLevel, ...args: any[]) => void`            | console (when `debug: true`) | Custom logger function             |
 
 ### `GetAgentOptions`
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `cacheKey` | `string` | auto-generated | Cache key for reusing the same proxy IP across calls |
-| `needValid` | `boolean` | `false` | Whether to validate the proxy before returning |
+| Option      | Type      | Default        | Description                                          |
+| ----------- | --------- | -------------- | ---------------------------------------------------- |
+| `cacheKey`  | `string`  | auto-generated | Cache key for reusing the same proxy IP across calls |
+| `needValid` | `boolean` | `false`        | Whether to validate the proxy before returning       |
 
 ### `LogLevel`
 
@@ -247,10 +247,10 @@ type LogLevel = 'debug' | 'info' | 'warn' | 'error'
 
 ### `ProxySupplier`
 
-| Field | Type | Default | Description |
-|-------|------|---------|-------------|
-| `name` | `string` | **required** | Supplier name |
-| `url` | `string` | **required** | Proxy API URL |
-| `method` | `'GET' \| 'POST'` | `'GET'` | HTTP method |
-| `config` | `AxiosRequestConfig` | - | Additional axios config (params, headers, etc.) |
+| Field    | Type                                     | Default      | Description                                                |
+| -------- | ---------------------------------------- | ------------ | ---------------------------------------------------------- |
+| `name`   | `string`                                 | **required** | Supplier name                                              |
+| `url`    | `string`                                 | **required** | Proxy API URL                                              |
+| `method` | `'GET' \| 'POST'`                        | `'GET'`      | HTTP method                                                |
+| `config` | `AxiosRequestConfig`                     | -            | Additional axios config (params, headers, etc.)            |
 | `parser` | `(response: any) => ProxyConfig \| null` | **required** | Parse API response, return `null` to trigger next supplier |
