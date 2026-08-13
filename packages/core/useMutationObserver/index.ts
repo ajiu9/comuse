@@ -1,0 +1,80 @@
+import type { ConfigurableWindow } from '../_configurable'
+import type { MaybeComputedElementRefOrArray } from '../types'
+import type { UseSupportedReturn } from '../useSupported'
+import { notNullish, toArray } from 'comuse-shared'
+import { computed, toValue, watch } from 'vue'
+import { defaultWindow } from '../_configurable'
+import { tryOnScopeDispose } from '../tryOnScopeDispose'
+import { unrefElement } from '../unrefElement'
+import { useSupported } from '../useSupported'
+
+export interface UseMutationObserverOptions extends MutationObserverInit, ConfigurableWindow {}
+
+export interface UseMutationObserverReturn {
+  isSupported: UseSupportedReturn
+  stop: () => void
+  takeRecords: () => MutationRecord[] | undefined
+}
+
+/**
+ * Watch for changes being made to the DOM tree.
+ *
+ * @see https://ajiu9.cn/comuse/core/useMutationObserver
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver MutationObserver MDN
+ * @param target
+ * @param callback
+ * @param options
+ */
+export function useMutationObserver(
+  target: MaybeComputedElementRefOrArray,
+  callback: MutationCallback,
+  options: UseMutationObserverOptions = {},
+): UseMutationObserverReturn {
+  const { window = defaultWindow, ...mutationOptions } = options
+  let observer: MutationObserver | undefined
+  const isSupported = useSupported(() => window && 'MutationObserver' in window)
+
+  const cleanup = () => {
+    if (observer) {
+      observer.disconnect()
+      observer = undefined
+    }
+  }
+
+  const targets = computed(() => {
+    const value = toValue(target)
+    const items = toArray(value)
+      .map(unrefElement)
+      .filter(notNullish)
+    return new Set(items)
+  })
+  const stopWatch = watch(
+    targets,
+    (newTargets) => {
+      cleanup()
+
+      if (isSupported.value && newTargets.size) {
+        observer = new MutationObserver(callback)
+        newTargets.forEach(el => observer!.observe(el, mutationOptions))
+      }
+    },
+    { immediate: true, flush: 'post' },
+  )
+
+  const takeRecords = () => {
+    return observer?.takeRecords()
+  }
+
+  const stop = () => {
+    stopWatch()
+    cleanup()
+  }
+
+  tryOnScopeDispose(stop)
+
+  return {
+    isSupported,
+    stop,
+    takeRecords,
+  }
+}

@@ -44,6 +44,12 @@ IMPORTANT: Each function entry includes a short `Description` and a detailed `Re
 | [`useStorage`](references/useStorage.md) | Create a reactive ref that can be used to access & modify [LocalStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) or [SessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) | AUTO |
 | [`useStorageAsync`](references/useStorageAsync.md) | Reactive Storage in with async support | AUTO |
 
+### Elements
+
+| Function | Description | Invocation |
+|----------|-------------|------------|
+| [`useMutationObserver`](references/useMutationObserver.md) | Watch for changes being made to the DOM tree | AUTO |
+
 ### Browser
 
 | Function | Description | Invocation |

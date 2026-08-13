@@ -21,3 +21,5 @@ export function isPromise<T = any>(val: unknown): val is Promise<T> {
 }
 
 export const hasOwn = <T extends object, K extends keyof T>(val: T, key: K): key is K => Object.prototype.hasOwnProperty.call(val, key)
+
+export const notNullish = <T = any>(val?: T | null | undefined): val is T => val != null
