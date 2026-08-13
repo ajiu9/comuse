@@ -54,7 +54,8 @@ export function useMediaQuery(query: MaybeRefOrGetter<string>, options: Configur
       return
 
     mediaQuery.value = window!.matchMedia(toValue(query))
-    matches.value = mediaQuery.value.matches
+    if (mediaQuery.value)
+      matches.value = mediaQuery.value.matches
   })
 
   useEventListener(mediaQuery, 'change', handler, { passive: true })

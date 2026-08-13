@@ -24,8 +24,8 @@ console.log(ssrWidth) // 768
 You can also provide SSR width for the entire app:
 
 ```ts
-import { createApp } from 'vue'
 import { provideSSRWidth } from 'comuse-core'
+import { createApp } from 'vue'
 
 const app = createApp(App)
 provideSSRWidth(1024, app)

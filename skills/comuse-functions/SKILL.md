@@ -56,6 +56,7 @@ IMPORTANT: Each function entry includes a short `Description` and a detailed `Re
 |----------|-------------|------------|
 | [`useMutationObserver`](references/useMutationObserver.md) | Watch for changes being made to the DOM tree | AUTO |
 | [`useWindowScroll`](references/useWindowScroll.md) | Reactive window scroll | AUTO |
+| [`useWindowSize`](references/useWindowSize.md) | Reactive window size | AUTO |
 
 ### Browser
 
