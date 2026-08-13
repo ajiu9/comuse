@@ -1,3 +1,4 @@
+export * from './onKeyStroke'
 export * from './reactify'
 export * from './ssr-handlers'
 export * from './toRef'

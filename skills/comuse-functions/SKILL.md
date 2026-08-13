@@ -78,6 +78,7 @@ IMPORTANT: Each function entry includes a short `Description` and a detailed `Re
 
 | Function | Description | Invocation |
 |----------|-------------|------------|
+| [`onKeyStroke`](references/onKeyStroke.md) | Listen for keyboard keystrokes | AUTO |
 | [`useScroll`](references/useScroll.md) | Reactive scroll position and state | AUTO |
 
 ### Animation
