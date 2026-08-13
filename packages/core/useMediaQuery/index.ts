@@ -12,7 +12,7 @@ import { useSupported } from '../useSupported'
 /**
  * Reactive Media Query.
  *
- * @see https://vueuse.org/useMediaQuery
+ * @see https://ajiu9.cn/comuse/core/useMediaQuery
  * @param query
  * @param options
  */

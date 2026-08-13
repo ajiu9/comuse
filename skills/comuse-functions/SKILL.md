@@ -65,6 +65,8 @@ IMPORTANT: Each function entry includes a short `Description` and a detailed `Re
 | [`getQueryParam`](references/getQueryParam.md) | Get a single query parameter (behind "#") | AUTO |
 | [`getUrlParam`](references/getUrlParam.md) | Get a single URL parameter (from the "location.search" | AUTO |
 | [`parseUrlParam`](references/parseUrlParam.md) | > Parse URL query parameters into an object | AUTO |
+| [`useBreakpoints`](references/useBreakpoints.md) | Reactive viewport breakpoints | AUTO |
+| [`useClipboard`](references/useClipboard.md) | Reactive [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) | AUTO |
 | [`useColorMode`](references/useColorMode.md) | Reactive color mode (dark / light / customs) with auto data persistence | AUTO |
 | [`useDark`](references/useDark.md) | Reactive dark mode with auto data persistence | AUTO |
 | [`useEventListener`](references/useEventListener.md) | Use EventListener with ease | AUTO |

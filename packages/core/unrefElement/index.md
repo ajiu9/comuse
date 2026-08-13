@@ -10,7 +10,7 @@ Retrieves the underlying DOM element from a Vue ref or component instance
 
 ```vue
 <script setup lang="ts">
-import { unrefElement } from '@vueuse/core'
+import { unrefElement } from 'comuse-core'
 import { onMounted, useTemplateRef } from 'vue'
 
 const div = useTemplateRef<HTMLElement>('div') // will be bound to the <div> element

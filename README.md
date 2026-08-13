@@ -7,7 +7,7 @@
 </p>
 </p>
 
-> some of the copy from [vueuse](https://vueuse.org/)
+> some of the copy from [vueuse](https://ajiu9.cn/comuse/core/)
 
 ## 🚀 Features
 

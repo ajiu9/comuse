@@ -135,7 +135,7 @@ export function useAxios<T = any, R = AxiosResponse<T>, D = any>(config?: AxiosR
 /**
  * Wrapper for axios.
  *
- * @see https://vueuse.org/useAxios
+ * @see https://ajiu9.cn/comuse/core/useAxios
  */
 export function useAxios<T = any, R = AxiosResponse<T>, D = any>(...args: any[]): OverallUseAxiosReturn<T, R, D> & Promise<OverallUseAxiosReturn<T, R, D>> {
   const url: string | undefined = typeof args[0] === 'string' ? args[0] : undefined

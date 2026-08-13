@@ -40,7 +40,7 @@ export interface UseWindowSizeReturn {
 /**
  * Reactive window size.
  *
- * @see https://vueuse.org/useWindowSize
+ * @see https://ajiu9.cn/comuse/core/useWindowSize
  * @param options
  *
  * @__NO_SIDE_EFFECTS__

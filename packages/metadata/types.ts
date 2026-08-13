@@ -59,7 +59,7 @@ export interface CommitInfo {
   author_email: string
 }
 
-export interface VueUseFunction {
+export interface ComuseFunction {
   name: string
   package: string
   importPath?: string

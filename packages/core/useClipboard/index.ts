@@ -50,7 +50,7 @@ type ClipboardValue = string | (() => Promise<string | undefined>)
 /**
  * Reactive Clipboard API.
  *
- * @see https://vueuse.org/useClipboard
+ * @see https://ajiu9.cn/comuse/core/useClipboard
  * @param options
  */
 export function useClipboard(options?: UseClipboardOptions<undefined>): UseClipboardReturn<false>

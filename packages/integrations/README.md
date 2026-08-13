@@ -15,7 +15,7 @@ npm i comuse-integrations
 <!--GENERATED LIST, DO NOT MODIFY MANUALLY-->
 <!--FUNCTIONS_LIST_STARTS-->
 
-- [`useQRCode`](https://vueuse.org/integrations/useQRCode/) — wrapper for [`qrcode`](https://github.com/soldair/node-qrcode)
+- [`useQRCode`](https://ajiu9.cn/comuse/core/integrations/useQRCode/) — wrapper for [`qrcode`](https://github.com/soldair/node-qrcode)
 
 <!--FUNCTIONS_LIST_ENDS-->
 

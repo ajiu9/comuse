@@ -20,4 +20,4 @@ npx skills add comuse/skills
 
 Example prompt:
 
-#### Asking the AI Agent How to Use VueUse
+#### Asking the AI Agent How to Use Comuse
