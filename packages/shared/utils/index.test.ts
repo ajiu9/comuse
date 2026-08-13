@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { debounce, randomString, splitKeyValues, throttle } from './index'
+import { debounce, pxValue, randomString, splitKeyValues, throttle } from './index'
 
 describe('debounce', () => {
   let callback: vi.Mock
@@ -113,5 +113,35 @@ describe('randomString', () => {
     const result = randomString(32, 'number')
     const regex = /^[0-9]+$/
     expect(result).toMatch(regex)
+  })
+})
+
+describe('pxValue', () => {
+  it('should parse px values correctly', () => {
+    expect(pxValue('20px')).toBe(20)
+    expect(pxValue('100px')).toBe(100)
+    expect(pxValue('0px')).toBe(0)
+  })
+
+  it('should parse rem values with 16px base', () => {
+    expect(pxValue('1rem')).toBe(16)
+    expect(pxValue('2rem')).toBe(32)
+    expect(pxValue('0.5rem')).toBe(8)
+    expect(pxValue('1.5rem')).toBe(24)
+  })
+
+  it('should parse values without units', () => {
+    expect(pxValue('100')).toBe(100)
+    expect(pxValue('50.5')).toBe(50.5)
+  })
+
+  it('should handle decimal values', () => {
+    expect(pxValue('20.5px')).toBe(20.5)
+    expect(pxValue('1.25rem')).toBe(20)
+  })
+
+  it('should handle negative values', () => {
+    expect(pxValue('-20px')).toBe(-20)
+    expect(pxValue('-1rem')).toBe(-16)
   })
 })

@@ -1,3 +1,5 @@
 export * from './filters'
+export * from './injectLocal'
+export * from './provideLocal'
 export * from './types'
 export * from './vue'

@@ -30,6 +30,12 @@ All functions listed below are part of the [ComUse](https://www.ajiu9.cn/comuse/
 
 IMPORTANT: Each function entry includes a short `Description` and a detailed `Reference`. When using any function, always consult the corresponding document in `./references` for Usage details and Type Declarations.
 
+### SSR
+
+| Function | Description | Invocation |
+|----------|-------------|------------|
+| [`useSSRWidth`](references/useSSRWidth.md) | Get the SSR width that has been set | AUTO |
+
 ### Tools
 
 | Function | Description | Invocation |
@@ -49,6 +55,7 @@ IMPORTANT: Each function entry includes a short `Description` and a detailed `Re
 | Function | Description | Invocation |
 |----------|-------------|------------|
 | [`useMutationObserver`](references/useMutationObserver.md) | Watch for changes being made to the DOM tree | AUTO |
+| [`useWindowScroll`](references/useWindowScroll.md) | Reactive window scroll | AUTO |
 
 ### Browser
 
@@ -60,6 +67,7 @@ IMPORTANT: Each function entry includes a short `Description` and a detailed `Re
 | [`useColorMode`](references/useColorMode.md) | Reactive color mode (dark / light / customs) with auto data persistence | AUTO |
 | [`useDark`](references/useDark.md) | Reactive dark mode with auto data persistence | AUTO |
 | [`useEventListener`](references/useEventListener.md) | Use EventListener with ease | AUTO |
+| [`useMediaQuery`](references/useMediaQuery.md) | Reactive [Media Query](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Testing_media_queries) | AUTO |
 | [`usePermission`](references/usePermission.md) | Reactive [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API) | AUTO |
 | [`windowPrint`](references/windowPrint.md) | Print using `window.print` via an iframe | AUTO |
 

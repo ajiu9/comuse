@@ -177,3 +177,12 @@ export function toThousand(val: any) {
   else
     return `${val.split('.')[0].replace(/(\d)(?=(?:\d{3})+$)/g, '$&,')}.${val.split('.')[1]}`
 }
+
+/**
+ * Get a px value for SSR use, do not rely on this method outside of SSR as REM unit is assumed at 16px, which might not be the case on the client
+ * @param px - px string (e.g., '20px', '2rem')
+ * @returns pixel value as number
+ */
+export function pxValue(px: string) {
+  return px.endsWith('rem') ? Number.parseFloat(px) * 16 : Number.parseFloat(px)
+}
