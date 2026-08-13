@@ -63,6 +63,12 @@ IMPORTANT: Each function entry includes a short `Description` and a detailed `Re
 | [`usePermission`](references/usePermission.md) | Reactive [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API) | AUTO |
 | [`windowPrint`](references/windowPrint.md) | Print using `window.print` via an iframe | AUTO |
 
+### Sensors
+
+| Function | Description | Invocation |
+|----------|-------------|------------|
+| [`useScroll`](references/useScroll.md) | Reactive scroll position and state | AUTO |
+
 ### Animation
 
 | Function | Description | Invocation |
