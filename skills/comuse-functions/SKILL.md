@@ -88,6 +88,7 @@ IMPORTANT: Each function entry includes a short `Description` and a detailed `Re
 | [`useInterval`](references/useInterval.md) | Reactive counter increases on every interval | AUTO |
 | [`useIntervalFn`](references/useIntervalFn.md) | Wrapper for `setInterval` with controls | AUTO |
 | [`useRafFn`](references/useRafFn.md) | Call function on every `requestAnimationFrame` | AUTO |
+| [`useTimeoutFn`](references/useTimeoutFn.md) | Wrapper for `setTimeout` with controls | AUTO |
 
 ### Component
 

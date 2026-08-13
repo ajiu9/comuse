@@ -1,5 +1,5 @@
 import type { AnyFn } from 'comuse-shared'
-import type { ShallowRef, WatchSource } from 'vue'
+import type { Ref, ShallowRef, WatchSource } from 'vue'
 import type { Fn } from '../types'
 
 export type Promisify<T> = Promise<Awaited<T>>
@@ -29,3 +29,22 @@ export interface Pausable {
    */
   resume: Fn
 }
+
+export interface Stoppable<StartFnArgs extends any[] = any[]> {
+  /**
+   * A ref indicate whether a stoppable instance is executing
+   */
+  readonly isPending: Readonly<Ref<boolean>>
+
+  /**
+   * Stop the effect from executing
+   */
+  stop: Fn
+
+  /**
+   * Start the effects
+   */
+  start: (...args: StartFnArgs) => void
+}
+
+export type TimerHandle = ReturnType<typeof setTimeout> | undefined

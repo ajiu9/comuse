@@ -30,9 +30,9 @@ const { width, height } = useWindowSize()
 Set initial width and height values (default: `Number.POSITIVE_INFINITY`):
 
 ```ts
-const { width, height } = useWindowSize({ 
-  initialWidth: 100, 
-  initialHeight: 200 
+const { width, height } = useWindowSize({
+  initialWidth: 100,
+  initialHeight: 200
 })
 ```
 
@@ -42,8 +42,8 @@ Whether to include scrollbar in width and height (default: `true`):
 
 ```ts
 // Exclude scrollbar
-const { width, height } = useWindowSize({ 
-  includeScrollbar: false 
+const { width, height } = useWindowSize({
+  includeScrollbar: false
 })
 ```
 
@@ -53,13 +53,13 @@ Choose measurement type: `'inner'` | `'outer'` | `'visual'` (default: `'inner'`)
 
 ```ts
 // Use outer dimensions
-const { width, height } = useWindowSize({ 
-  type: 'outer' 
+const { width, height } = useWindowSize({
+  type: 'outer'
 })
 
 // Use visual viewport (for mobile)
-const { width, height } = useWindowSize({ 
-  type: 'visual' 
+const { width, height } = useWindowSize({
+  type: 'visual'
 })
 ```
 
@@ -68,7 +68,7 @@ const { width, height } = useWindowSize({
 Listen to window orientation change (default: `true`):
 
 ```ts
-const { width, height } = useWindowSize({ 
-  listenOrientation: false 
+const { width, height } = useWindowSize({
+  listenOrientation: false
 })
 ```
