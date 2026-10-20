@@ -7,9 +7,12 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    CategoryGroup: typeof import('./theme/components/CategoryGroup.vue')['default']
     Changelog: typeof import('./theme/components/Changelog.vue')['default']
     DemoContainer: typeof import('./theme/components/DemoContainer.vue')['default']
+    FilterTags: typeof import('./theme/components/FilterTags.vue')['default']
     FunctionBadge: typeof import('./theme/components/FunctionBadge.vue')['default']
+    FunctionCard: typeof import('./theme/components/FunctionCard.vue')['default']
     FunctionInfo: typeof import('./theme/components/FunctionInfo.vue')['default']
     FunctionsList: typeof import('./theme/components/FunctionsList.vue')['default']
     Home: typeof import('./theme/components/home.vue')['default']
